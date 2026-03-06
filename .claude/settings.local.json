@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(git init)",
-      "Bash(git add README.md project-notes.txt)"
+      "Bash(git add README.md project-notes.txt)",
+      "Bash(git add index.html)",
+      "Bash(git commit:*)",
+      "Bash(git push origin master)",
+      "Bash(gh api repos/TodoCulebra/Ebike-Map/pages)",
+      "Bash(gh api repos/TodoCulebra/Ebike-Map/pages -X POST -f \"build_type=workflow\" -f \"source[branch]=master\" -f \"source[path]=/\")",
+      "Bash(git pull origin master --no-edit)"
     ]
   }
 }
