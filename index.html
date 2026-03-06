@@ -158,6 +158,22 @@
   .guide-table tr:hover { background:#f8fafc; }
   .guide-cta { display:block; text-align:center; background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; padding:12px; border-radius:10px; font-size:13px; font-weight:700; text-decoration:none; margin:16px 0; }
 
+  /* ══════════════════════════════════════════════
+     ECWID SHOP PANEL — fullscreen overlay
+  ══════════════════════════════════════════════ */
+  #shop-panel { position:fixed; inset:0; z-index:3000; background:var(--c-white); transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); overflow-y:auto; -webkit-overflow-scrolling:touch; }
+  #shop-panel.open { transform:translateY(0); }
+  #shop-header { position:sticky; top:0; z-index:1; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; }
+  #shop-header h2 { font-size:16px; font-weight:700; }
+  #shop-close { background:rgba(255,255,255,0.2); border:none; color:#fff; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .shop-content { padding:16px; max-width:900px; margin:0 auto; min-height:70vh; }
+  .shop-intro { text-align:center; padding:12px 16px 20px; }
+  .shop-intro p { font-size:13px; color:#555; line-height:1.6; max-width:500px; margin:0 auto; }
+  .shop-intro .shop-tagline { font-size:15px; font-weight:700; color:var(--c-navy); margin-bottom:4px; }
+  /* Ecwid overrides for mobile */
+  .ec-size .ec-store .grid-product__title { font-size:13px !important; }
+  .ec-size .ec-store .grid-product__price { font-size:12px !important; }
+
   /* ── LEAFLET OVERRIDES ── */
   .leaflet-control-zoom { border-radius:12px !important; overflow:hidden; border:none !important; box-shadow:0 2px 12px rgba(0,0,0,0.18) !important; }
   .leaflet-control-zoom a { font-size:18px !important; width:36px !important; height:36px !important; line-height:36px !important; color:var(--c-text) !important; background:rgba(255,255,255,0.97) !important; border:none !important; }
@@ -208,6 +224,7 @@
     <div id="legend-drop"><div id="legend-drop-title">Filter by Category</div><ul id="legend-list"></ul></div>
   </div>
   <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
+  <button class="stack-btn" onclick="openShop()" title="Shop" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
   <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
   <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
 </div>
@@ -264,6 +281,7 @@
       <h3>&#x1F355; Hungry? We Deliver!</h3>
       <p>No vehicle? No problem. <b>ShopCulebra</b> delivers groceries, pizza from Jibara, and Chinese food island-wide.</p>
       <a class="guide-cta" href="https://www.shopculebra.com" target="_blank">&#x1F6D2; Order on ShopCulebra.com</a>
+      <a class="guide-cta" href="javascript:void(0)" onclick="closeGuide();setTimeout(openShop,400);" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6F4; Browse the Island Shop</a>
       <div class="guide-tip">WhatsApp ONLY: 434-373-1763 &mdash; do NOT call or text via regular SMS.</div>
     </div>
 
@@ -320,6 +338,34 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     ECWID SHOP PANEL
+══════════════════════════════════════════════ -->
+<div id="shop-panel">
+  <div id="shop-header">
+    <h2>&#x1F6D2; Island Shop</h2>
+    <button id="shop-close" onclick="closeShop()">&times;</button>
+  </div>
+  <div class="shop-content">
+    <div class="shop-intro">
+      <div class="shop-tagline">&#x1F334; Everything You Need in Culebra</div>
+      <p>E-bike rentals, gear, delivery &amp; more &mdash; all from your phone while you ride!</p>
+    </div>
+    <div id="my-store-108569855"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?108569855&data_platform=code" charset="utf-8"></script>
+<script type="text/javascript">
+  var ecwidLoaded = false;
+  function loadEcwidStore(){
+    if(ecwidLoaded) return;
+    ecwidLoaded = true;
+    if(typeof xProductBrowser !== 'undefined'){
+      xProductBrowser("categoriesPerRow=3","views=grid(20,3) list(60) table(60)","categoryView=grid","searchView=list","id=my-store-108569855");
+    }
+  }
+</script>
 <script>
 /* ═══ GRID SNAP ═══ */
 var BOUNDS={west:-65.365,east:-65.215,south:18.270,north:18.345},CELLS=1000;
@@ -329,6 +375,10 @@ function snapToGrid(lat,lng){var c=Math.round((lng-BOUNDS.west)/CELL_LNG),r=Math
 /* ═══ GUIDE PANEL ═══ */
 function openGuide(){document.getElementById('guide-panel').classList.add('open');}
 function closeGuide(){document.getElementById('guide-panel').classList.remove('open');}
+
+/* ═══ SHOP PANEL ═══ */
+function openShop(){document.getElementById('shop-panel').classList.add('open');loadEcwidStore();map.closePopup();}
+function closeShop(){document.getElementById('shop-panel').classList.remove('open');}
 
 /* ═══ LOCATIONS ═══ */
 var locations = [
@@ -563,7 +613,7 @@ for(var mi=0;mi<locations.length;mi++){
     /* Delivery pins get an order button instead of directions */
     var isDelivery = p.type === 'delivery';
     var actionBtn = isDelivery
-      ? '<a class="btn-order" href="https://www.shopculebra.com" target="_blank">\u{1F355} Order Now</a>'
+      ? '<button class="btn-order" onclick="openShop()">\u{1F6D2} Shop Now</button>'
       : '<button class="btn-directions">Get Directions</button>';
 
     var html='<div class="popup-body">'+
@@ -621,6 +671,7 @@ var notices=[
   {title:'\u{1F50B} Battery Tips',body:'Fully charged for ~30 miles. Use pedal-assist on hills. Below 20%? Head back to town. Charger: <b>Todo Culebra E-Bikes</b>.',duration:12000},
   {title:'\u{1F4B5} Cash Is King',body:'Many spots are cash only! Hit the <b>Banco Popular ATM</b> in Dewey first.',duration:11000},
   {title:'\u{1F355} Hungry? Order Jibara Pizza!',body:'Fresh pies delivered anywhere on the island. Order at <a href="https://www.shopculebra.com" target="_blank">shopculebra.com</a> or WhatsApp 434-373-1763. Ride now, eat later!',duration:13000},
+  {title:'\u{1F6D2} Island Shop is Open!',body:'Need gear, rentals or snacks? Tap the <b style="color:#f59e0b;">\u{1F6D2} Shop</b> button to browse &amp; order from your phone while you ride!',duration:12000},
   {title:'\u{1F3D6}\uFE0F Beach Pro Tips',body:'\u2022 Flamenco before 10am = paradise<br>\u2022 Zoni & Soldado = e-bike or 4x4<br>\u2022 Tamarindo = best snorkeling<br>\u2022 No lifeguards \u2014 buddy up!',duration:13000},
   {title:'\u2600\uFE0F Sun & Hydration',body:'Reef-safe sunscreen every 2 hrs. Carry water on every ride. Colmados have cold drinks!',duration:10000},
   {title:'\u23F0 Return Reminder',body:'Return your e-bike on time! Late? Hit us up at <a href="https://www.inculebra.com" target="_blank">inculebra.com</a>. Happy riding!',duration:12000}
