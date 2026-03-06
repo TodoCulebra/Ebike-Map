@@ -166,10 +166,57 @@
   #shop-header { position:sticky; top:0; z-index:1; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; }
   #shop-header h2 { font-size:16px; font-weight:700; }
   #shop-close { background:rgba(255,255,255,0.2); border:none; color:#fff; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-  .shop-content { padding:16px; max-width:900px; margin:0 auto; min-height:70vh; }
-  .shop-intro { text-align:center; padding:12px 16px 20px; }
-  .shop-intro p { font-size:13px; color:#555; line-height:1.6; max-width:500px; margin:0 auto; }
+  .shop-content { padding:16px; max-width:600px; margin:0 auto; min-height:70vh; }
+  .shop-intro { text-align:center; padding:8px 16px 16px; }
+  .shop-intro p { font-size:12px; color:#555; line-height:1.5; max-width:500px; margin:0 auto; }
   .shop-intro .shop-tagline { font-size:15px; font-weight:700; color:var(--c-navy); margin-bottom:4px; }
+
+  /* ── Quick-Order Grid ── */
+  .qo-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+  .qo-card { display:flex; flex-direction:column; align-items:center; gap:4px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:14px; padding:14px 8px 12px; cursor:pointer; text-decoration:none; transition:all 0.2s; text-align:center; }
+  .qo-card:hover { border-color:var(--c-aqua); box-shadow:0 4px 16px rgba(0,160,176,0.15); transform:translateY(-2px); }
+  .qo-card:active { transform:scale(0.97); }
+  .qo-icon { font-size:28px; }
+  .qo-label { font-size:12px; font-weight:700; color:var(--c-navy); line-height:1.3; }
+  .qo-sub { font-size:9px; color:var(--c-muted); font-weight:500; }
+
+  /* ── Popular Items ── */
+  .pop-section { margin-bottom:16px; }
+  .pop-title { font-size:12px; font-weight:700; color:var(--c-navy); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
+  .pop-scroll { display:flex; gap:10px; overflow-x:auto; padding-bottom:8px; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; }
+  .pop-scroll::-webkit-scrollbar { height:4px; } .pop-scroll::-webkit-scrollbar-thumb { background:#ccc; border-radius:2px; }
+  .pop-item { flex:0 0 130px; scroll-snap-align:start; background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:10px; text-decoration:none; text-align:center; transition:box-shadow 0.2s; }
+  .pop-item:hover { box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+  .pop-emoji { font-size:24px; margin-bottom:4px; }
+  .pop-name { font-size:10px; font-weight:600; color:var(--c-text); line-height:1.3; margin-bottom:2px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .pop-price { font-size:11px; font-weight:700; color:var(--c-ocean); }
+
+  /* ── WhatsApp Bar ── */
+  .wa-bar { display:flex; align-items:center; gap:10px; background:#25D366; border-radius:12px; padding:12px 16px; margin-bottom:16px; text-decoration:none; color:#fff; transition:opacity 0.2s; }
+  .wa-bar:hover { opacity:0.9; }
+  .wa-icon { font-size:22px; }
+  .wa-text { flex:1; }
+  .wa-text strong { display:block; font-size:12px; }
+  .wa-text span { font-size:10px; opacity:0.9; }
+
+  /* ── Delivery Zone Badge ── */
+  .dz-badge { display:flex; align-items:center; gap:8px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:10px 14px; margin-bottom:16px; }
+  .dz-dot { width:10px; height:10px; border-radius:50%; background:#22c55e; animation:dzPulse 2s infinite; }
+  @keyframes dzPulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)} 50%{box-shadow:0 0 0 6px rgba(34,197,94,0)} }
+  .dz-text { font-size:11px; color:#166534; font-weight:600; line-height:1.4; }
+  .dz-text small { font-weight:400; color:#15803d; }
+
+  /* ── Ecwid Section ── */
+  .ecwid-divider { text-align:center; font-size:10px; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.1em; margin:20px 0 12px; position:relative; }
+  .ecwid-divider::before,.ecwid-divider::after { content:''; position:absolute; top:50%; width:calc(50% - 60px); height:1px; background:#e2e8f0; }
+  .ecwid-divider::before { left:0; } .ecwid-divider::after { right:0; }
+
+  /* ── Floating Order Button ── */
+  #btn-order-float { position:absolute; bottom:60px; right:12px; z-index:1001; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; border:none; border-radius:999px; padding:10px 18px; box-shadow:0 4px 20px rgba(234,88,12,0.5); font-family:var(--font-ui); font-size:12px; font-weight:700; cursor:pointer; display:none; align-items:center; gap:6px; transition:all 0.3s; animation:floatPulse 3s infinite; }
+  #btn-order-float:hover { transform:scale(1.05); }
+  @keyframes floatPulse { 0%,100%{box-shadow:0 4px 20px rgba(234,88,12,0.5)} 50%{box-shadow:0 4px 28px rgba(234,88,12,0.7)} }
+  #btn-order-float.visible { display:flex; }
+
   /* Ecwid overrides for mobile */
   .ec-size .ec-store .grid-product__title { font-size:13px !important; }
   .ec-size .ec-store .grid-product__price { font-size:12px !important; }
@@ -244,6 +291,7 @@
 <div id="toast"></div>
 
 <a id="brand-link" href="https://www.inculebra.com" target="_blank">&#x1F6F4; inculebra.com</a>
+<button id="btn-order-float" onclick="openShop()">&#x1F6D2; Order Delivery</button>
 
 <!-- ══════════════════════════════════════════════
      TRAVEL GUIDE PANEL
@@ -349,8 +397,114 @@
   <div class="shop-content">
     <div class="shop-intro">
       <div class="shop-tagline">&#x1F334; Everything You Need in Culebra</div>
-      <p>E-bike rentals, gear, delivery &amp; more &mdash; all from your phone while you ride!</p>
+      <p>Order groceries, food, gear &amp; more &mdash; delivered to your door while you ride!</p>
     </div>
+
+    <!-- Delivery Zone Badge -->
+    <div class="dz-badge">
+      <div class="dz-dot"></div>
+      <div class="dz-text">Delivery Active &mdash; Island-wide Culebra<br><small>Local delivery &bull; $5-$10 fee &bull; Same-day available</small></div>
+    </div>
+
+    <!-- Quick-Order Categories -->
+    <div class="qo-grid">
+      <a class="qo-card" href="https://www.shopculebra.com/Food-Delivery-Culebra-PR-c164825956" target="_blank">
+        <span class="qo-icon">&#x1F355;</span>
+        <span class="qo-label">Pizza &amp; Food</span>
+        <span class="qo-sub">Jibara &bull; Golden China</span>
+      </a>
+      <a class="qo-card" href="https://www.shopculebra.com/Grocery-Delivery-Shop-Culebra-c132780003" target="_blank">
+        <span class="qo-icon">&#x1F6D2;</span>
+        <span class="qo-label">Groceries</span>
+        <span class="qo-sub">Fruits &bull; Dairy &bull; Snacks</span>
+      </a>
+      <a class="qo-card" href="https://www.shopculebra.com/Grocery-Delivery-Shop-Culebra-Breakfast-Package-c132780041" target="_blank">
+        <span class="qo-icon">&#x1F373;</span>
+        <span class="qo-label">Breakfast</span>
+        <span class="qo-sub">Sandwiches &bull; Coffee &bull; Eggs</span>
+      </a>
+      <a class="qo-card" href="https://www.shopculebra.com/Grocery-Delivery-Shop-Culebra-Cookout-BBQ-Package-c132780042" target="_blank">
+        <span class="qo-icon">&#x1F525;</span>
+        <span class="qo-label">BBQ &amp; Cookout</span>
+        <span class="qo-sub">Meats &bull; Charcoal &bull; Sides</span>
+      </a>
+      <a class="qo-card" href="https://www.shopculebra.com/Grocery-Delivery-Shop-Culebra-Lunch-Beach-Package-c132780017" target="_blank">
+        <span class="qo-icon">&#x1F3D6;&#xFE0F;</span>
+        <span class="qo-label">Beach &amp; Lunch</span>
+        <span class="qo-sub">Wraps &bull; Snacks &bull; Fruit</span>
+      </a>
+      <a class="qo-card" href="https://www.shopculebra.com/Culebra-Souvenirs-c164821775" target="_blank">
+        <span class="qo-icon">&#x1F381;</span>
+        <span class="qo-label">Souvenirs &amp; Gear</span>
+        <span class="qo-sub">Towels &bull; Mugs &bull; SPF</span>
+      </a>
+      <a class="qo-card" href="https://www.shopculebra.com/Water-Taxi-Private-Excursions-c132780002" target="_blank">
+        <span class="qo-icon">&#x1F6A4;</span>
+        <span class="qo-label">Beach Essentials</span>
+        <span class="qo-sub">Sunblock &bull; Snorkel &bull; Speaker</span>
+      </a>
+      <a class="qo-card" href="https://www.inculebra.com" target="_blank">
+        <span class="qo-icon">&#x1F6F4;</span>
+        <span class="qo-label">E-Bike Rentals</span>
+        <span class="qo-sub">From $30 / 4 hours</span>
+      </a>
+    </div>
+
+    <!-- Popular Items -->
+    <div class="pop-section">
+      <div class="pop-title">&#x1F525; Guest Favorites</div>
+      <div class="pop-scroll">
+        <a class="pop-item" href="https://www.shopculebra.com/products/breakfast-sandwich-bacon-egg--cheese" target="_blank">
+          <div class="pop-emoji">&#x1F95A;</div>
+          <div class="pop-name">Bacon Egg &amp; Cheese</div>
+          <div class="pop-price">$12</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/dolly-pizza-most-popular" target="_blank">
+          <div class="pop-emoji">&#x1F355;</div>
+          <div class="pop-name">Dolly Pizza (Most Popular)</div>
+          <div class="pop-price">$28</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/artisan-charcuterie-board" target="_blank">
+          <div class="pop-emoji">&#x1F9C0;</div>
+          <div class="pop-name">Charcuterie Board</div>
+          <div class="pop-price">$19.99</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/culebrita-lunch-box-adult" target="_blank">
+          <div class="pop-emoji">&#x1F371;</div>
+          <div class="pop-name">Culebrita Lunch Box</div>
+          <div class="pop-price">$27</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/mask-fin-snorkel-set-travel-size-snorkeling-gear-for-adults" target="_blank">
+          <div class="pop-emoji">&#x1F93F;</div>
+          <div class="pop-name">Snorkel Set</div>
+          <div class="pop-price">$39.99</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/beach-blanket-oversized-7-ft-x-7-ft" target="_blank">
+          <div class="pop-emoji">&#x1F3D6;&#xFE0F;</div>
+          <div class="pop-name">Beach Blanket 7x7</div>
+          <div class="pop-price">$29.99</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/portable-bluetooth-speaker" target="_blank">
+          <div class="pop-emoji">&#x1F50A;</div>
+          <div class="pop-name">Bluetooth Speaker</div>
+          <div class="pop-price">$36.99</div>
+        </a>
+        <a class="pop-item" href="https://www.shopculebra.com/products/mobile-power-bank-fast-charging-30000mah" target="_blank">
+          <div class="pop-emoji">&#x1F50B;</div>
+          <div class="pop-name">30K mAh Power Bank</div>
+          <div class="pop-price">$25.99</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- WhatsApp Quick Order -->
+    <a class="wa-bar" href="https://wa.me/14343731763?text=Hi!%20I'd%20like%20to%20place%20an%20order%20for%20delivery%20in%20Culebra" target="_blank">
+      <span class="wa-icon">&#x1F4AC;</span>
+      <div class="wa-text"><strong>WhatsApp Quick Order</strong><span>Text 434-373-1763 &mdash; Do NOT call or SMS</span></div>
+    </a>
+
+    <!-- Full Store Browse -->
+    <div class="ecwid-divider">Browse Full Store</div>
     <div id="my-store-108569855"></div>
   </div>
 </div>
@@ -670,8 +824,9 @@ var notices=[
   {title:'\u{1F6E1}\uFE0F Safety Reminders',body:'\u2022 Max 20 mph on roads, 10 mph near beaches<br>\u2022 Stay right, single file<br>\u2022 Hand signals for turns<br>\u2022 Headlights after sunset',duration:14000},
   {title:'\u{1F50B} Battery Tips',body:'Fully charged for ~30 miles. Use pedal-assist on hills. Below 20%? Head back to town. Charger: <b>Todo Culebra E-Bikes</b>.',duration:12000},
   {title:'\u{1F4B5} Cash Is King',body:'Many spots are cash only! Hit the <b>Banco Popular ATM</b> in Dewey first.',duration:11000},
-  {title:'\u{1F355} Hungry? Order Jibara Pizza!',body:'Fresh pies delivered anywhere on the island. Order at <a href="https://www.shopculebra.com" target="_blank">shopculebra.com</a> or WhatsApp 434-373-1763. Ride now, eat later!',duration:13000},
-  {title:'\u{1F6D2} Island Shop is Open!',body:'Need gear, rentals or snacks? Tap the <b style="color:#f59e0b;">\u{1F6D2} Shop</b> button to browse &amp; order from your phone while you ride!',duration:12000},
+  {title:'\u{1F355} Jibara Pizza Delivered!',body:'Dolly Pizza $28 \u2022 Margherita $25 \u2022 Slices from $8.50. Order at <a href="https://www.shopculebra.com/Food-Delivery-Culebra-PR-c164825956" target="_blank">shopculebra.com</a> \u2014 delivered to your door!',duration:13000},
+  {title:'\u{1F6D2} Shop from Your E-Bike!',body:'Groceries, pizza, snorkel gear, Bluetooth speakers &amp; more. Tap the <b style="color:#f59e0b;">\u{1F6D2} Shop</b> button or the orange <b style="color:#ea580c;">Order Delivery</b> badge!',duration:12000},
+  {title:'\u{1F373} Breakfast Delivered',body:'Bacon Egg &amp; Cheese $12 \u2022 Breakfast Wraps $11 \u2022 Coffee $4.99. Order the <a href="https://www.shopculebra.com/Grocery-Delivery-Shop-Culebra-Breakfast-Package-c132780041" target="_blank">Breakfast Package</a> before you ride!',duration:12000},
   {title:'\u{1F3D6}\uFE0F Beach Pro Tips',body:'\u2022 Flamenco before 10am = paradise<br>\u2022 Zoni & Soldado = e-bike or 4x4<br>\u2022 Tamarindo = best snorkeling<br>\u2022 No lifeguards \u2014 buddy up!',duration:13000},
   {title:'\u2600\uFE0F Sun & Hydration',body:'Reef-safe sunscreen every 2 hrs. Carry water on every ride. Colmados have cold drinks!',duration:10000},
   {title:'\u23F0 Return Reminder',body:'Return your e-bike on time! Late? Hit us up at <a href="https://www.inculebra.com" target="_blank">inculebra.com</a>. Happy riding!',duration:12000}
@@ -681,8 +836,19 @@ function showNotice(n){var b=document.getElementById('notice-banner');document.g
 function dismissNotice(){document.getElementById('notice-banner').classList.remove('show');noticeIdx++;if(noticeIdx<notices.length)setTimeout(function(){showNotice(notices[noticeIdx]);},1500);}
 setTimeout(function(){if(notices.length)showNotice(notices[0]);},2000);
 
+/* ═══ DELIVERY ZONE ═══ */
+var deliveryZone = L.polygon([
+  [18.340,-65.340],[18.340,-65.220],[18.275,-65.220],[18.275,-65.290],[18.295,-65.310],[18.280,-65.340]
+],{color:'#22c55e',fillColor:'#22c55e',fillOpacity:0.06,weight:2,opacity:0.5,dashArray:'8,6',interactive:false});
+deliveryZone.addTo(map);
+var dzLabel=L.marker([18.335,-65.275],{icon:L.divIcon({html:'<div style="font-size:10px;font-weight:700;color:#166534;background:rgba(240,253,244,0.9);padding:3px 8px;border-radius:8px;white-space:nowrap;border:1px solid #bbf7d0;">&#x1F6F5; Delivery Zone</div>',className:'',iconAnchor:[50,10]}),interactive:false}).addTo(map);
+
+/* ═══ FLOATING ORDER BTN ═══ */
+var orderBtnShown=false;
+function showOrderFloat(){if(orderBtnShown)return;orderBtnShown=true;document.getElementById('btn-order-float').classList.add('visible');}
+
 /* ═══ GEOLOCATION ═══ */
-if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
+if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
 
 if(typeof ResizeObserver!=='undefined'){new ResizeObserver(function(){map.invalidateSize();}).observe(document.getElementById('map'));}else{setTimeout(function(){map.invalidateSize();},300);}
 </script>
