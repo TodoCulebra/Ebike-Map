@@ -1,0 +1,30 @@
+Culebra E-Bike Map - Project Notes
+====================================
+
+Project: Interactive e-bike guest map for Culebra, Puerto Rico
+Owner: Isla Tech PR
+Repository: TodoCulebra/Culebra-map
+
+Purpose:
+- Provide e-bike rental guests with a digital map of Culebra island
+- Highlight key destinations, safe routes, and points of interest
+- Improve the guest experience with easy-to-follow navigation
+
+Key Locations to Include:
+- Flamenco Beach
+- Tamarindo Beach
+- Zoni Beach
+- Melones Beach
+- Culebra National Wildlife Refuge
+- Town of Dewey (main town)
+- Ferry terminal
+- Airport
+- Restaurants and local shops
+
+Development Notes:
+- Map should be mobile-friendly (guests will use phones while riding)
+- Keep load times fast for areas with limited cell service
+- Consider offline capability for remote parts of the island
+
+Status: Initial setup
+Date Started: 2026-03-06
