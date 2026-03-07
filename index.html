@@ -659,6 +659,21 @@
     </div>
 
     <div class="guide-section">
+      <h3>&#x26FA; Camping Flamenco</h3>
+      <p>Camp right on Playa Flamenco &mdash; one of the world's best beach camping spots! <b>Reservations required.</b></p>
+      <ul>
+        <li><b>Phone:</b> 787-742-1404</li>
+        <li><b>Email:</b> <a href="mailto:campingflamenco.acdec@gmail.com">campingflamenco.acdec@gmail.com</a></li>
+        <li><b>Facebook:</b> <a href="https://www.facebook.com/camping.flamenco.2025" target="_blank">Camping Flamenco</a></li>
+        <li><b>Office hours:</b> 6:00 AM &ndash; 5:30 PM</li>
+        <li>Bring your own tent or rent on-site</li>
+        <li>No glass bottles &mdash; cans or plastic only</li>
+        <li>Pack out all trash &mdash; leave no trace</li>
+      </ul>
+      <div class="guide-warn">Reservations fill up fast in peak season (Dec&ndash;Apr). Book early!</div>
+    </div>
+
+    <div class="guide-section">
       <h3>&#x1F4B5; Money & Cell Service</h3>
       <ul>
         <li><b>Cash is king</b> &mdash; many places are cash only. ONE ATM on the island (Banco Popular, pinned on map).</li>
@@ -1182,6 +1197,7 @@ var assistTopics={
       +'<li><b>Melones</b> \u2014 Closest to town, great snorkeling</li>'
       +'</ul></div>'
       +'<div class="ad-section"><h4>\u{1F93F} Snorkeling</h4><p>Best in the <b>morning</b> when water is calmest. Top spots: Tamarindo, Carlos Rosario, Melones, Punta Sardinas.</p></div>'
+      +'<div class="ad-section"><h4>\u26FA Camping</h4><p><b>Camping Flamenco</b> \u2014 Camp on the beach! Reservations required: <b>787-742-1404</b> or <a href="https://www.facebook.com/camping.flamenco.2025" target="_blank">Facebook</a>. Office 6am\u20135:30pm. Bring your own tent or rent on-site.</p></div>'
       +'<div class="ad-section"><h4>\u{1F355} Food</h4><ul>'
       +'<li><b>Flamenco Kioskos</b> \u2014 Beach food! Kiosko #1 burger is a must. Empanadas, pastelillos, pi\u00F1a coladas. Cash preferred</li>'
       +'<li><b>Jibara Pizza</b> \u2014 Best pizza on the island</li>'
@@ -1365,6 +1381,11 @@ var locations = [
   { name:'Culebra Beach Villas', lat:18.327853, lng:-65.315115, type:'villa', road:'unpaved',
     desc:'Wake up ON Flamenco Beach. Literally.' },
 
+  /* ── CAMPING ── */
+  { name:'Camping Flamenco', lat:18.329200, lng:-65.319500, type:'camping', hours:'6am-5:30pm', road:'paved',
+    tags:['camping','tent','flamenco','beach camping','overnight'],
+    desc:'\u26FA Camp right on Playa Flamenco! Reservations required. \u{1F4DE} <b>787-742-1404</b> \u2022 <a href="mailto:campingflamenco.acdec@gmail.com" style="color:var(--c-ocean);font-weight:600;">Email</a> \u2022 <a href="https://www.facebook.com/camping.flamenco.2025" target="_blank" style="color:var(--c-ocean);font-weight:600;">Facebook</a><br>Office hours 6am\u20135:30pm. Bring your own tent, or rent on-site. No glass bottles. Pack out all trash!' },
+
   /* ── ANCHORAGE ── */
   { name:'Dakity Bay', lat:18.291000, lng:-65.267000, type:'anchor', road:'boat',
     desc:'Protected SE anchorage. Calm & clear.' },
@@ -1424,7 +1445,7 @@ var legendCategories = [
   {type:'delivery',label:'Delivery',color:'#ea580c'},{type:'ferry',label:'Ferry',color:'#2563eb'},
   {type:'gas',label:'Gas Station',color:'#ea580c'},{type:'atm',label:'ATM',color:'#6366f1'},
   {type:'parking',label:'Parking',color:'#64748b'},{type:'restroom',label:'Restrooms',color:'#0891b2'},
-  {type:'villa',label:'Villa',color:'#0891b2'},{type:'anchor',label:'Anchorage',color:'#475569'},
+  {type:'villa',label:'Villa',color:'#0891b2'},{type:'camping',label:'Camping',color:'#059669'},{type:'anchor',label:'Anchorage',color:'#475569'},
   {type:'hike',label:'Hiking',color:'#16a34a'},{type:'grocery',label:'Grocery',color:'#10b981'},
   {type:'hector',label:'Landmark',color:'#7c3aed'},{type:'fishmarket',label:'Fish Market',color:'#0e7490'},
   {type:'snorkel',label:'Snorkeling',color:'#06b6d4'}
@@ -1436,11 +1457,11 @@ if(localStorage.getItem('tc-start-dismissed')){var _sh=document.getElementById('
 document.addEventListener('click',function(e){var w=document.getElementById('legend-wrap'),d=document.getElementById('legend-drop');if(d&&w&&!w.contains(e.target))d.classList.remove('open');});
 
 /* ═══ PIN BUILDER ═══ */
-var pinColors = {beach:'#00b4d8',ferry:'#2563eb',gas:'#ea580c',hector:'#7c3aed',food:'#f59e0b',grocery:'#10b981',atm:'#6366f1',parking:'#64748b',restroom:'#0891b2',rental:'#7c3aed',watertaxi:'#1d4ed8',anchor:'#475569',hike:'#16a34a',villa:'#0891b2',fishmarket:'#0e7490',snorkel:'#06b6d4',delivery:'#ea580c'};
-var pinEmoji = {beach:'\u{1F3D6}',ferry:'\u26F4',gas:'\u26FD',hector:'\u{1F9CC}',food:'\u{1F37D}',grocery:'\u{1F6D2}',atm:'\u{1F3E7}',parking:'\u{1F17F}',restroom:'\u{1F6BB}',rental:'\u{1F6A4}',watertaxi:'\u{1F6A2}',anchor:'\u2693',hike:'\u{1F97E}',villa:'\u{1F3E0}',fishmarket:'\u{1F41F}',snorkel:'\u{1F93F}',delivery:'\u{1F6F5}'};
+var pinColors = {beach:'#00b4d8',ferry:'#2563eb',gas:'#ea580c',hector:'#7c3aed',food:'#f59e0b',grocery:'#10b981',atm:'#6366f1',parking:'#64748b',restroom:'#0891b2',rental:'#7c3aed',watertaxi:'#1d4ed8',anchor:'#475569',hike:'#16a34a',villa:'#0891b2',fishmarket:'#0e7490',snorkel:'#06b6d4',delivery:'#ea580c',camping:'#059669'};
+var pinEmoji = {beach:'\u{1F3D6}',ferry:'\u26F4',gas:'\u26FD',hector:'\u{1F9CC}',food:'\u{1F37D}',grocery:'\u{1F6D2}',atm:'\u{1F3E7}',parking:'\u{1F17F}',restroom:'\u{1F6BB}',rental:'\u{1F6A4}',watertaxi:'\u{1F6A2}',anchor:'\u2693',hike:'\u{1F97E}',villa:'\u{1F3E0}',fishmarket:'\u{1F41F}',snorkel:'\u{1F93F}',delivery:'\u{1F6F5}',camping:'\u26FA'};
 var roadLabels = {paved:'Paved',  '4x4':'4x4 / E-Bike only', boat:'Boat access', sandy:'Sandy trail', unpaved:'Unpaved', dirt:'Dirt road'};
 var roadClasses = {paved:'road-paved','4x4':'road-4x4',boat:'road-boat',sandy:'road-sandy',unpaved:'road-sandy',dirt:'road-4x4'};
-var typeNames = {beach:'Beach',ferry:'Ferry',gas:'Gas',hector:'Landmark',food:'Food',grocery:'Grocery',atm:'ATM',parking:'Parking',restroom:'Restrooms',rental:'Rentals',watertaxi:'Water Taxi',anchor:'Anchorage',hike:'Hiking',villa:'Villa',fishmarket:'Fish Market',snorkel:'Snorkeling',delivery:'Delivery'};
+var typeNames = {beach:'Beach',ferry:'Ferry',gas:'Gas',hector:'Landmark',food:'Food',grocery:'Grocery',atm:'ATM',parking:'Parking',restroom:'Restrooms',rental:'Rentals',watertaxi:'Water Taxi',anchor:'Anchorage',hike:'Hiking',villa:'Villa',fishmarket:'Fish Market',snorkel:'Snorkeling',delivery:'Delivery',camping:'Camping'};
 
 function makePinIcon(type){
   var color=pinColors[type]||'#555',emoji=pinEmoji[type]||'\u{1F4CD}';
