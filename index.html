@@ -878,7 +878,7 @@
           <span class="at-icon">&#x1F504;</span>
           <div class="at-body">
             <div class="at-label">Returns &amp; Logistics</div>
-            <div class="at-desc">Pickup, dropoff, late returns, battery, lockbox</div>
+            <div class="at-desc">Pickup location, returns, battery, lockbox</div>
           </div>
           <span class="at-badge" style="background:var(--c-navy);">Instant</span>
         </div>
@@ -1083,7 +1083,7 @@ function closeAssist(){document.getElementById('assist-panel').classList.remove(
 function assistBack(){document.getElementById('assist-topics-list').classList.remove('hidden');document.getElementById('assist-detail').classList.remove('visible');}
 
 /* ── Chat tooltip reminder ── */
-var _chatTipTimer=null,_chatTipMsgs=['Need help? Tap here!','Book, deliver, explore \u{1F680}','Questions? Ask here!','Directions & tips inside \u{1F30A}'];
+var _chatTipTimer=null,_chatTipMsgs=['Need help? Tap here!','Book, explore, ride \u{1F680}','Questions? Ask here!','Directions & tips inside \u{1F30A}'];
 var _chatTipIdx=0;
 function showChatTip(){
   var el=document.getElementById('chat-tip');if(!el)return;
@@ -1124,7 +1124,7 @@ var assistTopics={
       +'<li>Fully charged battery (~30 mi range)</li>'
       +'<li>Helmet, lock & charger</li>'
       +'<li>Map with all beaches & roads</li>'
-      +'<li>Free delivery & pickup in Culebra</li>'
+      +'<li>Pick up at <b>Todo Culebra E-Bikes</b> in Dewey (pinned on map)</li>'
       +'</ul></div>'
       +'<div class="ad-section"><h4>Hours</h4><p>7am \u2013 9pm daily. Book online for instant confirmation!</p></div>'
       +'<a class="ad-action ad-action-primary" href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank">\u26A1 Book Now \u2014 Instant Confirmation</a>'
@@ -1183,10 +1183,10 @@ var assistTopics={
   returns:{
     title:'\u{1F504} Returns & Logistics',
     html:function(){return''
-      +'<div class="ad-section"><h4>Pickup & Dropoff</h4><ul>'
-      +'<li>We deliver your e-bike to your accommodation FREE</li>'
-      +'<li>Return to <b>Todo Culebra E-Bikes</b> in Dewey (pinned on map)</li>'
-      +'<li>Or arrange pickup at your location \u2014 just message us</li>'
+      +'<div class="ad-section"><h4>Pickup & Return</h4><ul>'
+      +'<li><b>No delivery or dropoff</b> \u2014 e-bikes must be picked up in person</li>'
+      +'<li>Pick up at <b>Todo Culebra E-Bikes</b> in Dewey (pinned on map)</li>'
+      +'<li>Return to the same location when your rental ends</li>'
       +'</ul></div>'
       +'<div class="ad-section"><h4>Late Returns</h4><ul>'
       +'<li>Please return on time! Late fees may apply</li>'
@@ -1200,7 +1200,7 @@ var assistTopics={
       +'<li>Charger included \u2014 overnight charging at your stay is fine</li>'
       +'</ul></div>'
       +'<div class="ad-section"><h4>Lockbox Code</h4><p>Your lockbox code was sent in your booking confirmation email. Can\u2019t find it? Message us below.</p></div>'
-      +'<div class="ad-divider">Need to extend, arrange pickup, or lost your code?</div>'
+      +'<div class="ad-divider">Need to extend your rental or lost your lockbox code?</div>'
       +'<a class="ad-action ad-action-green" href="'+waLink('Hi! I need help with my e-bike return/logistics.')+'" target="_blank">\u{1F4AC} Message Us on WhatsApp</a>';
     }
   },
@@ -1327,7 +1327,7 @@ var locations = [
   /* ── RENTALS ── */
   { name:'Todo Culebra E-Bikes', lat:18.309638, lng:-65.303761, type:'rental', hours:'7am-9pm', road:'paved',
     tags:['e-bike','ebike','electric bike'],
-    desc:'\u2B50 375+ happy riders! From $30/4hrs.<br><a href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank" style="display:inline-block;margin-top:4px;background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua));color:#fff;padding:3px 10px;border-radius:6px;font-size:9px;font-weight:700;text-decoration:none;">&#x26A1; Book Now</a>' },
+    desc:'\u2B50 375+ happy riders! From $30/4hrs. <b>Pick up here \u2014 no delivery.</b><br><a href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank" style="display:inline-block;margin-top:4px;background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua));color:#fff;padding:3px 10px;border-radius:6px;font-size:9px;font-weight:700;text-decoration:none;">&#x26A1; Book Now</a>' },
   { name:'Jerry\'s Rentals', lat:18.311078, lng:-65.303957, type:'rental', hours:'8am-5pm', road:'paved',
     tags:['golf cart','jeep','4x4'],
     desc:'Golf carts & jeeps. Reserve ahead!' },
