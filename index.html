@@ -452,6 +452,28 @@
   .rider-dot.stale { background:#f59e0b; box-shadow:0 0 8px rgba(245,158,11,0.6); animation:none; }
   @keyframes riderPulse { 0%,100%{box-shadow:0 0 8px rgba(16,185,129,0.6);} 50%{box-shadow:0 0 16px rgba(16,185,129,0.9);} }
 
+  /* ── FERRY ESTIMATOR ── */
+  .ferry-time-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:8px 0; }
+  .ferry-time-btn { padding:10px 6px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:10px; font-family:var(--font-ui); font-size:13px; font-weight:700; color:var(--c-navy); cursor:pointer; text-align:center; transition:all 0.15s; }
+  .ferry-time-btn:hover { border-color:var(--c-aqua); }
+  .ferry-time-btn.selected { background:var(--c-ocean); color:#fff; border-color:var(--c-ocean); }
+  .ferry-res-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:8px 0; }
+  .ferry-res-btn { padding:8px 6px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:10px; font-family:var(--font-ui); font-size:12px; font-weight:600; color:var(--c-navy); cursor:pointer; text-align:center; transition:all 0.15s; }
+  .ferry-res-btn.selected { background:var(--c-navy); color:#fff; border-color:var(--c-navy); }
+  .ferry-result { background:#f8fafc; border-radius:12px; padding:14px; margin:10px 0; }
+  .ferry-timeline { border-left:3px solid #e2e8f0; padding-left:14px; margin:10px 0; }
+  .ferry-timeline-step { position:relative; padding:6px 0; font-size:11px; color:#555; line-height:1.5; }
+  .ferry-timeline-step::before { content:''; position:absolute; left:-19px; top:10px; width:10px; height:10px; border-radius:50%; background:var(--c-ocean); border:2px solid #fff; box-shadow:0 0 0 2px var(--c-ocean); }
+  .ferry-timeline-step:last-child::before { background:var(--c-navy); box-shadow:0 0 0 2px var(--c-navy); }
+  .ferry-verdict { text-align:center; padding:12px; border-radius:10px; font-size:14px; font-weight:700; margin:10px 0; }
+  .ferry-verdict.good { background:#f0fdf4; color:#059669; border:1.5px solid #bbf7d0; }
+  .ferry-verdict.close { background:#fffbeb; color:#b45309; border:1.5px solid #fde68a; }
+  .ferry-verdict.late { background:#fef2f2; color:#dc2626; border:1.5px solid #fecaca; }
+  .ferry-custom-wrap { display:none; margin-top:6px; }
+  .ferry-custom-wrap input[type="time"] { width:100%; padding:8px; border:1.5px solid #e2e8f0; border-radius:10px; font-family:var(--font-ui); font-size:14px; }
+  #ferry-admin-panel { position:fixed; top:50px; right:14px; z-index:1999; background:#fff; border-radius:12px; padding:12px 14px; box-shadow:0 4px 20px rgba(0,0,0,0.2); max-width:280px; max-height:300px; overflow-y:auto; font-family:var(--font-ui); display:none; }
+  body.admin-mode #ferry-admin-panel { display:block; }
+
   /* ── MOBILE ── */
   @media (max-width:767px) {
     #topbar { left:8px; right:8px; top:8px; width:auto; }
@@ -613,11 +635,38 @@
   <div class="guide-content">
 
     <div class="guide-section">
-      <h3>&#x26F4;&#xFE0F; Getting Here</h3>
-      <p>Ferry from <b>Ceiba Terminal</b> is the most popular route. Passenger-only takes ~45 min, cargo ferry ~1.5 hrs. Arrive at least 30 min early (1 hr on weekends).</p>
-      <div class="guide-tip">Book tickets at <a href="https://www.puertoricoferry.com" target="_blank">puertoricoferry.com</a> &mdash; they sell out fast on weekends &amp; holidays!</div>
-      <p style="margin-top:8px;"><b>Ceiba Parking:</b> Free parking with free shuttle to ferry. Rental vehicles are NOT permitted on the ferry.</p>
-      <div class="guide-warn">You MUST have a return ride arranged BEFORE traveling. Uber works TO Ceiba but is nearly impossible FROM Ceiba. Taxi prices from Ceiba are highly inflated.</div>
+      <h3>&#x26F4;&#xFE0F; Getting Here &mdash; Ferry from Ceiba</h3>
+      <p>The <b>Ceiba&ndash;Culebra ferry</b> is the primary way to reach the island. Crossing time: <b>55 minutes</b>.</p>
+      <table class="guide-table">
+        <tr><th>Detail</th><th>Info</th></tr>
+        <tr><td>Crossing Time</td><td><b>55 minutes</b></td></tr>
+        <tr><td>Adult (13&ndash;59)</td><td>$2.25 one-way</td></tr>
+        <tr><td>Child (4&ndash;12) / Senior (60&ndash;74)</td><td>$1.00 one-way</td></tr>
+        <tr><td>Infant (0&ndash;3) / Senior (75+)</td><td>Free</td></tr>
+        <tr><td>Max Tickets</td><td>5 per transaction</td></tr>
+        <tr><td>Ceiba Terminal</td><td>Marina Dr. Roosevelt Roads</td></tr>
+        <tr><td>Culebra Terminal</td><td>Calle Pedro Marquez, Dewey</td></tr>
+      </table>
+      <div class="guide-warn">Arrive <b>1 HOUR before departure</b>. Boarding closes 10 minutes before scheduled departure &mdash; no exceptions. Bring <b>photo ID</b> matching your ticket name.</div>
+      <div class="guide-tip">Book at <a href="https://www.puertoricoferry.com/routes-schedules/ceiba-culebra/" target="_blank">puertoricoferry.com</a> or the <b>City Experiences</b> app. Schedules change monthly &mdash; always check the latest PDF schedule before your trip!</div>
+      <div class="guide-warn">All ticket sales are <b>final &mdash; no refunds</b>. You can transfer (reschedule) up to 2 times, at least 1 hour before departure.</div>
+      <p style="margin-top:8px;"><b>Ceiba Parking:</b> Free parking with shuttle to terminal. Rental vehicles are <b>NOT permitted</b> on the ferry.</p>
+
+      <div style="margin-top:12px;background:#f0f9ff;border-radius:10px;padding:12px;">
+        <h3 style="border-bottom-color:var(--c-ocean);">&#x23F1; E-Bike Guest: Realistic Travel Time</h3>
+        <p>Don&rsquo;t underestimate the total travel time from Ceiba to our shop!</p>
+        <table class="guide-table">
+          <tr><th>Segment</th><th>Time</th></tr>
+          <tr><td>Ceiba &rarr; Culebra (crossing)</td><td>55 min</td></tr>
+          <tr><td>Docking + disembarkation</td><td>10&ndash;15 min</td></tr>
+          <tr><td>Walk to Todo Culebra E-Bikes</td><td>5&ndash;10 min</td></tr>
+          <tr><td><b>TOTAL</b></td><td><b>~75&ndash;85 minutes</b></td></tr>
+        </table>
+        <div class="guide-warn">Taking the 9:00 AM ferry? You won&rsquo;t arrive at our shop until <b>~10:15&ndash;10:25 AM</b>. Plan accordingly!</div>
+        <div class="guide-tip">Use our <a href="javascript:void(0)" onclick="closeGuide();setTimeout(function(){openAssist();setTimeout(function(){showAssistTopic('ferry');},300);},400);">Ferry Arrival Estimator</a> to check if you&rsquo;ll make your reservation on time.</div>
+      </div>
+
+      <div class="guide-warn" style="margin-top:10px;">You MUST have a return ride arranged BEFORE traveling. Uber works TO Ceiba but is nearly impossible FROM Ceiba.</div>
       <p style="margin-top:8px;"><b>By Air:</b> Air Flamenco from Condado (Isla Grande) &mdash; only 27 minutes! Cape Air also flies from SJU and Ceiba.</p>
     </div>
 
@@ -713,7 +762,7 @@
       <h3>&#x1F4DE; Quick Reference</h3>
       <table class="guide-table">
         <tr><th>Resource</th><th>Contact</th></tr>
-        <tr><td>Ferry Booking</td><td><a href="https://www.puertoricoferry.com" target="_blank">puertoricoferry.com</a></td></tr>
+        <tr><td>Ferry Booking</td><td><a href="https://www.puertoricoferry.com/routes-schedules/ceiba-culebra/" target="_blank">puertoricoferry.com</a></td></tr>
         <tr><td>Air Flamenco</td><td><a href="https://airflamenco.net" target="_blank">airflamenco.net</a></td></tr>
         <tr><td>Delivery / Groceries</td><td><a href="https://www.shopculebra.com" target="_blank">shopculebra.com</a></td></tr>
         <tr><td>E-Bike Rentals</td><td><a href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank">Book on Peek</a> &bull; <a href="https://www.todoculebra.com" target="_blank">todoculebra.com</a></td></tr>
@@ -882,6 +931,14 @@
 
     <div id="assist-topics-list">
       <div class="assist-topics">
+        <div class="at-card" onclick="showAssistTopic('ferry')">
+          <span class="at-icon">&#x26F4;&#xFE0F;</span>
+          <div class="at-body">
+            <div class="at-label">Ferry Arrival Estimator</div>
+            <div class="at-desc">Will I make my e-bike reservation? Check now</div>
+          </div>
+          <span class="at-badge" style="background:#2563eb;">NEW</span>
+        </div>
         <div class="at-card" onclick="showAssistTopic('booking')">
           <span class="at-icon">&#x1F6F4;</span>
           <div class="at-body">
@@ -960,6 +1017,10 @@
   <button class="consent-btn" onclick="declineShare()">No thanks</button>
 </div>
 <div id="admin-badge">&#x1F512; ADMIN <span id="admin-count">0</span> <button id="btn-admin-isolate" onclick="toggleAdminIsolate()">&#x1F7E2; Riders Only</button></div>
+<div id="ferry-admin-panel">
+  <div style="font-size:12px;font-weight:700;color:var(--c-navy);margin-bottom:8px;">&#x26F4;&#xFE0F; Incoming Guests <span id="ferry-admin-count" style="background:#2563eb;color:#fff;border-radius:50%;padding:2px 7px;font-size:10px;">0</span></div>
+  <div id="ferry-admin-list"><div style="font-size:11px;color:#999;">No incoming guests</div></div>
+</div>
 
 <script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?108569855&data_platform=code" charset="utf-8"></script>
 <script type="text/javascript">
@@ -1035,6 +1096,7 @@ function initAdminView(){
   ref.on('child_changed',function(snap){onRiderUpdate(snap);});
   ref.on('child_removed',function(snap){onRiderRemoved(snap);});
   setInterval(cleanStaleRiders,60000);
+  initFerryAdminView();
 }
 function onRiderUpdate(snap){
   var id=snap.key,d=snap.val();if(!d||!d.lat||!d.lng)return;
@@ -1096,6 +1158,155 @@ function toggleAdminIsolate(){
 
 initFirebase();
 
+/* ═══ FERRY ARRIVAL ESTIMATOR ═══ */
+var FERRY_CROSSING_MIN=55;
+var FERRY_DOCK_BUFFER_MIN=12;
+var FERRY_WALK_MIN=8;
+var FERRY_TOTAL_MIN=FERRY_CROSSING_MIN+FERRY_DOCK_BUFFER_MIN+FERRY_WALK_MIN;
+
+/* Schedule — update monthly when new PDF is published */
+var FERRY_SCHEDULE={
+  updated:'2026-03-01',
+  month:'March 2026',
+  departures:[
+    {time:'05:00',label:'5:00 AM'},{time:'07:00',label:'7:00 AM'},
+    {time:'09:00',label:'9:00 AM'},{time:'11:00',label:'11:00 AM'},
+    {time:'13:00',label:'1:00 PM'},{time:'15:00',label:'3:00 PM'},
+    {time:'17:00',label:'5:00 PM'}
+  ]
+};
+
+var _selectedFerryTime=null,_selectedResTime=null;
+
+function formatTimeFromMin(m){var h=Math.floor(m/60)%24,mm=m%60,ap=h>=12?'PM':'AM',h12=h%12||12;return h12+':'+String(mm).padStart(2,'0')+' '+ap;}
+
+function calculateFerryArrival(depStr,resStr){
+  var dp=depStr.split(':'),depMin=parseInt(dp[0])*60+parseInt(dp[1]);
+  var dockMin=depMin+FERRY_CROSSING_MIN;
+  var offMin=dockMin+FERRY_DOCK_BUFFER_MIN;
+  var shopMin=offMin+FERRY_WALK_MIN;
+  var rp=resStr.split(':'),resMin=parseInt(rp[0])*60+parseInt(rp[1]);
+  var diff=resMin-shopMin;
+  return{
+    departure:formatTimeFromMin(depMin),dockArrival:formatTimeFromMin(dockMin),
+    offFerry:formatTimeFromMin(offMin),atShop:formatTimeFromMin(shopMin),
+    reservation:formatTimeFromMin(resMin),diffMin:diff,
+    verdict:diff>=15?'good':(diff>=0?'close':'late'),
+    verdictText:diff>=15?'You\u2019re good! ~'+diff+' minutes early':(diff>=0?'Cutting it close \u2014 only '+diff+' min buffer':'You\u2019ll be ~'+Math.abs(diff)+' minutes late')
+  };
+}
+
+function selectFerryTime(btn){
+  var grid=btn.closest('.ferry-time-grid');
+  if(grid){var bs=grid.querySelectorAll('.ferry-time-btn');for(var i=0;i<bs.length;i++)bs[i].classList.remove('selected');}
+  btn.classList.add('selected');
+  _selectedFerryTime=btn.getAttribute('data-time');
+  var ci=document.getElementById('ferry-custom-wrap');if(ci)ci.style.display='none';
+  recalcFerryETA();
+}
+function showCustomFerryTime(){
+  var ci=document.getElementById('ferry-custom-wrap');if(ci)ci.style.display='block';
+  var bs=document.querySelectorAll('.ferry-time-grid .ferry-time-btn.selected');for(var i=0;i<bs.length;i++)bs[i].classList.remove('selected');
+}
+function selectCustomFerryTime(val){if(!val)return;_selectedFerryTime=val;recalcFerryETA();}
+
+function selectResTime(btn){
+  var grid=btn.closest('.ferry-res-grid');
+  if(grid){var bs=grid.querySelectorAll('.ferry-res-btn');for(var i=0;i<bs.length;i++)bs[i].classList.remove('selected');}
+  btn.classList.add('selected');
+  _selectedResTime=btn.getAttribute('data-time');
+  var ci=document.getElementById('res-custom-time');if(ci)ci.value='';
+  recalcFerryETA();
+}
+function selectCustomResTime(val){if(!val)return;_selectedResTime=val;
+  var bs=document.querySelectorAll('.ferry-res-btn.selected');for(var i=0;i<bs.length;i++)bs[i].classList.remove('selected');
+  recalcFerryETA();
+}
+
+function recalcFerryETA(){
+  if(!_selectedFerryTime||!_selectedResTime)return;
+  var result=calculateFerryArrival(_selectedFerryTime,_selectedResTime);
+  renderFerryResults(result);
+  pushFerryCheckin(_selectedFerryTime,_selectedResTime,result);
+}
+
+function ferryWhatsAppLink(dep,eta,res,verdict){
+  var msg='Hi! I\u2019m on the '+dep+' ferry from Ceiba. My e-bike reservation is at '+res+'. Estimated arrival: ~'+eta+'. ';
+  if(verdict==='late')msg+='I may be late \u2014 can we adjust my reservation?';
+  else if(verdict==='close')msg+='Cutting it close \u2014 I\u2019ll head straight to you!';
+  else msg+='See you soon!';
+  return waLink(msg);
+}
+
+function renderFerryResults(r){
+  var el=document.getElementById('ferry-results');if(!el)return;
+  var vcls=r.verdict==='good'?'good':(r.verdict==='close'?'close':'late');
+  var vicon=r.verdict==='good'?'\u2705':(r.verdict==='close'?'\u26A0\uFE0F':'\u274C');
+  var h='<div class="ferry-result">'
+    +'<div class="ferry-timeline">'
+    +'<div class="ferry-timeline-step"><b>'+r.departure+'</b> \u2014 Ferry departs Ceiba</div>'
+    +'<div class="ferry-timeline-step"><b>'+r.dockArrival+'</b> \u2014 Arrives Culebra dock</div>'
+    +'<div class="ferry-timeline-step"><b>'+r.offFerry+'</b> \u2014 Off ferry + cleared</div>'
+    +'<div class="ferry-timeline-step"><b>'+r.atShop+'</b> \u2014 At Todo Culebra E-Bikes</div>'
+    +'</div>'
+    +'<div class="ferry-verdict '+vcls+'">'+vicon+' '+r.verdictText+'</div>'
+    +'<div style="font-size:9px;color:var(--c-muted);text-align:center;margin-top:4px;">Ferries can be delayed 15\u201330 min. Plan extra buffer!</div>'
+    +'</div>';
+  h+='<a class="ad-action ad-action-green" href="'+ferryWhatsAppLink(r.departure,r.atShop,r.reservation,r.verdict)+'" target="_blank">\u{1F4AC} Tell Us Your Ferry via WhatsApp</a>';
+  if(r.verdict==='late'){
+    h+='<a class="ad-action ad-action-red" href="'+waLink('URGENT: I\u2019m on the '+r.departure+' ferry and will be ~'+Math.abs(r.diffMin)+' min late for my '+r.reservation+' reservation. Can we adjust?')+'" target="_blank">\u26A0\uFE0F I\u2019ll Be Late \u2014 Contact Shop Now</a>';
+    h+='<a class="ad-action ad-action-primary" href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank">\u{1F504} Reschedule My E-Bike Reservation</a>';
+  }else if(r.verdict==='close'){
+    h+='<div class="ad-section" style="background:#fffbeb;border:1px solid #fde68a;"><p style="font-size:11px;color:#b45309;">\u{1F4A1} <b>Tip:</b> Head straight to our shop after getting off the ferry. It\u2019s a quick 5\u20138 min walk from the terminal. Look for the e-bike sign in Dewey!</p></div>';
+  }else{
+    h+='<div class="ad-section"><p style="font-size:11px;">\u{1F389} Plenty of time! The walk from the ferry terminal to our shop is quick and scenic through Dewey. Enjoy!</p></div>';
+  }
+  el.innerHTML=h;el.style.display='block';
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ── Ferry Firebase: Guest Push ── */
+function pushFerryCheckin(ferryTime,resTime,result){
+  if(!fbDb||!riderId)return;
+  var ref=fbDb.ref('ferry-checkins/'+riderId);
+  ref.set({ferryDeparture:ferryTime,reservationTime:resTime,estimatedArrival:result.atShop,verdict:result.verdict,timestamp:Date.now()});
+  ref.onDisconnect().remove();
+}
+
+/* ── Ferry Firebase: Admin View ── */
+var ferryCheckins={};
+function initFerryAdminView(){
+  if(!fbDb||!isAdmin)return;
+  var ref=fbDb.ref('ferry-checkins');
+  ref.on('child_added',function(s){onFerryCheckin(s);});
+  ref.on('child_changed',function(s){onFerryCheckin(s);});
+  ref.on('child_removed',function(s){delete ferryCheckins[s.key];updateFerryAdminPanel();});
+}
+function onFerryCheckin(snap){
+  var d=snap.val();if(!d)return;
+  ferryCheckins[snap.key]=d;
+  updateFerryAdminPanel();
+}
+function updateFerryAdminPanel(){
+  var count=Object.keys(ferryCheckins).length;
+  var ce=document.getElementById('ferry-admin-count');if(ce)ce.textContent=count;
+  var list=document.getElementById('ferry-admin-list');if(!list)return;
+  if(count===0){list.innerHTML='<div style="font-size:11px;color:#999;">No incoming guests</div>';return;}
+  var sorted=Object.values(ferryCheckins).sort(function(a,b){return(a.timestamp||0)-(b.timestamp||0);});
+  var html='';
+  for(var i=0;i<sorted.length;i++){
+    var c=sorted[i];
+    var cls=c.verdict==='good'?'color:#059669':(c.verdict==='close'?'color:#b45309':'color:#dc2626');
+    var lbl=c.verdict==='good'?'\u2705':(c.verdict==='close'?'\u26A0\uFE0F':'\u274C');
+    html+='<div style="padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:11px;">'
+      +lbl+' <b>Ferry '+formatTimeFromMin(parseInt(c.ferryDeparture.split(':')[0])*60+parseInt(c.ferryDeparture.split(':')[1]))+'</b>'
+      +' \u2192 Res: '+c.reservationTime
+      +' | ETA: <span style="'+cls+';font-weight:700;">'+c.estimatedArrival+'</span>'
+      +'</div>';
+  }
+  list.innerHTML=html;
+}
+
 /* ═══ GRID SNAP ═══ */
 var BOUNDS={west:-65.365,east:-65.215,south:18.270,north:18.345},CELLS=1000;
 var CELL_LNG=(BOUNDS.east-BOUNDS.west)/CELLS, CELL_LAT=(BOUNDS.north-BOUNDS.south)/CELLS;
@@ -1143,6 +1354,64 @@ function waWithGPS(msg){
 }
 
 var assistTopics={
+  ferry:{
+    title:'\u26F4\uFE0F Ferry Arrival Estimator',
+    html:function(){
+      var note='';
+      if(FERRY_SCHEDULE&&FERRY_SCHEDULE.updated){
+        var diff=Math.floor((new Date()-new Date(FERRY_SCHEDULE.updated))/86400000);
+        if(diff>35)note='<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px;font-size:10px;color:#b45309;margin-bottom:8px;">\u26A0\uFE0F Schedule may be outdated ('+FERRY_SCHEDULE.month+'). <a href="https://www.puertoricoferry.com/routes-schedules/ceiba-culebra/" target="_blank">Verify times</a></div>';
+        else note='<div style="font-size:9px;color:var(--c-muted);margin-bottom:6px;">Schedule: '+FERRY_SCHEDULE.month+'</div>';
+      }
+      var btns='';
+      if(FERRY_SCHEDULE&&FERRY_SCHEDULE.departures){
+        for(var i=0;i<FERRY_SCHEDULE.departures.length;i++){
+          var d=FERRY_SCHEDULE.departures[i];
+          btns+='<button class="ferry-time-btn" data-time="'+d.time+'" onclick="selectFerryTime(this)">'+d.label+'</button>';
+        }
+      }
+      return note
+        +'<div class="ad-section"><h4>1. Which ferry are you on?</h4>'
+        +'<div class="ferry-time-grid">'+btns+'</div>'
+        +'<button class="ferry-time-btn" style="width:100%;margin-top:4px;font-size:11px;color:var(--c-muted);" onclick="showCustomFerryTime()">My ferry isn\u2019t listed</button>'
+        +'<div id="ferry-custom-wrap" class="ferry-custom-wrap">'
+        +'<input type="time" id="ferry-custom-time" onchange="selectCustomFerryTime(this.value)">'
+        +'</div></div>'
+
+        +'<div class="ad-section"><h4>2. When is your e-bike reservation?</h4>'
+        +'<div class="ferry-res-grid">'
+        +'<button class="ferry-res-btn" data-time="08:00" onclick="selectResTime(this)">8 AM</button>'
+        +'<button class="ferry-res-btn" data-time="09:00" onclick="selectResTime(this)">9 AM</button>'
+        +'<button class="ferry-res-btn" data-time="10:00" onclick="selectResTime(this)">10 AM</button>'
+        +'<button class="ferry-res-btn" data-time="11:00" onclick="selectResTime(this)">11 AM</button>'
+        +'<button class="ferry-res-btn" data-time="12:00" onclick="selectResTime(this)">12 PM</button>'
+        +'<button class="ferry-res-btn" data-time="13:00" onclick="selectResTime(this)">1 PM</button>'
+        +'<button class="ferry-res-btn" data-time="14:00" onclick="selectResTime(this)">2 PM</button>'
+        +'<button class="ferry-res-btn" data-time="15:00" onclick="selectResTime(this)">3 PM</button>'
+        +'<button class="ferry-res-btn" data-time="16:00" onclick="selectResTime(this)">4 PM</button>'
+        +'</div>'
+        +'<div style="text-align:center;margin-top:4px;"><input type="time" id="res-custom-time" style="padding:6px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:var(--font-ui);font-size:12px;" onchange="selectCustomResTime(this.value)"></div>'
+        +'</div>'
+
+        +'<div id="ferry-results" style="display:none;"></div>'
+
+        +'<div class="ad-section" style="margin-top:8px;">'
+        +'<h4>\u{1F4CB} Ceiba \u2192 Culebra Quick Facts</h4>'
+        +'<ul>'
+        +'<li><b>55 min</b> crossing + ~20 min docking/walk = <b>~75 min total</b> to our shop</li>'
+        +'<li>Adult fare: <b>$2.25</b> one-way</li>'
+        +'<li>Arrive <b>1 hour early</b> at Ceiba terminal</li>'
+        +'<li>Boarding closes <b>10 min</b> before departure</li>'
+        +'<li>Max <b>5 tickets</b> per transaction</li>'
+        +'<li><b>Photo ID required</b> \u2014 must match ticket name</li>'
+        +'<li>No rental cars on ferry</li>'
+        +'<li>Tickets: no refunds, max 2 transfers (1 hr before)</li>'
+        +'</ul></div>'
+
+        +'<a class="ad-action ad-action-primary" href="https://www.puertoricoferry.com/routes-schedules/ceiba-culebra/" target="_blank">\u26F4\uFE0F Book Ferry Tickets</a>'
+        +'<a class="ad-action ad-action-navy" href="javascript:void(0)" onclick="closeAssist();setTimeout(openGuide,400);">\u{1F4D6} Full Ferry Info in Island Guide</a>';
+    }
+  },
   booking:{
     title:'\u{1F6F4} E-Bike Booking & Pricing',
     html:function(){return''
@@ -1280,9 +1549,9 @@ function showAssistTopic(topic){
 /* ═══ LOCATIONS ═══ */
 var locations = [
   { name:'Culebra Ferry Terminal', lat:18.301451, lng:-65.302530, type:'ferry', road:'paved', parking:true,
-    desc:'Arrive 1 hr early! Free parking for early birds. Restrooms inside.' },
+    desc:'Arrive 1 hr early! $2.25 adult. Photo ID required. ~8 min walk to Todo Culebra E-Bikes. <a href="https://www.puertoricoferry.com/routes-schedules/ceiba-culebra/" target="_blank">Book tickets</a>.<br><a href="javascript:void(0)" onclick="map.closePopup();setTimeout(function(){openAssist();setTimeout(function(){showAssistTopic(\'ferry\');},300);},200);" style="display:inline-block;margin-top:4px;background:var(--c-ocean);color:#fff;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;">\u23F1 Check My Arrival Time</a>' },
   { name:'Ceiba Ferry Terminal', lat:18.228669, lng:-65.619310, type:'ferry',
-    desc:'Mainland ferry. <a href="https://www.puertoricoferry.com/en/" target="_blank">Book tickets</a> before you go!' },
+    desc:'Mainland ferry to Culebra. 55 min crossing, $2.25. Arrive 1 hr early! Boarding closes 10 min before departure. <a href="https://www.puertoricoferry.com/routes-schedules/ceiba-culebra/" target="_blank">Book tickets</a>.<br><a href="javascript:void(0)" onclick="map.closePopup();setTimeout(function(){openAssist();setTimeout(function(){showAssistTopic(\'ferry\');},300);},200);" style="display:inline-block;margin-top:4px;background:var(--c-ocean);color:#fff;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;">\u23F1 Check My Arrival Time</a>' },
   { name:'Gas Station', lat:18.301129, lng:-65.300764, type:'gas',
     desc:'The ONLY gas station on the island. Fill up!' },
 
