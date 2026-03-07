@@ -104,9 +104,12 @@
   .btn-directions:hover { opacity:0.88; } .btn-directions:disabled { background:#ccc; cursor:not-allowed; }
   .btn-learn-more { display:block; width:100%; padding:4px 0; background:var(--c-navy); color:#fff; border:none; border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; text-align:center; margin-bottom:3px; letter-spacing:0.02em; }
   .btn-learn-more:hover { opacity:0.88; }
-  .btn-share { display:flex; align-items:center; justify-content:center; gap:4px; width:100%; padding:4px 0; background:transparent; color:var(--c-ocean); border:1px solid var(--c-ocean); border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; margin-top:3px; }
+  .btn-share { display:flex; align-items:center; justify-content:center; gap:4px; width:100%; padding:4px 0; background:transparent; color:var(--c-ocean); border:1px solid var(--c-ocean); border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; margin-top:3px; position:relative; }
   .btn-share:hover { background:rgba(0,105,148,0.06); }
   .btn-share.copied { background:var(--c-green); border-color:var(--c-green); color:#fff; }
+  .share-tip { position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; font-family:var(--font-ui); font-size:9px; font-weight:700; padding:5px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 10px rgba(0,105,148,0.4); animation:shareTipPulse 1.8s infinite; pointer-events:none; z-index:10; }
+  .share-tip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--c-ocean); }
+  @keyframes shareTipPulse { 0%,100%{transform:translateX(-50%) scale(1);} 50%{transform:translateX(-50%) scale(1.06);} }
   .fallback-row { display:none; gap:4px; margin-top:3px; } .fallback-row.visible { display:flex; }
   .btn-fallback { flex:1; padding:4px 0; border:none; border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; color:#fff; display:flex; align-items:center; justify-content:center; gap:3px; }
   .btn-apple { background:#1c1c1e; } .btn-google { background:#4285F4; }
@@ -138,10 +141,6 @@
   #notice-body { font-size:9px; opacity:0.85; line-height:1.4; }
   #notice-body a { color:#7dd3fc; } #notice-body b { color:#fff; }
   #notice-close { position:absolute; top:4px; right:6px; background:none; border:none; color:rgba(255,255,255,0.6); font-size:12px; cursor:pointer; }
-
-  /* ── BRAND LINK ── */
-  #brand-link { position:absolute; bottom:12px; left:12px; z-index:1001; background:rgba(255,255,255,0.95); backdrop-filter:blur(12px); padding:6px 14px; border-radius:999px; box-shadow:0 2px 10px rgba(0,0,0,0.15); font-family:var(--font-ui); font-size:12px; font-weight:600; color:var(--c-ocean); text-decoration:none; }
-  #brand-link:hover { box-shadow:0 2px 16px rgba(0,105,148,0.3); }
 
   /* ══════════════════════════════════════════════
      TRAVEL GUIDE PANEL — fullscreen overlay
@@ -489,7 +488,6 @@
     #ebike-alert { bottom:100px; max-width:calc(100vw - 16px); }
     #btn-report-hazard { bottom:160px; width:40px; height:40px; font-size:16px; }
     #btn-book-ebike { font-size:10px; padding:0 10px; height:48px; }
-    #brand-link { bottom:8px; left:8px; font-size:11px; padding:5px 12px; }
     #btn-chat-float { bottom:18px; font-size:13px; padding:10px 18px; }
     #search-results { max-height:50vh; }
     #sunset-banner { bottom:55px; left:8px; right:8px; padding:8px 10px; }
@@ -578,7 +576,6 @@
   <div class="ach-toast-sub" id="ach-toast-sub"></div>
 </div>
 
-<a id="brand-link" href="https://www.todoculebra.com" target="_blank">&#x1F6F4; todoculebra.com</a>
 <button id="btn-order-float" onclick="openShop()">&#x1F6D2; Order Delivery</button>
 <button id="btn-chat-float" onclick="openAssist()">&#x1F4AC; Chat with Us</button>
 
@@ -1854,7 +1851,7 @@ for(var mi=0;mi<locations.length;mi++){
       '<div class="route-status"></div>'+
       '<div class="fallback-row"><a class="btn-fallback btn-apple" href="#" target="_blank">Apple Maps</a><a class="btn-fallback btn-google" href="#" target="_blank">Google Maps</a></div>'+
       '<button class="btn-learn-more" onclick="openGuide()">Learn More</button>'+
-      '<button class="btn-share" data-lat="'+p.lat+'" data-lng="'+p.lng+'">Share</button>'+
+      '<button class="btn-share" data-lat="'+p.lat+'" data-lng="'+p.lng+'">Share'+(!localStorage.getItem('tc-share-tip-dismissed')?'<span class="share-tip">\u261D\uFE0F Share this spot!</span>':'')+'</button>'+
     '</div>';
 
     var marker=L.marker([p.lat,p.lng],{icon:icon,zIndexOffset:p.zIndex||0}).bindPopup(html,{maxWidth:170,minWidth:130});
@@ -1865,7 +1862,7 @@ for(var mi=0;mi<locations.length;mi++){
       if(p.name==='Punta Molino Path')showMolinoTrail();
       var el=e.popup.getElement(),btn=el.querySelector('.btn-directions'),sEl=el.querySelector('.route-status'),fEl=el.querySelector('.fallback-row'),dEl=el.querySelector('.dist-badge'),sBtn=el.querySelector('.btn-share');
       if(dEl){dEl.textContent=userLat!==null?fmtDist(haversine(userLat,userLng,p.lat,p.lng))+' away':'Enable location';}
-      if(sBtn)sBtn.onclick=function(){shareLocation(p.name,p.lat,p.lng,sBtn);};
+      if(sBtn)sBtn.onclick=function(){shareLocation(p.name,p.lat,p.lng,sBtn);var st=sBtn.querySelector('.share-tip');if(st)st.remove();localStorage.setItem('tc-share-tip-dismissed','1');};
       if(btn){var fb=btn.cloneNode(true);fb.disabled=false;fb.textContent='Get Directions';btn.parentNode.replaceChild(fb,btn);fb.addEventListener('click',function(){requestRoute(p.name,p.lat,p.lng,sEl,fEl,fb);});}
       /* Tide badge for snorkel pins */
       if(p.type==='snorkel'){var tc=el.querySelector('.popup-tide-info');if(tc&&tideCurrent)tc.innerHTML=getTideBadgeHTML()+getSnorkelRatingHTML();}
