@@ -439,6 +439,9 @@
   #admin-badge { position:fixed; top:14px; right:14px; z-index:2000; background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; font-family:var(--font-ui); font-size:12px; font-weight:700; padding:8px 14px; border-radius:999px; box-shadow:0 4px 16px rgba(239,68,68,0.45); display:none; align-items:center; gap:6px; }
   body.admin-mode #admin-badge { display:flex; }
   #admin-count { background:rgba(255,255,255,0.3); border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+  #btn-admin-isolate { background:rgba(255,255,255,0.25); color:#fff; border:none; border-radius:999px; padding:4px 10px; font-family:var(--font-ui); font-size:11px; font-weight:700; cursor:pointer; white-space:nowrap; transition:background 0.2s; }
+  #btn-admin-isolate:hover { background:rgba(255,255,255,0.4); }
+  #btn-admin-isolate.active { background:#fff; color:#dc2626; }
   .rider-dot { width:16px; height:16px; border-radius:50%; background:#10b981; border:2.5px solid #fff; box-shadow:0 0 8px rgba(16,185,129,0.6); animation:riderPulse 2s infinite; }
   .rider-dot.stale { background:#f59e0b; box-shadow:0 0 8px rgba(245,158,11,0.6); animation:none; }
   @keyframes riderPulse { 0%,100%{box-shadow:0 0 8px rgba(16,185,129,0.6);} 50%{box-shadow:0 0 16px rgba(16,185,129,0.9);} }
@@ -917,7 +920,7 @@
   <button class="consent-btn accept" onclick="acceptShare()">Share</button>
   <button class="consent-btn" onclick="declineShare()">No thanks</button>
 </div>
-<div id="admin-badge">&#x1F512; ADMIN <span id="admin-count">0</span></div>
+<div id="admin-badge">&#x1F512; ADMIN <span id="admin-count">0</span> <button id="btn-admin-isolate" onclick="toggleAdminIsolate()">&#x1F7E2; Riders Only</button></div>
 
 <script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?108569855&data_platform=code" charset="utf-8"></script>
 <script type="text/javascript">
@@ -1030,6 +1033,26 @@ function cleanStaleRiders(){
     else if(age>2){var el=riderMarkers[id].getElement();if(el&&el.className.indexOf('stale')===-1)el.className='rider-dot stale';}
   }
   updateAdminCount();
+}
+
+var adminIsolate=false;
+function toggleAdminIsolate(){
+  adminIsolate=!adminIsolate;
+  var btn=document.getElementById('btn-admin-isolate');
+  if(adminIsolate){
+    btn.classList.add('active');btn.innerHTML='&#x1F5FA;&#xFE0F; Show Pins';
+    map.removeLayer(clusterGroup);map.removeLayer(deliveryZone);
+    document.getElementById('left-stack').style.display='none';
+    document.getElementById('topbar').style.display='none';
+    document.getElementById('btn-chat-float').style.display='none';
+    document.getElementById('notice-banner').classList.remove('show');
+  }else{
+    btn.classList.remove('active');btn.innerHTML='&#x1F7E2; Riders Only';
+    map.addLayer(clusterGroup);map.addLayer(deliveryZone);
+    document.getElementById('left-stack').style.display='';
+    document.getElementById('topbar').style.display='';
+    document.getElementById('btn-chat-float').style.display='';
+  }
 }
 
 initFirebase();
