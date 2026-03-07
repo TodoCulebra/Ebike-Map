@@ -1033,7 +1033,6 @@ var deliveryZone = L.polygon([
   [18.340,-65.340],[18.340,-65.220],[18.275,-65.220],[18.275,-65.290],[18.295,-65.310],[18.280,-65.340]
 ],{color:'#22c55e',fillColor:'#22c55e',fillOpacity:0.06,weight:2,opacity:0.5,dashArray:'8,6',interactive:false});
 deliveryZone.addTo(map);
-var dzLabel=L.marker([18.313,-65.295],{icon:L.divIcon({html:'<div style="font-size:10px;font-weight:700;color:#166534;background:rgba(240,253,244,0.9);padding:3px 8px;border-radius:8px;white-space:nowrap;border:1px solid #bbf7d0;">&#x1F6F5; Delivery Zone</div>',className:'',iconAnchor:[50,10]}),interactive:false}).addTo(map);
 
 /* ═══ FLOATING ORDER BTN ═══ */
 var orderBtnShown=false;
@@ -1050,7 +1049,7 @@ function toggleEbikeMode(){
     btn.classList.add('active');hud.classList.add('visible');hazBtn.classList.add('visible');
     /* Hide location pins — ride mode is about the road */
     map.removeLayer(clusterGroup);
-    map.removeLayer(deliveryZone);map.removeLayer(dzLabel);
+    map.removeLayer(deliveryZone);
     ebikeHazardLayer.addTo(map);loadKnownHazards();
     map.setView([userLat,userLng],16,{animate:true});
     ebikePrevPos={lat:userLat,lng:userLng,time:Date.now()};ebikeAutoFollow=true;
@@ -1065,7 +1064,7 @@ function toggleEbikeMode(){
     map.removeLayer(ebikeHazardLayer);
     /* Restore location pins */
     map.addLayer(clusterGroup);
-    map.addLayer(deliveryZone);map.addLayer(dzLabel);
+    map.addLayer(deliveryZone);
     if(bookBtn)bookBtn.style.bottom='';
     if(window._hudTipInterval)clearInterval(window._hudTipInterval);
     ebikeAlertCooldowns={};ebikeAlertQueue=[];
