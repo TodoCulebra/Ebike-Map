@@ -229,6 +229,11 @@
   #btn-book-ebike:hover { transform:scale(1.05); }
   @keyframes bookPulse { 0%,100%{box-shadow:0 4px 24px rgba(0,105,148,0.5)} 50%{box-shadow:0 4px 32px rgba(0,160,176,0.7),0 0 0 6px rgba(0,160,176,0.15)} }
 
+  /* ── Floating Chat CTA (bottom) ── */
+  #btn-chat-float { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); z-index:1002; background:linear-gradient(135deg,#25D366,#128C7E); color:#fff; border:none; border-radius:999px; padding:12px 22px; box-shadow:0 4px 24px rgba(37,211,102,0.45); font-family:var(--font-ui); font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; letter-spacing:0.02em; animation:chatFloat 3s infinite; transition:transform 0.15s; }
+  #btn-chat-float:hover { transform:translateX(-50%) scale(1.06); }
+  @keyframes chatFloat { 0%,100%{box-shadow:0 4px 24px rgba(37,211,102,0.45)} 50%{box-shadow:0 4px 32px rgba(37,211,102,0.7),0 0 0 8px rgba(37,211,102,0.12)} }
+
   /* ══════════════════════════════════════════════
      E-BIKE WAZE MODE
   ══════════════════════════════════════════════ */
@@ -379,6 +384,7 @@
     #btn-report-hazard { bottom:160px; width:40px; height:40px; font-size:16px; }
     #btn-book-ebike { font-size:10px; padding:0 10px; height:48px; }
     #brand-link { bottom:8px; left:8px; font-size:11px; padding:5px 12px; }
+    #btn-chat-float { bottom:18px; font-size:13px; padding:10px 18px; }
     #search-results { max-height:50vh; }
   }
   @media (max-width:375px) {
@@ -439,6 +445,7 @@
 
 <a id="brand-link" href="https://www.todoculebra.com" target="_blank">&#x1F6F4; todoculebra.com</a>
 <button id="btn-order-float" onclick="openShop()">&#x1F6D2; Order Delivery</button>
+<button id="btn-chat-float" onclick="openAssist()">&#x1F4AC; Chat with Us</button>
 
 <!-- E-Bike Mode HUD -->
 <div id="ride-hud">
@@ -1355,6 +1362,7 @@ function toggleEbikeMode(){
     map.setView([userLat,userLng],16,{animate:true});
     ebikePrevPos={lat:userLat,lng:userLng,time:Date.now()};ebikeAutoFollow=true;
     document.getElementById('notice-banner').classList.remove('show');
+    document.getElementById('btn-chat-float').style.display='none';
     updateHudTip();window._hudTipInterval=setInterval(updateHudTip,30000);
     map.on('dragstart',onMapDrag);
     showToast('\u{1F6B4} E-Bike Mode ON \u2014 Ride safe!');
@@ -1365,6 +1373,7 @@ function toggleEbikeMode(){
     /* Restore location pins */
     map.addLayer(clusterGroup);
     map.addLayer(deliveryZone);
+    document.getElementById('btn-chat-float').style.display='';
     if(window._hudTipInterval)clearInterval(window._hudTipInterval);
     ebikeAlertCooldowns={};ebikeAlertQueue=[];
     map.off('dragstart',onMapDrag);
