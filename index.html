@@ -214,11 +214,6 @@
   .ecwid-divider::before,.ecwid-divider::after { content:''; position:absolute; top:50%; width:calc(50% - 60px); height:1px; background:#e2e8f0; }
   .ecwid-divider::before { left:0; } .ecwid-divider::after { right:0; }
 
-  /* ── Floating Order Button ── */
-  #btn-order-float { position:absolute; bottom:110px; right:12px; z-index:1001; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; border:none; border-radius:999px; padding:10px 18px; box-shadow:0 4px 20px rgba(234,88,12,0.5); font-family:var(--font-ui); font-size:12px; font-weight:700; cursor:pointer; display:none; align-items:center; gap:6px; transition:all 0.3s; animation:floatPulse 3s infinite; }
-  #btn-order-float:hover { transform:scale(1.05); }
-  @keyframes floatPulse { 0%,100%{box-shadow:0 4px 20px rgba(234,88,12,0.5)} 50%{box-shadow:0 4px 28px rgba(234,88,12,0.7)} }
-  #btn-order-float.visible { display:flex; }
 
   /* ── Floating Book E-Bike CTA ── */
   #btn-book-ebike { flex-shrink:0; background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; border:none; border-radius:12px; padding:0 14px; box-shadow:0 4px 24px rgba(0,105,148,0.5); font-family:var(--font-ui); font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:5px; text-decoration:none; animation:bookPulse 2.5s infinite; white-space:nowrap; letter-spacing:0.02em; height:44px; }
@@ -419,16 +414,14 @@
   .leaflet-control-attribution { font-size:10px !important; background:rgba(255,255,255,0.75) !important; }
   .marker-cluster, .marker-cluster div { background:transparent !important; }
 
-  /* ── FILTER TIP (cycling tooltip) ── */
-  .filter-tip { position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%) translateX(-6px); background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; font-family:var(--font-ui); font-size:11px; font-weight:600; padding:6px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 12px rgba(245,158,11,0.4); opacity:0; pointer-events:none; transition:opacity 0.35s,transform 0.35s; z-index:1; }
-  .filter-tip::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:5px solid transparent; border-right-color:#f59e0b; }
-  .filter-tip.pop { opacity:1; transform:translateY(-50%) translateX(0); pointer-events:auto; }
 
   /* ── CHAT TOOLTIP ── */
-  .chat-tip-wrap { position:relative; }
+  .chat-tip-wrap, .shop-tip-wrap { position:relative; }
   .chat-tip { position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%); background:#25D366; color:#fff; font-family:var(--font-ui); font-size:11px; font-weight:600; padding:6px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 12px rgba(0,0,0,0.25); opacity:0; pointer-events:none; transition:opacity 0.35s, transform 0.35s; transform:translateY(-50%) translateX(-6px); }
   .chat-tip::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:5px solid transparent; border-right-color:#25D366; }
   .chat-tip.pop { opacity:1; transform:translateY(-50%) translateX(0); pointer-events:auto; }
+  #shop-tip::before { border-right-color:#ea580c; }
+  #filter-tip::before { border-right-color:#f59e0b; }
 
   /* ── RIDER TRACKING ── */
   #share-consent { position:fixed; bottom:0; left:0; right:0; z-index:2500; background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; display:none; align-items:center; justify-content:center; gap:10px; padding:14px 16px; font-family:var(--font-ui); box-shadow:0 -4px 24px rgba(0,0,0,0.25); }
@@ -526,11 +519,10 @@
 <div id="left-stack">
   <div id="legend-wrap" style="position:relative;">
     <button class="stack-btn" onclick="toggleLegendDrop();dismissFilterTip();" title="Filter">&#x1F5FA;&#xFE0F;</button>
-    <div id="filter-tip" class="filter-tip">&#x1F449; Start Here!</div>
+    <div id="filter-tip" class="chat-tip" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F449; Start Here!</div>
     <div id="legend-drop"><div id="legend-drop-title">Filter by Category</div><ul id="legend-list"></ul></div>
   </div>
   <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
-  <button class="stack-btn" onclick="openShop()" title="Shop" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
   <div class="chat-tip-wrap">
     <button class="stack-btn" onclick="openAssist()" title="Help &amp; Chat" style="background:#25D366;">&#x1F4AC;</button>
     <div id="chat-tip" class="chat-tip">Need help? Tap here!</div>
@@ -539,6 +531,10 @@
   <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
   <button class="stack-btn" onclick="openPassport()" title="Passport" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F3C6;</button>
   <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
+  <div class="shop-tip-wrap" style="position:relative;">
+    <button class="stack-btn" onclick="openShop()" title="Order Delivery" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
+    <div id="shop-tip" class="chat-tip" style="background:#ea580c;">Order here!</div>
+  </div>
 </div>
 
 <div id="turn-panel">
@@ -572,7 +568,6 @@
   <div class="ach-toast-sub" id="ach-toast-sub"></div>
 </div>
 
-<button id="btn-order-float" onclick="openShop()">&#x1F6D2; Order Delivery</button>
 <button id="btn-chat-float" onclick="openAssist()">&#x1F4AC; Chat with Us</button>
 
 <!-- E-Bike Mode HUD -->
@@ -1739,6 +1734,26 @@ function dismissFilterTip(){
 }
 startFilterTip();
 
+/* ── Shop tip (cycling tooltip for order button) ── */
+var _shopTipTimer=null,_shopTipIdx=0;
+var _shopTipMsgs=['\u{1F6D2} Order here!','\u{1F355} Pizza, groceries & more','\u{1F3D6} Delivered to any beach','\u{1F6F5} Same-day island delivery'];
+function showShopTip(){
+  var el=document.getElementById('shop-tip');if(!el)return;
+  el.textContent=_shopTipMsgs[_shopTipIdx%_shopTipMsgs.length];_shopTipIdx++;
+  el.classList.add('pop');
+  setTimeout(function(){el.classList.remove('pop');},3500);
+}
+function startShopTip(){
+  if(_shopTipTimer)return;
+  _shopTipTimer=setInterval(showShopTip,50000);
+  setTimeout(showShopTip,25000);
+}
+function stopShopTip(){
+  if(_shopTipTimer){clearInterval(_shopTipTimer);_shopTipTimer=null;}
+  var el=document.getElementById('shop-tip');if(el)el.classList.remove('pop');
+}
+startShopTip();
+
 document.addEventListener('click',function(e){var w=document.getElementById('legend-wrap'),d=document.getElementById('legend-drop');if(d&&w&&!w.contains(e.target))d.classList.remove('open');});
 
 /* ═══ PIN BUILDER ═══ */
@@ -2182,9 +2197,8 @@ var deliveryZone = L.polygon([
 ],{color:'#22c55e',fillColor:'#22c55e',fillOpacity:0.06,weight:2,opacity:0.5,dashArray:'8,6',interactive:false});
 deliveryZone.addTo(map);
 
-/* ═══ FLOATING ORDER BTN ═══ */
-var orderBtnShown=false;
-function showOrderFloat(){if(orderBtnShown)return;orderBtnShown=true;document.getElementById('btn-order-float').classList.add('visible');}
+/* ═══ ORDER BTN (now in left-stack) ═══ */
+function showOrderFloat(){} /* no-op — order button is now in left-stack */
 
 /* ═══════════════════════════════════════════════════════
    E-BIKE WAZE MODE
