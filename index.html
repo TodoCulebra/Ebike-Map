@@ -420,8 +420,13 @@
   .chat-tip { position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%); background:#25D366; color:#fff; font-family:var(--font-ui); font-size:11px; font-weight:600; padding:6px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 12px rgba(0,0,0,0.25); opacity:0; pointer-events:none; transition:opacity 0.35s, transform 0.35s; transform:translateY(-50%) translateX(-6px); }
   .chat-tip::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:5px solid transparent; border-right-color:#25D366; }
   .chat-tip.pop { opacity:1; transform:translateY(-50%) translateX(0); pointer-events:auto; }
-  #shop-tip::before { border-right-color:#ea580c; }
   #filter-tip::before { border-right-color:#f59e0b; }
+  #guide-tip::before { border-right-color:#2563eb; }
+  #home-tip::before { border-right-color:#1e3a5f; }
+  #ebike-tip::before { border-right-color:#7c3aed; }
+  #passport-tip::before { border-right-color:#f59e0b; }
+  #locate-tip::before { border-right-color:#3b82f6; }
+  #shop-tip::before { border-right-color:#ea580c; }
 
   /* ── RIDER TRACKING ── */
   #share-consent { position:fixed; bottom:0; left:0; right:0; z-index:2500; background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; display:none; align-items:center; justify-content:center; gap:10px; padding:14px 16px; font-family:var(--font-ui); box-shadow:0 -4px 24px rgba(0,0,0,0.25); }
@@ -518,22 +523,37 @@
 
 <div id="left-stack">
   <div id="legend-wrap" style="position:relative;">
-    <button class="stack-btn" onclick="toggleLegendDrop();dismissFilterTip();" title="Filter">&#x1F5FA;&#xFE0F;</button>
+    <button class="stack-btn" onclick="toggleLegendDrop();stopSeqTips();" title="Filter">&#x1F5FA;&#xFE0F;</button>
     <div id="filter-tip" class="chat-tip" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F449; Start Here!</div>
     <div id="legend-drop"><div id="legend-drop-title">Filter by Category</div><ul id="legend-list"></ul></div>
   </div>
-  <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
-  <div class="chat-tip-wrap">
-    <button class="stack-btn" onclick="openAssist()" title="Help &amp; Chat" style="background:#25D366;">&#x1F4AC;</button>
-    <div id="chat-tip" class="chat-tip">Need help? Tap here!</div>
+  <div style="position:relative;">
+    <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
+    <div id="guide-tip" class="chat-tip" style="background:#2563eb;">&#x1F4D6; Island Guide</div>
   </div>
-  <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
-  <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
-  <button class="stack-btn" onclick="openPassport()" title="Passport" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F3C6;</button>
-  <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
-  <div class="shop-tip-wrap" style="position:relative;">
+  <div style="position:relative;">
+    <button class="stack-btn" onclick="openAssist()" title="Help &amp; Chat" style="background:#25D366;">&#x1F4AC;</button>
+    <div id="chat-tip" class="chat-tip">&#x1F4AC; Need help?</div>
+  </div>
+  <div style="position:relative;">
+    <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
+    <div id="home-tip" class="chat-tip" style="background:#1e3a5f;">&#x1F3E0; Back to overview</div>
+  </div>
+  <div style="position:relative;">
+    <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
+    <div id="ebike-tip" class="chat-tip" style="background:#7c3aed;">&#x1F6B4; Start your ride!</div>
+  </div>
+  <div style="position:relative;">
+    <button class="stack-btn" onclick="openPassport()" title="Passport" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F3C6;</button>
+    <div id="passport-tip" class="chat-tip" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F3C6; Earn stamps!</div>
+  </div>
+  <div style="position:relative;">
+    <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
+    <div id="locate-tip" class="chat-tip" style="background:#3b82f6;">&#x1F4CD; Find yourself</div>
+  </div>
+  <div style="position:relative;">
     <button class="stack-btn" onclick="openShop()" title="Order Delivery" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
-    <div id="shop-tip" class="chat-tip" style="background:#ea580c;">Order here!</div>
+    <div id="shop-tip" class="chat-tip" style="background:#ea580c;">&#x1F6D2; Order delivery!</div>
   </div>
 </div>
 
@@ -838,7 +858,7 @@
         <span class="qo-sub">Sunblock &bull; Snorkel &bull; Speaker</span>
       </a>
       <a class="qo-card" href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank" style="border-color:var(--c-aqua);background:#f0f9ff;">
-        <span class="qo-icon">&#x1F6F4;</span>
+        <span class="qo-icon">&#x1F6B2;</span>
         <span class="qo-label">Book E-Bike Now</span>
         <span class="qo-sub">From $30 / 4 hrs &bull; Instant Booking</span>
       </a>
@@ -1309,30 +1329,11 @@ function openShop(){document.getElementById('shop-panel').classList.add('open');
 function closeShop(){document.getElementById('shop-panel').classList.remove('open');}
 
 /* ═══ SMART ASSISTANT ═══ */
-function openAssist(){document.getElementById('assist-panel').classList.add('open');assistBack();map.closePopup();stopChatTip();}
-function closeAssist(){document.getElementById('assist-panel').classList.remove('open');startChatTip();}
+function openAssist(){document.getElementById('assist-panel').classList.add('open');assistBack();map.closePopup();stopSeqTips();}
+function closeAssist(){document.getElementById('assist-panel').classList.remove('open');}
 function assistBack(){document.getElementById('assist-topics-list').classList.remove('hidden');document.getElementById('assist-detail').classList.remove('visible');}
 
-/* ── Chat tooltip reminder ── */
-var _chatTipTimer=null,_chatTipMsgs=['Need help? Tap here!','Book, explore, ride \u{1F680}','Questions? Ask here!','Directions & tips inside \u{1F30A}'];
-var _chatTipIdx=0;
-function showChatTip(){
-  var el=document.getElementById('chat-tip');if(!el)return;
-  el.textContent=_chatTipMsgs[_chatTipIdx%_chatTipMsgs.length];_chatTipIdx++;
-  el.classList.add('pop');
-  setTimeout(function(){el.classList.remove('pop');},3500);
-}
-function startChatTip(){
-  if(_chatTipTimer)return;
-  _chatTipTimer=setInterval(showChatTip,45000);
-  /* First nudge after 15s */
-  setTimeout(showChatTip,15000);
-}
-function stopChatTip(){
-  if(_chatTipTimer){clearInterval(_chatTipTimer);_chatTipTimer=null;}
-  var el=document.getElementById('chat-tip');if(el)el.classList.remove('pop');
-}
-startChatTip();
+/* ── Chat/Filter/Shop tooltips replaced by unified sequential system (see legend section) ── */
 
 var WA='+14343731763';
 function waLink(msg){return'https://wa.me/'+WA.replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg);}
@@ -1710,49 +1711,75 @@ var legendCategories = [
 function buildLegend(){var ul=document.getElementById('legend-list');if(!ul)return;ul.innerHTML='';legendCategories.forEach(function(c){var li=document.createElement('li');li.innerHTML='<span class="ld-dot" style="background:'+c.color+'"></span>'+c.label;li.onclick=function(){filterMarkers(c.type);ul.querySelectorAll('li').forEach(function(e){e.classList.remove('active')});li.classList.add('active');document.getElementById('legend-drop').classList.remove('open');};ul.appendChild(li);});ul.querySelector('li').classList.add('active');}
 function toggleLegendDrop(){document.getElementById('legend-drop').classList.toggle('open');dismissFilterTip();}
 
-/* ── Filter tip (cycling tooltip like chat tip) ── */
-var _filterTipTimer=null,_filterTipIdx=0;
-var _filterTipMsgs=['\u{1F449} Start Here \u2014 Filter the map!','\u{1F5FA}\uFE0F Find beaches, food & more','\u{1F6B4} E-Bikes, snorkeling, camping','\u{1F4CD} Tap to filter by category'];
-function showFilterTip(){
-  var el=document.getElementById('filter-tip');if(!el)return;
-  var dd=document.getElementById('legend-drop');if(dd&&dd.classList.contains('open'))return;
-  el.textContent=_filterTipMsgs[_filterTipIdx%_filterTipMsgs.length];_filterTipIdx++;
-  el.classList.add('pop');
-  setTimeout(function(){el.classList.remove('pop');},3500);
-}
-function startFilterTip(){
-  if(_filterTipTimer||localStorage.getItem('tc-filter-dismissed'))return;
-  _filterTipTimer=setInterval(showFilterTip,40000);
-  setTimeout(showFilterTip,5000);
-}
-function stopFilterTip(){
-  if(_filterTipTimer){clearInterval(_filterTipTimer);_filterTipTimer=null;}
-  var el=document.getElementById('filter-tip');if(el)el.classList.remove('pop');
-}
-function dismissFilterTip(){
-  stopFilterTip();localStorage.setItem('tc-filter-dismissed','1');
-}
-startFilterTip();
+/* ═══ UNIFIED SEQUENTIAL TOOLTIP SYSTEM ═══ */
+/* Tooltips fire one at a time, top to bottom. Each blinks 3× then the next appears. */
+var _seqTips=[
+  {id:'filter-tip'},{id:'guide-tip'},{id:'chat-tip'},{id:'home-tip'},
+  {id:'ebike-tip'},{id:'passport-tip'},{id:'locate-tip'},{id:'shop-tip'}
+];
+var _seqIdx=0,_seqTimer=null,_seqStopped=false;
 
-/* ── Shop tip (cycling tooltip for order button) ── */
-var _shopTipTimer=null,_shopTipIdx=0;
-var _shopTipMsgs=['\u{1F6D2} Order here!','\u{1F355} Pizza, groceries & more','\u{1F3D6} Delivered to any beach','\u{1F6F5} Same-day island delivery'];
-function showShopTip(){
-  var el=document.getElementById('shop-tip');if(!el)return;
-  el.textContent=_shopTipMsgs[_shopTipIdx%_shopTipMsgs.length];_shopTipIdx++;
-  el.classList.add('pop');
-  setTimeout(function(){el.classList.remove('pop');},3500);
+function blinkTip(tipId,blinks,onDone){
+  var el=document.getElementById(tipId);
+  if(!el||_seqStopped){if(onDone)onDone();return;}
+  /* suppress all tips when filter dropdown is open */
+  var dd=document.getElementById('legend-drop');
+  if(dd&&dd.classList.contains('open')){if(onDone)onDone();return;}
+  var count=0;
+  function doBlink(){
+    if(count>=blinks||_seqStopped){
+      el.classList.remove('pop');
+      if(onDone)onDone();
+      return;
+    }
+    el.classList.add('pop');
+    setTimeout(function(){
+      el.classList.remove('pop');
+      count++;
+      setTimeout(doBlink,500);
+    },1000);
+  }
+  doBlink();
 }
-function startShopTip(){
-  if(_shopTipTimer)return;
-  _shopTipTimer=setInterval(showShopTip,50000);
-  setTimeout(showShopTip,25000);
+
+function runSeqTips(){
+  if(_seqStopped)return;
+  if(_seqIdx>=_seqTips.length){
+    _seqIdx=0;
+    /* pause before restarting the cycle */
+    _seqTimer=setTimeout(runSeqTips,10000);
+    return;
+  }
+  blinkTip(_seqTips[_seqIdx].id,3,function(){
+    _seqIdx++;
+    if(!_seqStopped) _seqTimer=setTimeout(runSeqTips,1200);
+  });
 }
-function stopShopTip(){
-  if(_shopTipTimer){clearInterval(_shopTipTimer);_shopTipTimer=null;}
-  var el=document.getElementById('shop-tip');if(el)el.classList.remove('pop');
+
+function startSeqTips(){
+  _seqStopped=false;_seqIdx=0;
+  _seqTimer=setTimeout(runSeqTips,4000);
 }
-startShopTip();
+
+function stopSeqTips(){
+  _seqStopped=true;
+  if(_seqTimer){clearTimeout(_seqTimer);_seqTimer=null;}
+  _seqTips.forEach(function(t){
+    var el=document.getElementById(t.id);
+    if(el)el.classList.remove('pop');
+  });
+}
+
+/* backward-compat stubs for old callers */
+function startChatTip(){}
+function stopChatTip(){stopSeqTips();}
+function startFilterTip(){}
+function stopFilterTip(){stopSeqTips();}
+function dismissFilterTip(){stopSeqTips();}
+function startShopTip(){}
+function stopShopTip(){stopSeqTips();}
+
+startSeqTips();
 
 document.addEventListener('click',function(e){var w=document.getElementById('legend-wrap'),d=document.getElementById('legend-drop');if(d&&w&&!w.contains(e.target))d.classList.remove('open');});
 

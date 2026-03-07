@@ -24,7 +24,8 @@
       "Bash(git add CNAME index.html manifest.json)",
       "Bash(git pull --rebase origin master)",
       "Bash(git stash)",
-      "Bash(git stash pop)"
+      "Bash(git stash pop)",
+      "WebFetch(domain:www.puertoricoferry.com)"
     ]
   }
 }
