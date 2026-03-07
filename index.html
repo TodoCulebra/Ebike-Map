@@ -423,6 +423,12 @@
   .leaflet-control-attribution { font-size:10px !important; background:rgba(255,255,255,0.75) !important; }
   .marker-cluster, .marker-cluster div { background:transparent !important; }
 
+  /* ── START HERE ANNOTATION ── */
+  #start-here { position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%); background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; font-family:var(--font-ui); font-size:12px; font-weight:700; padding:8px 14px; border-radius:10px; white-space:nowrap; box-shadow:0 4px 16px rgba(245,158,11,0.5); animation:startPulse 2s infinite; cursor:pointer; z-index:1003; }
+  #start-here::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:7px solid transparent; border-right-color:#f59e0b; }
+  @keyframes startPulse { 0%,100%{box-shadow:0 4px 16px rgba(245,158,11,0.5); transform:translateY(-50%) scale(1);} 50%{box-shadow:0 4px 24px rgba(245,158,11,0.8),0 0 0 6px rgba(245,158,11,0.15); transform:translateY(-50%) scale(1.05);} }
+  #start-here.hidden { display:none; }
+
   /* ── CHAT TOOLTIP ── */
   .chat-tip-wrap { position:relative; }
   .chat-tip { position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%); background:#25D366; color:#fff; font-family:var(--font-ui); font-size:11px; font-weight:600; padding:6px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 12px rgba(0,0,0,0.25); opacity:0; pointer-events:none; transition:opacity 0.35s, transform 0.35s; transform:translateY(-50%) translateX(-6px); }
@@ -502,8 +508,9 @@
 <div id="map"></div>
 
 <div id="left-stack">
-  <div id="legend-wrap">
-    <button class="stack-btn" onclick="toggleLegendDrop()" title="Filter">&#x1F5FA;&#xFE0F;</button>
+  <div id="legend-wrap" style="position:relative;">
+    <button class="stack-btn" onclick="toggleLegendDrop();dismissStartHere();" title="Filter">&#x1F5FA;&#xFE0F;</button>
+    <div id="start-here" onclick="toggleLegendDrop();dismissStartHere();">&#x1F449; Start Here!</div>
     <div id="legend-drop"><div id="legend-drop-title">Filter by Category</div><ul id="legend-list"></ul></div>
   </div>
   <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
@@ -1391,11 +1398,11 @@ if(document.readyState!=='loading') buildLegend();
 
 /* ═══ LEGEND ═══ */
 var legendCategories = [
-  {type:null,label:'Show All',color:'#006994'},{type:'beach',label:'Beaches',color:'#00b4d8'},
-  {type:'food',label:'Food & Drink',color:'#f59e0b'},{type:'delivery',label:'Delivery',color:'#ea580c'},
-  {type:'ferry',label:'Ferry',color:'#2563eb'},{type:'gas',label:'Gas Station',color:'#ea580c'},
-  {type:'atm',label:'ATM',color:'#6366f1'},{type:'parking',label:'Parking',color:'#64748b'},
-  {type:'restroom',label:'Restrooms',color:'#0891b2'},{type:'rental',label:'Rentals',color:'#7c3aed'},
+  {type:null,label:'Show All',color:'#006994'},{type:'rental',label:'E-Bike & Rentals',color:'#7c3aed'},
+  {type:'beach',label:'Beaches',color:'#00b4d8'},{type:'food',label:'Food & Drink',color:'#f59e0b'},
+  {type:'delivery',label:'Delivery',color:'#ea580c'},{type:'ferry',label:'Ferry',color:'#2563eb'},
+  {type:'gas',label:'Gas Station',color:'#ea580c'},{type:'atm',label:'ATM',color:'#6366f1'},
+  {type:'parking',label:'Parking',color:'#64748b'},{type:'restroom',label:'Restrooms',color:'#0891b2'},
   {type:'villa',label:'Villa',color:'#0891b2'},{type:'anchor',label:'Anchorage',color:'#475569'},
   {type:'hike',label:'Hiking',color:'#16a34a'},{type:'grocery',label:'Grocery',color:'#10b981'},
   {type:'hector',label:'Landmark',color:'#7c3aed'},{type:'fishmarket',label:'Fish Market',color:'#0e7490'},
@@ -1403,6 +1410,8 @@ var legendCategories = [
 ];
 function buildLegend(){var ul=document.getElementById('legend-list');if(!ul)return;ul.innerHTML='';legendCategories.forEach(function(c){var li=document.createElement('li');li.innerHTML='<span class="ld-dot" style="background:'+c.color+'"></span>'+c.label;li.onclick=function(){filterMarkers(c.type);ul.querySelectorAll('li').forEach(function(e){e.classList.remove('active')});li.classList.add('active');document.getElementById('legend-drop').classList.remove('open');};ul.appendChild(li);});ul.querySelector('li').classList.add('active');}
 function toggleLegendDrop(){document.getElementById('legend-drop').classList.toggle('open');}
+function dismissStartHere(){var el=document.getElementById('start-here');if(el)el.classList.add('hidden');localStorage.setItem('tc-start-dismissed','1');}
+if(localStorage.getItem('tc-start-dismissed')){var _sh=document.getElementById('start-here');if(_sh)_sh.classList.add('hidden');}
 document.addEventListener('click',function(e){var w=document.getElementById('legend-wrap'),d=document.getElementById('legend-drop');if(d&&w&&!w.contains(e.target))d.classList.remove('open');});
 
 /* ═══ PIN BUILDER ═══ */
