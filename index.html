@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="TodoCulebra">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%230b2240'/><text x='256' y='340' text-anchor='middle' font-size='280'>🛴</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%230b2240'/><text x='256' y='340' text-anchor='middle' font-size='280'>🚲</text></svg>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.css" crossorigin="anonymous"/>
@@ -243,9 +243,7 @@
   .tide-badge.tide-high { background:rgba(6,182,212,0.15); color:#0e7490; }
   .snorkel-rating { font-size:9px; font-weight:600; color:var(--c-text); margin-bottom:4px; padding:3px 6px; background:#f0fdf4; border-radius:6px; line-height:1.4; }
   .snorkel-rating .stars { color:#f59e0b; }
-  .hud-tide { display:flex; align-items:center; gap:3px; font-size:11px; font-weight:600; white-space:nowrap; }
-  .hud-tide-icon { font-size:13px; }
-  .hud-tide-val { font-size:10px; opacity:0.85; }
+  /* .hud-tide rules moved to Ride HUD section below */
 
   /* ══════════════════════════════════════════════
      CULEBRA PASSPORT / ACHIEVEMENTS
@@ -293,14 +291,22 @@
   #btn-ebike-mode.active { background:linear-gradient(135deg,#10b981,#059669); animation:ebikePulse 2s infinite; }
   @keyframes ebikePulse { 0%,100%{box-shadow:0 2px 12px rgba(16,185,129,0.35)} 50%{box-shadow:0 2px 20px rgba(16,185,129,0.6),0 0 0 4px rgba(16,185,129,0.15)} }
 
-  /* ── Ride HUD ── */
-  #ride-hud { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:1004; display:none; align-items:center; gap:10px; background:rgba(11,34,64,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:999px; padding:6px 16px; box-shadow:0 4px 20px rgba(0,0,0,0.4); font-family:var(--font-ui); color:#fff; }
+  /* ── Ride HUD — UART 2 E-Bike Display ── */
+  #ride-hud { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:1004; display:none; flex-direction:column; align-items:center; width:min(300px, calc(100vw - 32px)); background:rgba(11,34,64,0.94); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:16px; border:1.5px solid rgba(255,255,255,0.08); padding:12px 16px 10px; box-shadow:0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06); font-family:var(--font-ui); color:#fff; }
   #ride-hud.visible { display:flex; }
-  .hud-stat { display:flex; align-items:center; gap:4px; font-size:12px; font-weight:600; white-space:nowrap; }
-  .hud-stat .hud-icon { font-size:14px; }
-  .hud-stat .hud-val { font-variant-numeric:tabular-nums; }
-  .hud-divider { width:1px; height:16px; background:rgba(255,255,255,0.2); }
-  .hud-tip { font-size:10px; font-weight:500; opacity:0.8; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .hud-speed-zone { display:flex; flex-direction:column; align-items:center; gap:0; width:100%; padding:4px 0 6px; }
+  .hud-bike-icon { font-size:18px; opacity:0.7; line-height:1; }
+  .hud-speed-num { font-size:52px; font-weight:700; line-height:1; letter-spacing:-2px; font-variant-numeric:tabular-nums; text-shadow:0 0 20px rgba(16,185,129,0.3); }
+  .hud-speed-unit { font-size:12px; font-weight:500; opacity:0.5; text-transform:uppercase; letter-spacing:2px; margin-top:-2px; }
+  .hud-row-divider { width:100%; height:1px; background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.15) 80%, transparent 100%); margin:6px 0; }
+  .hud-middle-row { display:flex; align-items:center; justify-content:space-between; width:100%; padding:2px 4px; }
+  .hud-compass-zone { display:flex; align-items:center; gap:6px; }
+  .hud-compass-arrow { font-size:20px; line-height:1; }
+  .hud-compass-dir { font-size:16px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:1px; }
+  .hud-tide-zone { display:flex; align-items:center; gap:5px; }
+  .hud-tide-zone .hud-tide-icon { font-size:14px; line-height:1; }
+  .hud-tide-zone .hud-tide-val { font-size:11px; font-weight:600; opacity:0.85; white-space:nowrap; }
+  .hud-tip-row { width:100%; font-size:11px; font-weight:500; opacity:0.75; line-height:1.4; text-align:center; padding:2px 0 0; white-space:normal; word-break:break-word; }
 
   /* ── Proximity Alert Toast ── */
   #ebike-alert { position:absolute; bottom:120px; left:50%; transform:translateX(-50%) translateY(20px); z-index:1005; max-width:320px; width:calc(100vw - 32px); background:rgba(255,255,255,0.97); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-radius:14px; padding:10px 14px; box-shadow:0 4px 24px rgba(0,0,0,0.2); font-family:var(--font-ui); display:none; opacity:0; transition:opacity 0.3s,transform 0.3s; }
@@ -476,9 +482,10 @@
     #legend-drop { max-height:calc(100vh - 200px); overflow-y:auto; }
     #turn-panel { left:8px !important; right:8px !important; bottom:8px !important; max-width:100%; }
     #notice-banner { right:8px; max-width:200px; top:66px; }
-    #ride-hud { padding:5px 10px; gap:6px; }
-    .hud-stat { font-size:11px; }
-    .hud-tip { max-width:80px; font-size:9px; }
+    #ride-hud { top:8px; width:min(280px, calc(100vw - 24px)); padding:10px 14px 8px; border-radius:14px; }
+    .hud-speed-num { font-size:46px; }
+    .hud-compass-dir { font-size:15px; }
+    .hud-tip-row { font-size:10px; }
     #ebike-alert { bottom:100px; max-width:calc(100vw - 16px); }
     #btn-report-hazard { bottom:160px; width:40px; height:40px; font-size:16px; }
     #btn-book-ebike { font-size:10px; padding:0 10px; height:48px; }
@@ -488,7 +495,7 @@
     .sunset-icon { font-size:20px; } .sunset-title { font-size:11px; }
     .sunset-btn { font-size:9px; padding:5px 10px; }
     #achievement-toast { padding:20px 24px; max-width:calc(100vw - 32px); }
-    .hud-tide-val { font-size:9px; max-width:80px; overflow:hidden; text-overflow:ellipsis; }
+    .hud-tide-zone .hud-tide-val { font-size:10px; max-width:100px; overflow:hidden; text-overflow:ellipsis; }
     #share-consent { flex-wrap:wrap; padding:10px 12px; gap:8px; }
     .consent-text { font-size:12px; }
     #admin-badge { top:10px; right:10px; font-size:11px; padding:6px 10px; }
@@ -497,6 +504,12 @@
     #topbar { left:6px; right:6px; top:6px; }
     #left-stack { top:64px; left:6px; }
     .stack-btn, #btn-locate { width:36px; height:36px; font-size:16px; }
+    #ride-hud { top:6px; width:calc(100vw - 16px); padding:8px 10px 6px; border-radius:12px; }
+    .hud-speed-num { font-size:40px; letter-spacing:-1px; }
+    .hud-bike-icon { font-size:16px; }
+    .hud-compass-arrow { font-size:18px; }
+    .hud-compass-dir { font-size:14px; }
+    .hud-tip-row { font-size:9px; }
   }
   @media (min-width:768px) {
     #turn-panel { left:auto !important; right:16px !important; bottom:16px !important; max-width:380px; }
@@ -590,15 +603,26 @@
 
 <button id="btn-chat-float" onclick="openAssist()">&#x1F4AC; Chat with Us</button>
 
-<!-- E-Bike Mode HUD -->
+<!-- E-Bike Mode HUD — UART 2 Display -->
 <div id="ride-hud">
-  <div class="hud-stat"><span class="hud-icon">&#x1F6B4;</span><span class="hud-val" id="hud-speed">0</span><span style="font-size:9px;opacity:0.6;">mph</span></div>
-  <div class="hud-divider"></div>
-  <div class="hud-stat"><span class="hud-icon" id="hud-compass">&#x2B06;&#xFE0F;</span><span class="hud-val" id="hud-heading">N</span></div>
-  <div class="hud-divider"></div>
-  <div class="hud-tip" id="hud-tip">Ride safe!</div>
-  <div class="hud-divider"></div>
-  <div class="hud-tide"><span class="hud-tide-icon">&#x1F30A;</span><span class="hud-tide-val" id="hud-tide">--</span></div>
+  <div class="hud-speed-zone">
+    <span class="hud-bike-icon">&#x1F6B4;</span>
+    <span class="hud-speed-num" id="hud-speed">0</span>
+    <span class="hud-speed-unit">mph</span>
+  </div>
+  <div class="hud-row-divider"></div>
+  <div class="hud-middle-row">
+    <div class="hud-compass-zone">
+      <span class="hud-compass-arrow" id="hud-compass">&#x2B06;&#xFE0F;</span>
+      <span class="hud-compass-dir" id="hud-heading">N</span>
+    </div>
+    <div class="hud-tide-zone">
+      <span class="hud-tide-icon">&#x1F30A;</span>
+      <span class="hud-tide-val" id="hud-tide">--</span>
+    </div>
+  </div>
+  <div class="hud-row-divider"></div>
+  <div class="hud-tip-row" id="hud-tip">Ride safe!</div>
 </div>
 
 <!-- Proximity Alert Card -->
@@ -626,7 +650,7 @@
 
 <!-- PWA Install Banner -->
 <div id="pwa-banner">
-  <span class="pwa-icon">&#x1F6F4;</span>
+  <span class="pwa-icon">&#x1F6B2;</span>
   <div class="pwa-text"><strong>Install Todo Culebra Map</strong><span>Works offline at remote beaches!</span></div>
   <button class="pwa-btn" id="pwa-install">Install</button>
   <button class="pwa-close" id="pwa-dismiss">&times;</button>
@@ -642,7 +666,7 @@
   </div>
   <div class="guide-content">
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-ferry">
       <h3>&#x26F4;&#xFE0F; Getting Here &mdash; Ferry from Ceiba</h3>
       <p>The <b>Ceiba&ndash;Culebra ferry</b> is the primary way to reach the island. Crossing time: <b>55 minutes</b>.</p>
       <table class="guide-table">
@@ -678,8 +702,8 @@
       <p style="margin-top:8px;"><b>By Air:</b> Air Flamenco from Condado (Isla Grande) &mdash; only 27 minutes! Cape Air also flies from SJU and Ceiba.</p>
     </div>
 
-    <div class="guide-section">
-      <h3>&#x1F6F4; Getting Around</h3>
+    <div class="guide-section" id="guide-transport">
+      <h3>&#x1F6B2; Getting Around</h3>
       <p>No Uber, no Lyft, limited taxis. A rental is essentially mandatory.</p>
       <table class="guide-table">
         <tr><th>Vehicle</th><th>Best For</th><th>Reaches</th></tr>
@@ -693,15 +717,15 @@
       <div class="guide-tip">An e-bike is the cheapest option and reaches ALL beaches including dirt roads. <a href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank">Book instantly on Peek</a> or visit <a href="https://www.todoculebra.com" target="_blank">todoculebra.com</a>. Reserve before arriving &mdash; vehicles sell out during peak season (Dec&ndash;Apr).</div>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-food">
       <h3>&#x1F355; Hungry? We Deliver!</h3>
       <p>No vehicle? No problem. <b>ShopCulebra</b> delivers groceries, pizza from Jibara, and Chinese food island-wide.</p>
       <a class="guide-cta" href="https://www.shopculebra.com" target="_blank">&#x1F6D2; Order on ShopCulebra.com</a>
-      <a class="guide-cta" href="javascript:void(0)" onclick="closeGuide();setTimeout(openShop,400);" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6F4; Browse the Island Shop</a>
+      <a class="guide-cta" href="javascript:void(0)" onclick="closeGuide();setTimeout(openShop,400);" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2; Browse the Island Shop</a>
       <div class="guide-tip">Need help? Tap the &#x1F4AC; button on the map for instant answers, or WhatsApp 434-373-1763 (messages only, no calls).</div>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-beach">
       <h3>&#x1F3D6;&#xFE0F; Playa Flamenco &mdash; The #1 Beach</h3>
       <p>Consistently ranked among the world's best beaches. White sand, crystal water, and WW2 tanks to explore. <b>Arrive before 10am</b> for the best spots.</p>
       <ul>
@@ -715,7 +739,7 @@
       <div class="guide-tip">Parking is $5. The kioskos usually open 9am&ndash;6pm but can close early on slow days. Bring cash!</div>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-camping">
       <h3>&#x26FA; Camping Flamenco</h3>
       <p>Camp right on Playa Flamenco &mdash; one of the world's best beach camping spots! <b>Reservations required.</b></p>
       <ul>
@@ -730,7 +754,7 @@
       <div class="guide-warn">Reservations fill up fast in peak season (Dec&ndash;Apr). Book early!</div>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-money">
       <h3>&#x1F4B5; Money & Cell Service</h3>
       <ul>
         <li><b>Cash is king</b> &mdash; many places are cash only. ONE ATM on the island (Banco Popular, pinned on map).</li>
@@ -739,7 +763,7 @@
       </ul>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-rules">
       <h3>&#x1F3D6;&#xFE0F; Beach Rules</h3>
       <ul>
         <li>No glass bottles on any beach &mdash; cans or plastic only</li>
@@ -751,7 +775,7 @@
       <div class="guide-tip">Best snorkeling: Playa Melones, Carlos Rosario, Playa Tamarindo &mdash; all pinned on the map!</div>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-pack">
       <h3>&#x1F392; What to Pack</h3>
       <ul>
         <li><b>Reef-safe sunscreen</b> &mdash; regular sunscreen destroys coral</li>
@@ -766,7 +790,7 @@
       <div class="guide-tip">Stock up on sunscreen, snacks &amp; drinks before leaving the mainland &mdash; it's cheaper!</div>
     </div>
 
-    <div class="guide-section">
+    <div class="guide-section" id="guide-reference">
       <h3>&#x1F4DE; Quick Reference</h3>
       <table class="guide-table">
         <tr><th>Resource</th><th>Contact</th></tr>
@@ -948,7 +972,7 @@
           <span class="at-badge" style="background:#2563eb;">NEW</span>
         </div>
         <div class="at-card" onclick="showAssistTopic('booking')">
-          <span class="at-icon">&#x1F6F4;</span>
+          <span class="at-icon">&#x1F6B2;</span>
           <div class="at-body">
             <div class="at-label">E-Bike Booking &amp; Pricing</div>
             <div class="at-desc">Rates, availability, how to book instantly</div>
@@ -1321,8 +1345,29 @@ var CELL_LNG=(BOUNDS.east-BOUNDS.west)/CELLS, CELL_LAT=(BOUNDS.north-BOUNDS.sout
 function snapToGrid(lat,lng){var c=Math.round((lng-BOUNDS.west)/CELL_LNG),r=Math.round((BOUNDS.north-lat)/CELL_LAT);c=Math.max(0,Math.min(CELLS,c));r=Math.max(0,Math.min(CELLS,r));return{lat:BOUNDS.north-r*CELL_LAT,lng:BOUNDS.west+c*CELL_LNG};}
 
 /* ═══ GUIDE PANEL ═══ */
-function openGuide(){document.getElementById('guide-panel').classList.add('open');}
+function openGuide(){var p=document.getElementById('guide-panel');p.scrollTop=0;p.classList.add('open');}
 function closeGuide(){document.getElementById('guide-panel').classList.remove('open');}
+
+/* ── Open guide scrolled to section matching pin type ── */
+var guideTypeMap={
+  ferry:'guide-ferry',ebike:'guide-transport',rental:'guide-transport',
+  gas:'guide-transport',parking:'guide-transport',
+  food:'guide-food',delivery:'guide-food',grocery:'guide-food',fishmarket:'guide-food',
+  beach:'guide-beach',hike:'guide-beach',restroom:'guide-beach',
+  snorkel:'guide-rules',camping:'guide-camping',atm:'guide-money',
+  villa:'guide-reference',anchor:'guide-reference',hector:'guide-reference',watertaxi:'guide-reference'
+};
+function openGuideSection(type){
+  var panel=document.getElementById('guide-panel');
+  panel.classList.add('open');
+  var sid=guideTypeMap[type];
+  if(sid){
+    setTimeout(function(){
+      var el=document.getElementById(sid);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    },400);
+  }
+}
 
 /* ═══ SHOP PANEL ═══ */
 function openShop(){document.getElementById('shop-panel').classList.add('open');loadEcwidStore();map.closePopup();checkInShopper();}
@@ -1911,7 +1956,7 @@ for(var mi=0;mi<locations.length;mi++){
       checkinBtn+actionBtn+
       '<div class="route-status"></div>'+
       '<div class="fallback-row"><a class="btn-fallback btn-apple" href="#" target="_blank">Apple Maps</a><a class="btn-fallback btn-google" href="#" target="_blank">Google Maps</a></div>'+
-      '<button class="btn-learn-more" onclick="openGuide()">Learn More</button>'+
+      '<button class="btn-learn-more" onclick="openGuideSection(\''+p.type+'\')">Learn More</button>'+
       '<button class="btn-share" data-lat="'+p.lat+'" data-lng="'+p.lng+'">Share This Spot</button>'+
     '</div>';
 
