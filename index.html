@@ -357,6 +357,12 @@
   .leaflet-control-attribution { font-size:10px !important; background:rgba(255,255,255,0.75) !important; }
   .marker-cluster, .marker-cluster div { background:transparent !important; }
 
+  /* ── CHAT TOOLTIP ── */
+  .chat-tip-wrap { position:relative; }
+  .chat-tip { position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%); background:#25D366; color:#fff; font-family:var(--font-ui); font-size:11px; font-weight:600; padding:6px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 12px rgba(0,0,0,0.25); opacity:0; pointer-events:none; transition:opacity 0.35s, transform 0.35s; transform:translateY(-50%) translateX(-6px); }
+  .chat-tip::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:5px solid transparent; border-right-color:#25D366; }
+  .chat-tip.pop { opacity:1; transform:translateY(-50%) translateX(0); pointer-events:auto; }
+
   /* ── MOBILE ── */
   @media (max-width:767px) {
     #topbar { left:8px; right:8px; top:8px; width:auto; }
@@ -407,7 +413,10 @@
   </div>
   <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
   <button class="stack-btn" onclick="openShop()" title="Shop" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
-  <button class="stack-btn" onclick="openAssist()" title="Help &amp; Chat" style="background:#25D366;">&#x1F4AC;</button>
+  <div class="chat-tip-wrap">
+    <button class="stack-btn" onclick="openAssist()" title="Help &amp; Chat" style="background:#25D366;">&#x1F4AC;</button>
+    <div id="chat-tip" class="chat-tip">Need help? Tap here!</div>
+  </div>
   <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
   <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
   <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
@@ -803,9 +812,30 @@ function openShop(){document.getElementById('shop-panel').classList.add('open');
 function closeShop(){document.getElementById('shop-panel').classList.remove('open');}
 
 /* ═══ SMART ASSISTANT ═══ */
-function openAssist(){document.getElementById('assist-panel').classList.add('open');assistBack();map.closePopup();}
-function closeAssist(){document.getElementById('assist-panel').classList.remove('open');}
+function openAssist(){document.getElementById('assist-panel').classList.add('open');assistBack();map.closePopup();stopChatTip();}
+function closeAssist(){document.getElementById('assist-panel').classList.remove('open');startChatTip();}
 function assistBack(){document.getElementById('assist-topics-list').classList.remove('hidden');document.getElementById('assist-detail').classList.remove('visible');}
+
+/* ── Chat tooltip reminder ── */
+var _chatTipTimer=null,_chatTipMsgs=['Need help? Tap here!','Book, deliver, explore \u{1F680}','Questions? Ask here!','Directions & tips inside \u{1F30A}'];
+var _chatTipIdx=0;
+function showChatTip(){
+  var el=document.getElementById('chat-tip');if(!el)return;
+  el.textContent=_chatTipMsgs[_chatTipIdx%_chatTipMsgs.length];_chatTipIdx++;
+  el.classList.add('pop');
+  setTimeout(function(){el.classList.remove('pop');},3500);
+}
+function startChatTip(){
+  if(_chatTipTimer)return;
+  _chatTipTimer=setInterval(showChatTip,45000);
+  /* First nudge after 15s */
+  setTimeout(showChatTip,15000);
+}
+function stopChatTip(){
+  if(_chatTipTimer){clearInterval(_chatTipTimer);_chatTipTimer=null;}
+  var el=document.getElementById('chat-tip');if(el)el.classList.remove('pop');
+}
+startChatTip();
 
 var WA='+14343731763';
 function waLink(msg){return'https://wa.me/'+WA.replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg);}
