@@ -8,7 +8,16 @@
       "Bash(git push origin master)",
       "Bash(gh api repos/TodoCulebra/Ebike-Map/pages)",
       "Bash(gh api repos/TodoCulebra/Ebike-Map/pages -X POST -f \"build_type=workflow\" -f \"source[branch]=master\" -f \"source[path]=/\")",
-      "Bash(git pull origin master --no-edit)"
+      "Bash(git pull origin master --no-edit)",
+      "Bash(python3 ECWID/parse_catalog.py)",
+      "Bash(where python)",
+      "Bash(where py)",
+      "Bash(/c/Users/LogenJohnson/AppData/Local/Programs/Python/Python311/python ECWID/parse_catalog.py)",
+      "Bash(git add index.html manifest.json sw.js)",
+      "Bash(Works offline at remote beaches!\" with Install/Dismiss buttons:*)",
+      "WebFetch(domain:book.peek.com)",
+      "Bash(git push)",
+      "Bash(git add index.html sw.js)"
     ]
   }
 }
