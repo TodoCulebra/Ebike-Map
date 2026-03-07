@@ -1048,6 +1048,9 @@ function toggleEbikeMode(){
   if(ebikeMode){
     if(userLat===null){showToast('Enable location first');ebikeMode=false;return;}
     btn.classList.add('active');hud.classList.add('visible');hazBtn.classList.add('visible');
+    /* Hide location pins — ride mode is about the road */
+    map.removeLayer(clusterGroup);
+    map.removeLayer(deliveryZone);map.removeLayer(dzLabel);
     ebikeHazardLayer.addTo(map);loadKnownHazards();
     map.setView([userLat,userLng],16,{animate:true});
     ebikePrevPos={lat:userLat,lng:userLng,time:Date.now()};ebikeAutoFollow=true;
@@ -1060,6 +1063,9 @@ function toggleEbikeMode(){
     btn.classList.remove('active');hud.classList.remove('visible');hazBtn.classList.remove('visible');
     hideHazardMenu();dismissEbikeAlert();
     map.removeLayer(ebikeHazardLayer);
+    /* Restore location pins */
+    map.addLayer(clusterGroup);
+    map.addLayer(deliveryZone);map.addLayer(dzLabel);
     if(bookBtn)bookBtn.style.bottom='';
     if(window._hudTipInterval)clearInterval(window._hudTipInterval);
     ebikeAlertCooldowns={};ebikeAlertQueue=[];
