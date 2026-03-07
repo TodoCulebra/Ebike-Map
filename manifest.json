@@ -1,7 +1,7 @@
 {
-  "name": "InCulebra E-Bike Map",
-  "short_name": "InCulebra",
-  "description": "Interactive e-bike guest map for Culebra, Puerto Rico. Directions, delivery, and island guide.",
+  "name": "Todo Culebra E-Bike Map",
+  "short_name": "TodoCulebra",
+  "description": "Interactive e-bike guest map for Culebra, Puerto Rico. Directions, delivery, booking, and island guide.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

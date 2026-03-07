@@ -17,7 +17,10 @@
       "Bash(Works offline at remote beaches!\" with Install/Dismiss buttons:*)",
       "WebFetch(domain:book.peek.com)",
       "Bash(git push)",
-      "Bash(git add index.html sw.js)"
+      "Bash(git add index.html sw.js)",
+      "Bash(git add CNAME)",
+      "Bash(git rebase --continue)",
+      "Bash(git add -A)"
     ]
   }
 }
