@@ -429,6 +429,20 @@
   .chat-tip::before { content:''; position:absolute; right:100%; top:50%; transform:translateY(-50%); border:5px solid transparent; border-right-color:#25D366; }
   .chat-tip.pop { opacity:1; transform:translateY(-50%) translateX(0); pointer-events:auto; }
 
+  /* ── RIDER TRACKING ── */
+  #share-consent { position:fixed; bottom:0; left:0; right:0; z-index:2500; background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; display:none; align-items:center; justify-content:center; gap:10px; padding:14px 16px; font-family:var(--font-ui); box-shadow:0 -4px 24px rgba(0,0,0,0.25); }
+  #share-consent.visible { display:flex; }
+  .consent-text { font-size:13px; font-weight:500; flex:1; }
+  .consent-btn { background:rgba(255,255,255,0.25); color:#fff; border:none; border-radius:999px; padding:8px 16px; font-family:var(--font-ui); font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; }
+  .consent-btn.accept { background:#10b981; }
+  .consent-btn:hover { opacity:0.9; }
+  #admin-badge { position:fixed; top:14px; right:14px; z-index:2000; background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; font-family:var(--font-ui); font-size:12px; font-weight:700; padding:8px 14px; border-radius:999px; box-shadow:0 4px 16px rgba(239,68,68,0.45); display:none; align-items:center; gap:6px; }
+  body.admin-mode #admin-badge { display:flex; }
+  #admin-count { background:rgba(255,255,255,0.3); border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+  .rider-dot { width:16px; height:16px; border-radius:50%; background:#10b981; border:2.5px solid #fff; box-shadow:0 0 8px rgba(16,185,129,0.6); animation:riderPulse 2s infinite; }
+  .rider-dot.stale { background:#f59e0b; box-shadow:0 0 8px rgba(245,158,11,0.6); animation:none; }
+  @keyframes riderPulse { 0%,100%{box-shadow:0 0 8px rgba(16,185,129,0.6);} 50%{box-shadow:0 0 16px rgba(16,185,129,0.9);} }
+
   /* ── MOBILE ── */
   @media (max-width:767px) {
     #topbar { left:8px; right:8px; top:8px; width:auto; }
@@ -452,6 +466,9 @@
     .sunset-btn { font-size:9px; padding:5px 10px; }
     #achievement-toast { padding:20px 24px; max-width:calc(100vw - 32px); }
     .hud-tide-val { font-size:9px; max-width:80px; overflow:hidden; text-overflow:ellipsis; }
+    #share-consent { flex-wrap:wrap; padding:10px 12px; gap:8px; }
+    .consent-text { font-size:12px; }
+    #admin-badge { top:10px; right:10px; font-size:11px; padding:6px 10px; }
   }
   @media (max-width:375px) {
     #topbar { left:6px; right:6px; top:6px; }
@@ -462,6 +479,8 @@
     #turn-panel { left:auto !important; right:16px !important; bottom:16px !important; max-width:380px; }
   }
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -890,6 +909,16 @@
   <div class="passport-content" id="passport-content"></div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     RIDER TRACKING
+══════════════════════════════════════════════ -->
+<div id="share-consent">
+  <span class="consent-text">&#x1F4CD; Share your ride location with Todo Culebra for safety &amp; assistance?</span>
+  <button class="consent-btn accept" onclick="acceptShare()">Share</button>
+  <button class="consent-btn" onclick="declineShare()">No thanks</button>
+</div>
+<div id="admin-badge">&#x1F512; ADMIN <span id="admin-count">0</span></div>
+
 <script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?108569855&data_platform=code" charset="utf-8"></script>
 <script type="text/javascript">
   var ecwidLoaded = false;
@@ -902,6 +931,109 @@
   }
 </script>
 <script>
+/* ═══ ADMIN DETECTION ═══ */
+var isAdmin = new URLSearchParams(window.location.search).get('admin') === '1';
+
+/* ═══ FIREBASE RIDER TRACKING ═══ */
+var firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "todoculebra-tracker.firebaseapp.com",
+  databaseURL: "https://todoculebra-tracker-default-rtdb.firebaseio.com",
+  projectId: "todoculebra-tracker",
+  storageBucket: "todoculebra-tracker.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+var fbApp=null,fbDb=null,riderId=null,shareConsent=null,lastPush=0,riderMarkers={};
+
+function initFirebase(){
+  try{
+    if(typeof firebase==='undefined')return;
+    fbApp=firebase.initializeApp(firebaseConfig);
+    fbDb=firebase.database();
+    riderId=localStorage.getItem('tc-rider-id');
+    if(!riderId){riderId='r-'+Math.random().toString(36).substr(2,9)+'-'+Date.now().toString(36);localStorage.setItem('tc-rider-id',riderId);}
+    var saved=localStorage.getItem('tc-share-consent');
+    if(saved==='true')shareConsent=true;
+    else if(saved==='false')shareConsent=false;
+    if(isAdmin)initAdminView();
+  }catch(ex){console.warn('Firebase init:',ex);}
+}
+
+/* ── Guest Consent ── */
+function showShareConsent(){
+  if(shareConsent!==null||isAdmin)return;
+  document.getElementById('share-consent').classList.add('visible');
+}
+function acceptShare(){
+  shareConsent=true;localStorage.setItem('tc-share-consent','true');
+  document.getElementById('share-consent').classList.remove('visible');
+  pushRiderLocation();
+}
+function declineShare(){
+  shareConsent=false;localStorage.setItem('tc-share-consent','false');
+  document.getElementById('share-consent').classList.remove('visible');
+}
+
+/* ── Guest Push ── */
+function pushRiderLocation(){
+  if(!fbDb||!riderId||isAdmin||!shareConsent||userLat===null)return;
+  var now=Date.now();if(now-lastPush<30000)return;lastPush=now;
+  var ref=fbDb.ref('riders/'+riderId);
+  ref.set({lat:userLat,lng:userLng,ts:now,acc:userAccCircle?userAccCircle.getRadius():0});
+  ref.onDisconnect().remove();
+}
+
+/* ── Admin View ── */
+function initAdminView(){
+  document.body.classList.add('admin-mode');
+  if(!fbDb)return;
+  var ref=fbDb.ref('riders');
+  ref.on('child_added',function(snap){onRiderUpdate(snap);});
+  ref.on('child_changed',function(snap){onRiderUpdate(snap);});
+  ref.on('child_removed',function(snap){onRiderRemoved(snap);});
+  setInterval(cleanStaleRiders,60000);
+}
+function onRiderUpdate(snap){
+  var id=snap.key,d=snap.val();if(!d||!d.lat||!d.lng)return;
+  var ago=Math.round((Date.now()-d.ts)/60000);
+  var stale=ago>2;
+  var cls='rider-dot'+(stale?' stale':'');
+  var popHtml='<div style="font-family:var(--font-ui);font-size:12px;padding:4px;"><b>&#x1F6B4; Rider '+id.substr(0,8)+'</b><br>'+ago+' min ago'+(d.acc?' &bull; ~'+Math.round(d.acc)+'m':'')+'</div>';
+  if(riderMarkers[id]){
+    riderMarkers[id].setLatLng([d.lat,d.lng]);
+    riderMarkers[id].setPopupContent(popHtml);
+    riderMarkers[id].getElement().className='rider-dot'+(stale?' stale':'');
+  }else{
+    var ic=L.divIcon({className:cls,iconSize:[16,16],iconAnchor:[8,8]});
+    riderMarkers[id]=L.marker([d.lat,d.lng],{icon:ic,zIndexOffset:900}).bindPopup(popHtml).addTo(map);
+  }
+  riderMarkers[id]._riderTs=d.ts;
+  updateAdminCount();
+}
+function onRiderRemoved(snap){
+  var id=snap.key;
+  if(riderMarkers[id]){map.removeLayer(riderMarkers[id]);delete riderMarkers[id];}
+  updateAdminCount();
+}
+function updateAdminCount(){
+  var cnt=Object.keys(riderMarkers).length;
+  var el=document.getElementById('admin-count');
+  if(el)el.textContent=cnt;
+}
+function cleanStaleRiders(){
+  var now=Date.now();
+  for(var id in riderMarkers){
+    if(!riderMarkers.hasOwnProperty(id))continue;
+    var age=(now-(riderMarkers[id]._riderTs||0))/60000;
+    if(age>15){map.removeLayer(riderMarkers[id]);delete riderMarkers[id];}
+    else if(age>2){var el=riderMarkers[id].getElement();if(el&&el.className.indexOf('stale')===-1)el.className='rider-dot stale';}
+  }
+  updateAdminCount();
+}
+
+initFirebase();
+
 /* ═══ GRID SNAP ═══ */
 var BOUNDS={west:-65.365,east:-65.215,south:18.270,north:18.345},CELLS=1000;
 var CELL_LNG=(BOUNDS.east-BOUNDS.west)/CELLS, CELL_LAT=(BOUNDS.north-BOUNDS.south)/CELLS;
@@ -1712,6 +1844,7 @@ function toggleEbikeMode(){
     ebikePrevPos={lat:userLat,lng:userLng,time:Date.now()};ebikeAutoFollow=true;
     document.getElementById('notice-banner').classList.remove('show');
     document.getElementById('btn-chat-float').style.display='none';
+    document.getElementById('share-consent').classList.remove('visible');
     updateHudTip();window._hudTipInterval=setInterval(updateHudTip,30000);
     map.on('dragstart',onMapDrag);
     showToast('\u{1F6B4} E-Bike Mode ON \u2014 Ride safe!');
@@ -1852,7 +1985,7 @@ function loadKnownHazards(){
 }
 
 /* ═══ GEOLOCATION ═══ */
-if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();updateEbikeHUD();checkProximityAlerts();checkGPSCheckins();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
+if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();updateEbikeHUD();checkProximityAlerts();checkGPSCheckins();if(!isAdmin&&shareConsent===null)showShareConsent();if(!isAdmin&&shareConsent)pushRiderLocation();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
 
 if(typeof ResizeObserver!=='undefined'){new ResizeObserver(function(){map.invalidateSize();}).observe(document.getElementById('map'));}else{setTimeout(function(){map.invalidateSize();},300);}
 

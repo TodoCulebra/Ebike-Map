@@ -3,7 +3,7 @@
    Caches app shell + map tiles for offline use
 ═══════════════════════════════════════════════════ */
 
-var CACHE_NAME = 'inculebra-v2';
+var CACHE_NAME = 'inculebra-v3';
 var TILE_CACHE = 'inculebra-tiles-v1';
 
 /* App shell — these get cached on install */
@@ -18,7 +18,9 @@ var APP_SHELL = [
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js',
-  'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap'
+  'https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap',
+  'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js',
+  'https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js'
 ];
 
 /* Install — cache app shell */
@@ -52,6 +54,11 @@ self.addEventListener('activate', function(e) {
 /* Fetch — serve from cache, fallback to network */
 self.addEventListener('fetch', function(e) {
   var url = e.request.url;
+
+  /* Firebase Realtime DB — always network, never cache */
+  if (url.indexOf('firebaseio.com') !== -1 || url.indexOf('firebaseinstallations') !== -1) {
+    return;
+  }
 
   /* Map tiles — cache as you browse (runtime caching) */
   if (url.indexOf('arcgisonline.com') !== -1 || url.indexOf('tile') !== -1) {
