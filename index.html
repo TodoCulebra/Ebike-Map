@@ -131,13 +131,13 @@
   #toast { position:absolute; top:78px; left:50%; transform:translateX(-50%); z-index:2000; background:var(--c-text); color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,0.3); white-space:nowrap; opacity:0; transition:opacity 0.3s; pointer-events:none; }
   #toast.show { opacity:1; }
 
-  /* ── NOTICE BANNER ── */
-  #notice-banner { position:absolute; top:12px; right:12px; z-index:1003; max-width:320px; background:linear-gradient(135deg,var(--c-navy),#1a4a7a); color:#fff; border-radius:14px; padding:12px 16px; box-shadow:0 4px 20px rgba(0,0,0,0.35); transform:translateX(calc(100% + 20px)); transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); font-family:var(--font-ui); }
+  /* ── NOTICE BANNER (compact) ── */
+  #notice-banner { position:absolute; top:12px; right:12px; z-index:1003; max-width:200px; background:linear-gradient(135deg,var(--c-navy),#1a4a7a); color:#fff; border-radius:10px; padding:6px 10px; box-shadow:0 2px 14px rgba(0,0,0,0.3); transform:translateX(calc(100% + 20px)); transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); font-family:var(--font-ui); }
   #notice-banner.show { transform:translateX(0); }
-  #notice-title { font-size:13px; font-weight:700; margin-bottom:4px; }
-  #notice-body { font-size:12px; opacity:0.85; line-height:1.6; }
+  #notice-title { font-size:10px; font-weight:700; margin-bottom:2px; padding-right:14px; }
+  #notice-body { font-size:9px; opacity:0.85; line-height:1.4; }
   #notice-body a { color:#7dd3fc; } #notice-body b { color:#fff; }
-  #notice-close { position:absolute; top:8px; right:10px; background:none; border:none; color:rgba(255,255,255,0.6); font-size:16px; cursor:pointer; }
+  #notice-close { position:absolute; top:4px; right:6px; background:none; border:none; color:rgba(255,255,255,0.6); font-size:12px; cursor:pointer; }
 
   /* ── BRAND LINK ── */
   #brand-link { position:absolute; bottom:12px; left:12px; z-index:1001; background:rgba(255,255,255,0.95); backdrop-filter:blur(12px); padding:6px 14px; border-radius:999px; box-shadow:0 2px 10px rgba(0,0,0,0.15); font-family:var(--font-ui); font-size:12px; font-weight:600; color:var(--c-ocean); text-decoration:none; }
@@ -219,10 +219,66 @@
   .ecwid-divider::before { left:0; } .ecwid-divider::after { right:0; }
 
   /* ── Floating Order Button ── */
-  #btn-order-float { position:absolute; bottom:60px; right:12px; z-index:1001; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; border:none; border-radius:999px; padding:10px 18px; box-shadow:0 4px 20px rgba(234,88,12,0.5); font-family:var(--font-ui); font-size:12px; font-weight:700; cursor:pointer; display:none; align-items:center; gap:6px; transition:all 0.3s; animation:floatPulse 3s infinite; }
+  #btn-order-float { position:absolute; bottom:110px; right:12px; z-index:1001; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; border:none; border-radius:999px; padding:10px 18px; box-shadow:0 4px 20px rgba(234,88,12,0.5); font-family:var(--font-ui); font-size:12px; font-weight:700; cursor:pointer; display:none; align-items:center; gap:6px; transition:all 0.3s; animation:floatPulse 3s infinite; }
   #btn-order-float:hover { transform:scale(1.05); }
   @keyframes floatPulse { 0%,100%{box-shadow:0 4px 20px rgba(234,88,12,0.5)} 50%{box-shadow:0 4px 28px rgba(234,88,12,0.7)} }
   #btn-order-float.visible { display:flex; }
+
+  /* ── Floating Book E-Bike CTA ── */
+  #btn-book-ebike { position:absolute; bottom:56px; left:50%; transform:translateX(-50%); z-index:1002; background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; border:none; border-radius:999px; padding:11px 20px; box-shadow:0 4px 24px rgba(0,105,148,0.5); font-family:var(--font-ui); font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; text-decoration:none; animation:bookPulse 2.5s infinite; white-space:nowrap; letter-spacing:0.02em; }
+  #btn-book-ebike:hover { transform:translateX(-50%) scale(1.05); }
+  @keyframes bookPulse { 0%,100%{box-shadow:0 4px 24px rgba(0,105,148,0.5)} 50%{box-shadow:0 4px 32px rgba(0,160,176,0.7),0 0 0 6px rgba(0,160,176,0.15)} }
+
+  /* ══════════════════════════════════════════════
+     E-BIKE WAZE MODE
+  ══════════════════════════════════════════════ */
+  #btn-ebike-mode { background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); position:relative; }
+  #btn-ebike-mode.active { background:linear-gradient(135deg,#10b981,#059669); animation:ebikePulse 2s infinite; }
+  @keyframes ebikePulse { 0%,100%{box-shadow:0 2px 12px rgba(16,185,129,0.35)} 50%{box-shadow:0 2px 20px rgba(16,185,129,0.6),0 0 0 4px rgba(16,185,129,0.15)} }
+
+  /* ── Ride HUD ── */
+  #ride-hud { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:1004; display:none; align-items:center; gap:10px; background:rgba(11,34,64,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:999px; padding:6px 16px; box-shadow:0 4px 20px rgba(0,0,0,0.4); font-family:var(--font-ui); color:#fff; }
+  #ride-hud.visible { display:flex; }
+  .hud-stat { display:flex; align-items:center; gap:4px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .hud-stat .hud-icon { font-size:14px; }
+  .hud-stat .hud-val { font-variant-numeric:tabular-nums; }
+  .hud-divider { width:1px; height:16px; background:rgba(255,255,255,0.2); }
+  .hud-tip { font-size:10px; font-weight:500; opacity:0.8; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  /* ── Proximity Alert Toast ── */
+  #ebike-alert { position:absolute; bottom:120px; left:50%; transform:translateX(-50%) translateY(20px); z-index:1005; max-width:320px; width:calc(100vw - 32px); background:rgba(255,255,255,0.97); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-radius:14px; padding:10px 14px; box-shadow:0 4px 24px rgba(0,0,0,0.2); font-family:var(--font-ui); display:none; opacity:0; transition:opacity 0.3s,transform 0.3s; }
+  #ebike-alert.show { display:block; opacity:1; transform:translateX(-50%) translateY(0); }
+  .ea-row { display:flex; align-items:flex-start; gap:10px; }
+  .ea-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
+  .ea-content { flex:1; }
+  .ea-title { font-size:12px; font-weight:700; color:var(--c-text); margin-bottom:2px; }
+  .ea-body { font-size:11px; color:var(--c-muted); line-height:1.4; }
+  .ea-dist { font-size:9px; font-weight:600; color:var(--c-ocean); margin-top:3px; }
+  .ea-dismiss { position:absolute; top:6px; right:8px; background:none; border:none; color:#aaa; font-size:14px; cursor:pointer; }
+  .ea-hazard { border-left:4px solid var(--c-red); }
+  .ea-food { border-left:4px solid var(--c-amber); }
+  .ea-snorkel { border-left:4px solid #06b6d4; }
+  .ea-beach { border-left:4px solid #00b4d8; }
+  .ea-tip { border-left:4px solid var(--c-green); }
+  .ea-atm { border-left:4px solid #6366f1; }
+
+  /* ── Hazard Report Button ── */
+  #btn-report-hazard { position:absolute; bottom:170px; right:12px; z-index:1002; width:44px; height:44px; border-radius:50%; border:none; background:var(--c-red); color:#fff; box-shadow:0 2px 12px rgba(239,68,68,0.5); font-size:18px; cursor:pointer; display:none; align-items:center; justify-content:center; }
+  #btn-report-hazard.visible { display:flex; }
+  #btn-report-hazard:active { transform:scale(0.92); }
+
+  /* ── Hazard Pin Icon ── */
+  .hazard-pin { width:28px; height:28px; border-radius:50%; background:#fef2f2; border:2px solid var(--c-red); display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 2px 8px rgba(239,68,68,0.35); }
+
+  /* ── Hazard Type Picker ── */
+  #hazard-confirm { position:absolute; bottom:220px; right:12px; z-index:1005; background:var(--c-white); border-radius:12px; padding:10px 14px; box-shadow:0 4px 20px rgba(0,0,0,0.2); font-family:var(--font-ui); display:none; width:180px; }
+  #hazard-confirm.visible { display:block; }
+  .hc-title { font-size:11px; font-weight:700; color:var(--c-text); margin-bottom:6px; }
+  .hc-btn { display:block; width:100%; padding:6px; margin-bottom:4px; border:none; border-radius:8px; font-family:var(--font-ui); font-size:10px; font-weight:600; cursor:pointer; color:#fff; }
+  .hc-btn-pothole { background:var(--c-red); }
+  .hc-btn-rough { background:var(--c-amber); }
+  .hc-btn-other { background:var(--c-muted); }
+  .hc-btn-cancel { background:transparent; color:var(--c-muted); border:1px solid #e0e0e0; }
 
   /* ── PWA Install Banner ── */
   #pwa-banner { position:fixed; bottom:0; left:0; right:0; z-index:4000; background:linear-gradient(135deg,var(--c-navy),#1a4a7a); color:#fff; padding:14px 16px; display:none; align-items:center; gap:12px; box-shadow:0 -4px 20px rgba(0,0,0,0.3); font-family:var(--font-ui); animation:slideUp 0.4s cubic-bezier(0.4,0,0.2,1); }
@@ -255,7 +311,13 @@
     .stack-btn, #btn-locate { width:40px; height:40px; font-size:18px; }
     #legend-drop { max-height:calc(100vh - 200px); overflow-y:auto; }
     #turn-panel { left:8px !important; right:8px !important; bottom:8px !important; max-width:100%; }
-    #notice-banner { left:8px; right:8px; max-width:none; top:66px; }
+    #notice-banner { right:8px; max-width:200px; top:66px; }
+    #ride-hud { padding:5px 10px; gap:6px; }
+    .hud-stat { font-size:11px; }
+    .hud-tip { max-width:80px; font-size:9px; }
+    #ebike-alert { bottom:100px; max-width:calc(100vw - 16px); }
+    #btn-report-hazard { bottom:160px; width:40px; height:40px; font-size:16px; }
+    #btn-book-ebike { font-size:12px; padding:10px 18px; bottom:52px; }
     #brand-link { bottom:8px; left:8px; font-size:11px; padding:5px 12px; }
     #search-results { max-height:50vh; }
   }
@@ -292,6 +354,7 @@
   <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
   <button class="stack-btn" onclick="openShop()" title="Shop" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
   <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
+  <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
   <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
 </div>
 
@@ -311,6 +374,39 @@
 
 <a id="brand-link" href="https://www.inculebra.com" target="_blank">&#x1F6F4; inculebra.com</a>
 <button id="btn-order-float" onclick="openShop()">&#x1F6D2; Order Delivery</button>
+<a id="btn-book-ebike" href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank">&#x26A1; Book E-Bike Now</a>
+
+<!-- E-Bike Mode HUD -->
+<div id="ride-hud">
+  <div class="hud-stat"><span class="hud-icon">&#x1F6B4;</span><span class="hud-val" id="hud-speed">0</span><span style="font-size:9px;opacity:0.6;">mph</span></div>
+  <div class="hud-divider"></div>
+  <div class="hud-stat"><span class="hud-icon" id="hud-compass">&#x2B06;&#xFE0F;</span><span class="hud-val" id="hud-heading">N</span></div>
+  <div class="hud-divider"></div>
+  <div class="hud-tip" id="hud-tip">Ride safe!</div>
+</div>
+
+<!-- Proximity Alert Card -->
+<div id="ebike-alert">
+  <button class="ea-dismiss" onclick="dismissEbikeAlert()">&times;</button>
+  <div class="ea-row">
+    <span class="ea-icon" id="ea-icon"></span>
+    <div class="ea-content">
+      <div class="ea-title" id="ea-title"></div>
+      <div class="ea-body" id="ea-body"></div>
+      <div class="ea-dist" id="ea-dist"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Hazard Report -->
+<button id="btn-report-hazard" onclick="showHazardMenu()" title="Report Hazard">&#x26A0;&#xFE0F;</button>
+<div id="hazard-confirm">
+  <div class="hc-title">&#x26A0;&#xFE0F; Report a Hazard</div>
+  <button class="hc-btn hc-btn-pothole" onclick="reportHazard('pothole')">&#x1F6B3; Pothole</button>
+  <button class="hc-btn hc-btn-rough" onclick="reportHazard('rough')">&#x1FAA8; Rough Road</button>
+  <button class="hc-btn hc-btn-other" onclick="reportHazard('other')">&#x26A0;&#xFE0F; Other Hazard</button>
+  <button class="hc-btn hc-btn-cancel" onclick="hideHazardMenu()">Cancel</button>
+</div>
 
 <!-- PWA Install Banner -->
 <div id="pwa-banner">
@@ -764,6 +860,58 @@ function makePinIcon(type){
 
 /* ═══ STATE ═══ */
 var userLat=null,userLng=null,userMarker=null,userAccCircle=null,activeRoute=null,watchId=null,activeFilter=null,markerObjects=[];
+
+/* ═══ E-BIKE MODE STATE ═══ */
+var ebikeMode=false,ebikePrevPos=null,ebikeSpeed=0,ebikeHeading=0;
+var ebikeAlertQueue=[],ebikeAlertShowing=false,ebikeAlertCooldowns={};
+var ebikeHazardMarkers=[],ebikeHazardLayer=L.layerGroup(),ebikeAutoFollow=true;
+var EBIKE_COOLDOWN=300000,PROX_FOOD=500,PROX_SNORKEL=400,PROX_HAZARD=150,PROX_BEACH=300,PROX_ATM=600;
+
+/* ═══ KNOWN HAZARDS ═══ */
+var knownHazards=[
+  {lat:18.3050,lng:-65.2985,type:'pothole',label:'Pothole on main road near gas station'},
+  {lat:18.3120,lng:-65.3010,type:'rough',label:'Rough gravel stretch near Jerry\'s Rentals'},
+  {lat:18.3195,lng:-65.2555,type:'steep',label:'Steep hill descent to Playa Zoni'},
+  {lat:18.2825,lng:-65.2870,type:'rough',label:'Rocky unpaved road to Punta Soldado'},
+  {lat:18.3250,lng:-65.3025,type:'steep',label:'Steep climb to Monte Resaca trailhead'},
+  {lat:18.3180,lng:-65.3175,type:'pothole',label:'Potholes on road to Tamarindo'},
+  {lat:18.3280,lng:-65.3200,type:'speed',label:'Speed bumps near Flamenco entrance'},
+  {lat:18.2970,lng:-65.2665,type:'rough',label:'Dirt road to Playa Mosquito - slow down'},
+  {lat:18.3060,lng:-65.2450,type:'rough',label:'Remote dirt road to Playa Larga'},
+  {lat:18.3005,lng:-65.3005,type:'pothole',label:'Potholes near town plaza'}
+];
+
+/* ═══ CONTEXTUAL TIPS ═══ */
+var contextualTips={
+  morning:[
+    {icon:'\u2600\uFE0F',text:'Morning is perfect for snorkeling!'},
+    {icon:'\u{1F373}',text:'Breakfast packages deliver island-wide'},
+    {icon:'\u{1F3D6}',text:'Head to Flamenco early - beats the crowds'}
+  ],
+  midday:[
+    {icon:'\u2600\uFE0F',text:'Peak sun! Reapply reef-safe sunscreen'},
+    {icon:'\u{1F4A7}',text:'Stay hydrated - refill at any colmado'},
+    {icon:'\u{1F355}',text:'Lunch time! Jibara pizza delivers everywhere'}
+  ],
+  afternoon:[
+    {icon:'\u{1F50B}',text:'Check your battery. Below 20%? Head to town'},
+    {icon:'\u{1F3D6}',text:'Golden hour at Punta Soldado is magical'},
+    {icon:'\u{1F93F}',text:'Afternoon snorkeling: calmer at Melones'}
+  ],
+  evening:[
+    {icon:'\u{1F305}',text:'Sunset at Punta Soldado or Flamenco!'},
+    {icon:'\u{1F6A8}',text:'Headlights on after sunset - stay visible'},
+    {icon:'\u23F0',text:'Check your e-bike return time'}
+  ],
+  night:[
+    {icon:'\u{1F319}',text:'Ride slow at night. Roads have no lights'},
+    {icon:'\u{1F37D}',text:'Most restaurants close by 10pm'},
+    {icon:'\u{1F512}',text:'Lock your e-bike if stopping anywhere'}
+  ]
+};
+function getTimePeriod(){var h=new Date().getHours();if(h>=6&&h<11)return'morning';if(h>=11&&h<14)return'midday';if(h>=14&&h<17)return'afternoon';if(h>=17&&h<20)return'evening';return'night';}
+function getRandomTip(){var p=getTimePeriod(),tips=contextualTips[p];return tips[Math.floor(Math.random()*tips.length)];}
+
 function clearRoute(){if(activeRoute){try{map.removeControl(activeRoute)}catch(e){}activeRoute=null;}if(window._routeLines){window._routeLines.forEach(function(l){try{map.removeLayer(l)}catch(e){}});window._routeLines=null;}document.getElementById('turn-panel').classList.remove('open');}
 
 /* ═══ FERRY LINES ═══ */
@@ -853,7 +1001,7 @@ function clearSearch(){document.getElementById('search-input').value='';document
 document.addEventListener('click',function(e){var t=document.getElementById('topbar');if(t&&!t.contains(e.target))document.getElementById('search-results').style.display='none';});
 
 /* ═══ LOCATE ═══ */
-function locateMe(){var b=document.getElementById('btn-locate');if(userLat!==null){map.flyTo([userLat,userLng],16,{animate:true,duration:1.2});return;}b.classList.add('locating');b.textContent='\u231B';navigator.geolocation&&navigator.geolocation.getCurrentPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;map.flyTo([userLat,userLng],16,{animate:true,duration:1.2});b.classList.remove('locating');b.textContent='\u{1F4CD}';},function(){b.classList.remove('locating');b.textContent='\u{1F4CD}';showToast('Location denied');});}
+function locateMe(){var b=document.getElementById('btn-locate');if(ebikeMode)ebikeAutoFollow=true;if(userLat!==null){map.flyTo([userLat,userLng],16,{animate:true,duration:1.2});return;}b.classList.add('locating');b.textContent='\u231B';navigator.geolocation&&navigator.geolocation.getCurrentPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;map.flyTo([userLat,userLng],16,{animate:true,duration:1.2});b.classList.remove('locating');b.textContent='\u{1F4CD}';},function(){b.classList.remove('locating');b.textContent='\u{1F4CD}';showToast('Location denied');});}
 
 /* ═══ SHARE ═══ */
 function shareLocation(name,lat,lng,btn){var url='https://www.google.com/maps/search/?api=1&query='+lat+','+lng;if(navigator.share){navigator.share({title:name,text:'Check out '+name+' on Culebra!',url:url}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(name+' \u2014 '+url).then(function(){btn.textContent='\u2705 Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Share';btn.classList.remove('copied');},2000);});}}
@@ -891,8 +1039,158 @@ var dzLabel=L.marker([18.335,-65.275],{icon:L.divIcon({html:'<div style="font-si
 var orderBtnShown=false;
 function showOrderFloat(){if(orderBtnShown)return;orderBtnShown=true;document.getElementById('btn-order-float').classList.add('visible');}
 
+/* ═══════════════════════════════════════════════════════
+   E-BIKE WAZE MODE
+═══════════════════════════════════════════════════════ */
+function toggleEbikeMode(){
+  ebikeMode=!ebikeMode;
+  var btn=document.getElementById('btn-ebike-mode'),hud=document.getElementById('ride-hud'),hazBtn=document.getElementById('btn-report-hazard'),bookBtn=document.getElementById('btn-book-ebike');
+  if(ebikeMode){
+    if(userLat===null){showToast('Enable location first');ebikeMode=false;return;}
+    btn.classList.add('active');hud.classList.add('visible');hazBtn.classList.add('visible');
+    ebikeHazardLayer.addTo(map);loadKnownHazards();
+    map.setView([userLat,userLng],16,{animate:true});
+    ebikePrevPos={lat:userLat,lng:userLng,time:Date.now()};ebikeAutoFollow=true;
+    document.getElementById('notice-banner').classList.remove('show');
+    if(bookBtn)bookBtn.style.bottom='175px';
+    updateHudTip();window._hudTipInterval=setInterval(updateHudTip,30000);
+    map.on('dragstart',onMapDrag);
+    showToast('\u{1F6B4} E-Bike Mode ON \u2014 Ride safe!');
+  }else{
+    btn.classList.remove('active');hud.classList.remove('visible');hazBtn.classList.remove('visible');
+    hideHazardMenu();dismissEbikeAlert();
+    map.removeLayer(ebikeHazardLayer);
+    if(bookBtn)bookBtn.style.bottom='';
+    if(window._hudTipInterval)clearInterval(window._hudTipInterval);
+    ebikeAlertCooldowns={};ebikeAlertQueue=[];
+    map.off('dragstart',onMapDrag);
+    showToast('E-Bike Mode OFF');
+  }
+}
+function onMapDrag(){if(ebikeMode)ebikeAutoFollow=false;}
+
+/* ── HUD Update ── */
+function updateEbikeHUD(){
+  if(!ebikeMode||userLat===null)return;
+  if(ebikePrevPos){
+    var now=Date.now(),dt=(now-ebikePrevPos.time)/1000;
+    if(dt>0.5){
+      var dist=haversine(ebikePrevPos.lat,ebikePrevPos.lng,userLat,userLng);
+      ebikeSpeed=(dist/dt)*2.23694;if(ebikeSpeed<0.5)ebikeSpeed=0;
+      var dLn=(userLng-ebikePrevPos.lng)*Math.PI/180,la1=ebikePrevPos.lat*Math.PI/180,la2=userLat*Math.PI/180;
+      var y=Math.sin(dLn)*Math.cos(la2),x=Math.cos(la1)*Math.sin(la2)-Math.sin(la1)*Math.cos(la2)*Math.cos(dLn);
+      ebikeHeading=(Math.atan2(y,x)*180/Math.PI+360)%360;
+      ebikePrevPos={lat:userLat,lng:userLng,time:now};
+    }
+  }
+  document.getElementById('hud-speed').textContent=Math.round(ebikeSpeed);
+  var dirs=['N','NE','E','SE','S','SW','W','NW'],ci=Math.round(ebikeHeading/45)%8;
+  document.getElementById('hud-heading').textContent=dirs[ci];
+  var arrows=['\u2B06\uFE0F','\u2197\uFE0F','\u27A1\uFE0F','\u2198\uFE0F','\u2B07\uFE0F','\u2199\uFE0F','\u2B05\uFE0F','\u2196\uFE0F'];
+  document.getElementById('hud-compass').innerHTML=arrows[ci];
+  if(ebikeAutoFollow)map.setView([userLat,userLng],map.getZoom(),{animate:true,duration:0.5});
+}
+function updateHudTip(){var t=getRandomTip();var el=document.getElementById('hud-tip');if(el)el.innerHTML=t.icon+' '+t.text;}
+
+/* ── Proximity Alert Engine ── */
+function checkProximityAlerts(){
+  if(!ebikeMode||userLat===null)return;
+  var now=Date.now();
+  /* Hazards */
+  var allHz=knownHazards.concat(ebikeHazardMarkers.map(function(h){return{lat:h.lat,lng:h.lng,type:h.type,label:h.label};}));
+  for(var hi=0;hi<allHz.length;hi++){
+    var hz=allHz[hi],hd=haversine(userLat,userLng,hz.lat,hz.lng),hid='hz_'+hz.lat.toFixed(4)+'_'+hz.lng.toFixed(4);
+    if(hd<PROX_HAZARD&&!isCool(hid,now)){
+      queueAlert({id:hid,type:'hazard',icon:hz.type==='pothole'?'\u{1F6B3}':hz.type==='steep'?'\u{1F4A8}':'\u26A0\uFE0F',title:hz.type==='pothole'?'Pothole Ahead!':hz.type==='steep'?'Steep Hill!':'Road Hazard',body:hz.label,dist:hd,priority:1});
+    }
+  }
+  /* Food spots */
+  for(var fi=0;fi<locations.length;fi++){
+    var fp=locations[fi];if(fp.type!=='food'&&fp.type!=='delivery')continue;
+    var fd=haversine(userLat,userLng,fp.lat,fp.lng),fid='fd_'+fi;
+    if(fd<PROX_FOOD&&!isCool(fid,now)){
+      queueAlert({id:fid,type:'food',icon:'\u{1F37D}\uFE0F',title:fp.name+' Nearby!',body:fp.desc.replace(/<[^>]*>/g,'').substring(0,80),dist:fd,priority:3});
+    }
+  }
+  /* Snorkeling */
+  for(var si=0;si<locations.length;si++){
+    var sp=locations[si];if(sp.type!=='snorkel')continue;
+    var sd=haversine(userLat,userLng,sp.lat,sp.lng),sid='sn_'+si;
+    if(sd<PROX_SNORKEL&&!isCool(sid,now)){
+      var per=getTimePeriod(),sq=per==='morning'?'Excellent':per==='midday'?'Good':'Fair';
+      queueAlert({id:sid,type:'snorkel',icon:'\u{1F93F}',title:sp.name.replace('Snorkel: ','')+' \u2014 '+sq,body:sp.desc.replace(/<[^>]*>/g,'').substring(0,80)+(per==='morning'?' Morning = calmest water!':''),dist:sd,priority:4});
+    }
+  }
+  /* Beaches */
+  for(var bi=0;bi<locations.length;bi++){
+    var bp=locations[bi];if(bp.type!=='beach')continue;
+    var bd=haversine(userLat,userLng,bp.lat,bp.lng),bid='bh_'+bi;
+    if(bd<PROX_BEACH&&!isCool(bid,now)){
+      queueAlert({id:bid,type:'beach',icon:'\u{1F3D6}\uFE0F',title:bp.name,body:bp.desc.replace(/<[^>]*>/g,'').substring(0,80),dist:bd,priority:5});
+    }
+  }
+  /* ATM */
+  for(var ai=0;ai<locations.length;ai++){
+    var ap=locations[ai];if(ap.type!=='atm')continue;
+    var ad=haversine(userLat,userLng,ap.lat,ap.lng),aid='at_'+ai;
+    if(ad<PROX_ATM&&!isCool(aid,now)){
+      queueAlert({id:aid,type:'atm',icon:'\u{1F3E7}',title:'ATM Nearby',body:'Cash is king in Culebra! Many spots are cash only.',dist:ad,priority:6});
+    }
+  }
+  processAlertQueue();
+}
+function isCool(id,now){return ebikeAlertCooldowns[id]&&(now-ebikeAlertCooldowns[id])<EBIKE_COOLDOWN;}
+function queueAlert(a){for(var i=0;i<ebikeAlertQueue.length;i++){if(ebikeAlertQueue[i].id===a.id)return;}ebikeAlertQueue.push(a);ebikeAlertQueue.sort(function(x,y){return x.priority-y.priority;});}
+function processAlertQueue(){if(ebikeAlertShowing||ebikeAlertQueue.length===0)return;showEbikeAlert(ebikeAlertQueue.shift());}
+
+/* ── Alert Display ── */
+function showEbikeAlert(a){
+  ebikeAlertShowing=true;ebikeAlertCooldowns[a.id]=Date.now();
+  var el=document.getElementById('ebike-alert');
+  var cls={hazard:'ea-hazard',food:'ea-food',snorkel:'ea-snorkel',beach:'ea-beach',tip:'ea-tip',atm:'ea-atm'};
+  el.className='';el.classList.add(cls[a.type]||'ea-tip');
+  document.getElementById('ea-icon').innerHTML=a.icon;
+  document.getElementById('ea-title').textContent=a.title;
+  document.getElementById('ea-body').textContent=a.body;
+  document.getElementById('ea-dist').textContent=a.dist?fmtDist(a.dist)+' away':'';
+  el.classList.add('show');
+  window._ebikeAlertTimeout=setTimeout(dismissEbikeAlert,a.type==='hazard'?8000:6000);
+}
+function dismissEbikeAlert(){
+  if(window._ebikeAlertTimeout)clearTimeout(window._ebikeAlertTimeout);
+  var el=document.getElementById('ebike-alert');el.classList.remove('show');ebikeAlertShowing=false;
+  setTimeout(processAlertQueue,800);
+}
+
+/* ── Hazard Reporting ── */
+function showHazardMenu(){document.getElementById('hazard-confirm').classList.add('visible');}
+function hideHazardMenu(){document.getElementById('hazard-confirm').classList.remove('visible');}
+function reportHazard(type){
+  hideHazardMenu();if(userLat===null){showToast('Enable location first');return;}
+  var labels={pothole:'Pothole reported by rider',rough:'Rough road reported by rider',other:'Hazard reported by rider'};
+  var emojis={pothole:'\u{1F6B3}',rough:'\u26A0\uFE0F',other:'\u26A0\uFE0F'};
+  var hz={lat:userLat,lng:userLng,type:type,label:labels[type],time:Date.now()};
+  var icon=L.divIcon({html:'<div class="hazard-pin">'+(emojis[type]||'\u26A0\uFE0F')+'</div>',className:'',iconSize:[28,28],iconAnchor:[14,14]});
+  var m=L.marker([hz.lat,hz.lng],{icon:icon,zIndexOffset:500}).bindPopup('<div style="font-family:var(--font-ui);font-size:11px;padding:4px;"><b>'+(emojis[type])+' '+labels[type]+'</b><br><span style="font-size:9px;color:#999;">Reported just now</span></div>');
+  ebikeHazardLayer.addLayer(m);
+  ebikeHazardMarkers.push({marker:m,lat:hz.lat,lng:hz.lng,type:type,label:labels[type],time:hz.time});
+  knownHazards.push({lat:hz.lat,lng:hz.lng,type:type,label:labels[type]});
+  showToast('\u26A0\uFE0F Hazard reported \u2014 thanks!');
+  setTimeout(function(){ebikeHazardLayer.removeLayer(m);},7200000);
+}
+function loadKnownHazards(){
+  ebikeHazardLayer.clearLayers();
+  for(var i=0;i<knownHazards.length;i++){
+    var h=knownHazards[i],em=h.type==='pothole'?'\u{1F6B3}':h.type==='steep'?'\u{1F4A8}':'\u26A0\uFE0F';
+    var ic=L.divIcon({html:'<div class="hazard-pin">'+em+'</div>',className:'',iconSize:[28,28],iconAnchor:[14,14]});
+    var mk=L.marker([h.lat,h.lng],{icon:ic,zIndexOffset:400}).bindPopup('<div style="font-family:var(--font-ui);font-size:11px;padding:4px;"><b>'+em+' '+h.label+'</b></div>');
+    ebikeHazardLayer.addLayer(mk);
+  }
+  for(var j=0;j<ebikeHazardMarkers.length;j++){ebikeHazardLayer.addLayer(ebikeHazardMarkers[j].marker);}
+}
+
 /* ═══ GEOLOCATION ═══ */
-if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
+if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();updateEbikeHUD();checkProximityAlerts();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
 
 if(typeof ResizeObserver!=='undefined'){new ResizeObserver(function(){map.invalidateSize();}).observe(document.getElementById('map'));}else{setTimeout(function(){map.invalidateSize();},300);}
 

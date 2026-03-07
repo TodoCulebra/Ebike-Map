@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════════════
-   InCulebra E-Bike Map — Service Worker v1.0
+   InCulebra E-Bike Map — Service Worker v2.0
    Caches app shell + map tiles for offline use
 ═══════════════════════════════════════════════════ */
 
-var CACHE_NAME = 'inculebra-v1';
+var CACHE_NAME = 'inculebra-v2';
 var TILE_CACHE = 'inculebra-tiles-v1';
 
 /* App shell — these get cached on install */
