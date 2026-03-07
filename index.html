@@ -234,6 +234,67 @@
   #btn-chat-float:hover { transform:translateX(-50%) scale(1.06); }
   @keyframes chatFloat { 0%,100%{box-shadow:0 4px 24px rgba(37,211,102,0.45)} 50%{box-shadow:0 4px 32px rgba(37,211,102,0.7),0 0 0 8px rgba(37,211,102,0.12)} }
 
+  /* ── Sunset Banner ── */
+  #sunset-banner { position:absolute; bottom:60px; left:12px; right:12px; z-index:1003; max-width:420px; margin:0 auto; background:linear-gradient(135deg,#f97316,#ea580c,#dc2626); color:#fff; border-radius:14px; padding:10px 14px; box-shadow:0 4px 20px rgba(234,88,12,0.45); font-family:var(--font-ui); display:none; align-items:center; gap:10px; animation:sunsetGlow 3s infinite; }
+  #sunset-banner.visible { display:flex; }
+  @keyframes sunsetGlow { 0%,100%{box-shadow:0 4px 20px rgba(234,88,12,0.45)} 50%{box-shadow:0 4px 28px rgba(249,115,22,0.7),0 0 0 4px rgba(249,115,22,0.1)} }
+  .sunset-icon { font-size:24px; flex-shrink:0; }
+  .sunset-text { flex:1; }
+  .sunset-title { font-size:12px; font-weight:700; }
+  .sunset-sub { font-size:10px; opacity:0.9; margin-top:2px; }
+  .sunset-btn { background:rgba(255,255,255,0.2); border:1.5px solid rgba(255,255,255,0.5); color:#fff; border-radius:10px; padding:6px 12px; font-family:var(--font-ui); font-size:10px; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0; }
+  .sunset-btn:hover { background:rgba(255,255,255,0.3); }
+
+  /* ── Tide & Snorkel Conditions ── */
+  .tide-badge { display:inline-flex; align-items:center; gap:4px; font-size:8px; font-weight:600; background:rgba(6,182,212,0.1); color:#0891b2; border-radius:999px; padding:2px 6px; margin-bottom:3px; }
+  .tide-badge .tide-arrow { font-weight:800; }
+  .tide-badge.tide-low { background:rgba(16,185,129,0.1); color:#059669; }
+  .tide-badge.tide-high { background:rgba(6,182,212,0.15); color:#0e7490; }
+  .snorkel-rating { font-size:9px; font-weight:600; color:var(--c-text); margin-bottom:4px; padding:3px 6px; background:#f0fdf4; border-radius:6px; line-height:1.4; }
+  .snorkel-rating .stars { color:#f59e0b; }
+  .hud-tide { display:flex; align-items:center; gap:3px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .hud-tide-icon { font-size:13px; }
+  .hud-tide-val { font-size:10px; opacity:0.85; }
+
+  /* ══════════════════════════════════════════════
+     CULEBRA PASSPORT / ACHIEVEMENTS
+  ══════════════════════════════════════════════ */
+  #passport-panel { position:fixed; inset:0; z-index:3000; background:var(--c-white); transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); overflow-y:auto; -webkit-overflow-scrolling:touch; }
+  #passport-panel.open { transform:translateY(0); }
+  #passport-header { position:sticky; top:0; z-index:1; background:linear-gradient(135deg,#f59e0b,#ea580c); color:#fff; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; }
+  #passport-header h2 { font-size:16px; font-weight:700; }
+  #passport-close { background:rgba(255,255,255,0.2); border:none; color:#fff; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .passport-content { padding:20px; max-width:600px; margin:0 auto; }
+  .pp-progress-wrap { margin-bottom:20px; text-align:center; }
+  .pp-progress-title { font-size:14px; font-weight:700; color:var(--c-navy); margin-bottom:8px; }
+  .pp-progress-bar { height:10px; background:#e5e7eb; border-radius:999px; overflow:hidden; }
+  .pp-progress-fill { height:100%; background:linear-gradient(90deg,#f59e0b,#ea580c); border-radius:999px; transition:width 0.5s; }
+  .pp-progress-label { font-size:11px; color:var(--c-muted); margin-top:4px; }
+  .pp-achievement { display:flex; align-items:flex-start; gap:12px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:14px; padding:14px; margin-bottom:10px; transition:all 0.2s; }
+  .pp-achievement.completed { border-color:#10b981; background:#f0fdf4; }
+  .pp-ach-icon { font-size:28px; flex-shrink:0; }
+  .pp-ach-body { flex:1; min-width:0; }
+  .pp-ach-name { font-size:13px; font-weight:700; color:var(--c-navy); }
+  .pp-ach-desc { font-size:10px; color:var(--c-muted); margin-top:2px; }
+  .pp-ach-bar { height:6px; background:#e5e7eb; border-radius:999px; margin-top:6px; overflow:hidden; }
+  .pp-ach-fill { height:100%; background:linear-gradient(90deg,var(--c-ocean),var(--c-aqua)); border-radius:999px; transition:width 0.4s; }
+  .pp-ach-fill.done { background:linear-gradient(90deg,#10b981,#059669); }
+  .pp-ach-count { font-size:9px; font-weight:600; color:var(--c-ocean); margin-top:3px; }
+  .pp-ach-count.done { color:#10b981; }
+  .pp-loc-list { margin-top:6px; }
+  .pp-loc-item { font-size:10px; color:#555; padding:2px 0; display:flex; align-items:center; gap:4px; }
+  .pp-loc-item.visited { color:#10b981; }
+  .pp-loc-item.unvisited { color:#d1d5db; }
+  #achievement-toast { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.8); z-index:5000; background:var(--c-white); border-radius:20px; padding:24px 32px; box-shadow:0 8px 40px rgba(0,0,0,0.3); text-align:center; opacity:0; transition:opacity 0.3s,transform 0.3s; pointer-events:none; }
+  #achievement-toast.show { opacity:1; transform:translate(-50%,-50%) scale(1); pointer-events:auto; }
+  .ach-toast-icon { font-size:48px; }
+  .ach-toast-title { font-size:16px; font-weight:800; color:var(--c-navy); margin-top:8px; }
+  .ach-toast-sub { font-size:12px; color:var(--c-muted); margin-top:4px; }
+  .pin-visited-ring { position:absolute; bottom:-2px; right:-2px; width:14px; height:14px; border-radius:50%; background:#10b981; border:2px solid #fff; display:flex; align-items:center; justify-content:center; font-size:8px; color:#fff; font-weight:700; box-shadow:0 1px 4px rgba(0,0,0,0.3); }
+  .btn-checkin { display:block; width:100%; padding:4px 0; background:#10b981; color:#fff; border:none; border-radius:6px; font-family:var(--font-ui); font-size:9px; font-weight:700; cursor:pointer; text-align:center; margin-bottom:3px; }
+  .btn-checkin:hover { opacity:0.88; }
+  .btn-checkin.checked { background:#d1d5db; cursor:default; }
+
   /* ══════════════════════════════════════════════
      E-BIKE WAZE MODE
   ══════════════════════════════════════════════ */
@@ -386,6 +447,11 @@
     #brand-link { bottom:8px; left:8px; font-size:11px; padding:5px 12px; }
     #btn-chat-float { bottom:18px; font-size:13px; padding:10px 18px; }
     #search-results { max-height:50vh; }
+    #sunset-banner { bottom:55px; left:8px; right:8px; padding:8px 10px; }
+    .sunset-icon { font-size:20px; } .sunset-title { font-size:11px; }
+    .sunset-btn { font-size:9px; padding:5px 10px; }
+    #achievement-toast { padding:20px 24px; max-width:calc(100vw - 32px); }
+    .hud-tide-val { font-size:9px; max-width:80px; overflow:hidden; text-overflow:ellipsis; }
   }
   @media (max-width:375px) {
     #topbar { left:6px; right:6px; top:6px; }
@@ -426,6 +492,7 @@
   </div>
   <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
   <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
+  <button class="stack-btn" onclick="openPassport()" title="Passport" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F3C6;</button>
   <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
 </div>
 
@@ -443,6 +510,23 @@
 
 <div id="toast"></div>
 
+<!-- Sunset Countdown Banner -->
+<div id="sunset-banner">
+  <span class="sunset-icon">&#x1F305;</span>
+  <div class="sunset-text">
+    <div class="sunset-title" id="sunset-title">Sunset in 90 min</div>
+    <div class="sunset-sub" id="sunset-sub">Head to Punta Soldado for the best view</div>
+  </div>
+  <button class="sunset-btn" onclick="routeToSunset()">Route Me &#x1F305;</button>
+</div>
+
+<!-- Achievement Celebration -->
+<div id="achievement-toast">
+  <div class="ach-toast-icon" id="ach-toast-icon"></div>
+  <div class="ach-toast-title" id="ach-toast-title"></div>
+  <div class="ach-toast-sub" id="ach-toast-sub"></div>
+</div>
+
 <a id="brand-link" href="https://www.todoculebra.com" target="_blank">&#x1F6F4; todoculebra.com</a>
 <button id="btn-order-float" onclick="openShop()">&#x1F6D2; Order Delivery</button>
 <button id="btn-chat-float" onclick="openAssist()">&#x1F4AC; Chat with Us</button>
@@ -454,6 +538,8 @@
   <div class="hud-stat"><span class="hud-icon" id="hud-compass">&#x2B06;&#xFE0F;</span><span class="hud-val" id="hud-heading">N</span></div>
   <div class="hud-divider"></div>
   <div class="hud-tip" id="hud-tip">Ride safe!</div>
+  <div class="hud-divider"></div>
+  <div class="hud-tide"><span class="hud-tide-icon">&#x1F30A;</span><span class="hud-tide-val" id="hud-tide">--</span></div>
 </div>
 
 <!-- Proximity Alert Card -->
@@ -793,6 +879,17 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     CULEBRA PASSPORT
+══════════════════════════════════════════════ -->
+<div id="passport-panel">
+  <div id="passport-header">
+    <h2>&#x1F3C6; Culebra Passport</h2>
+    <button id="passport-close" onclick="closePassport()">&times;</button>
+  </div>
+  <div class="passport-content" id="passport-content"></div>
+</div>
+
 <script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?108569855&data_platform=code" charset="utf-8"></script>
 <script type="text/javascript">
   var ecwidLoaded = false;
@@ -815,7 +912,7 @@ function openGuide(){document.getElementById('guide-panel').classList.add('open'
 function closeGuide(){document.getElementById('guide-panel').classList.remove('open');}
 
 /* ═══ SHOP PANEL ═══ */
-function openShop(){document.getElementById('shop-panel').classList.add('open');loadEcwidStore();map.closePopup();}
+function openShop(){document.getElementById('shop-panel').classList.add('open');loadEcwidStore();map.closePopup();checkInShopper();}
 function closeShop(){document.getElementById('shop-panel').classList.remove('open');}
 
 /* ═══ SMART ASSISTANT ═══ */
@@ -1269,12 +1366,16 @@ for(var mi=0;mi<locations.length;mi++){
       ? '<button class="btn-order" onclick="openShop()">\u{1F6D2} Shop Now</button>'
       : '<button class="btn-directions">Get Directions</button>';
 
+    var tideInfo=p.type==='snorkel'?'<div class="popup-tide-info"></div>':'';
+    var checkinBtn='<button class="btn-checkin" data-idx="'+idx+'">\u2705 Check In</button>';
+
     var html='<div class="popup-body">'+
       '<div class="popup-title">'+p.name+'</div>'+
       '<div class="popup-type-row">'+typeTag+roadTag+parkTag+noSig+'</div>'+hrs+
       '<div class="dist-badge" id="dist-'+idx+'">calculating...</div>'+
+      tideInfo+
       '<div class="popup-desc">'+p.desc+'</div>'+
-      actionBtn+
+      checkinBtn+actionBtn+
       '<div class="route-status"></div>'+
       '<div class="fallback-row"><a class="btn-fallback btn-apple" href="#" target="_blank">Apple Maps</a><a class="btn-fallback btn-google" href="#" target="_blank">Google Maps</a></div>'+
       '<button class="btn-learn-more" onclick="openGuide()">Learn More</button>'+
@@ -1291,11 +1392,18 @@ for(var mi=0;mi<locations.length;mi++){
       if(dEl){dEl.textContent=userLat!==null?fmtDist(haversine(userLat,userLng,p.lat,p.lng))+' away':'Enable location';}
       if(sBtn)sBtn.onclick=function(){shareLocation(p.name,p.lat,p.lng,sBtn);};
       if(btn){var fb=btn.cloneNode(true);fb.disabled=false;fb.textContent='Get Directions';btn.parentNode.replaceChild(fb,btn);fb.addEventListener('click',function(){requestRoute(p.name,p.lat,p.lng,sEl,fEl,fb);});}
+      /* Tide badge for snorkel pins */
+      if(p.type==='snorkel'){var tc=el.querySelector('.popup-tide-info');if(tc&&tideCurrent)tc.innerHTML=getTideBadgeHTML()+getSnorkelRatingHTML();}
+      /* Check-in button */
+      var ciBtn=el.querySelector('.btn-checkin');
+      if(ciBtn){var pp=loadPassport();if(pp.visited[idx]){ciBtn.textContent='\u2705 Visited';ciBtn.classList.add('checked');ciBtn.disabled=true;}
+        ciBtn.addEventListener('click',function(){checkInLocation(idx);ciBtn.textContent='\u2705 Visited';ciBtn.classList.add('checked');ciBtn.disabled=true;});}
     });
     marker.on('popupclose',function(){if(p.type==='ferry')hideFerryRoute();if(p.name==='Punta Molino Path')hideMolinoTrail();});
     clusterGroup.addLayer(marker);
   })(locations[mi],mi);
 }
+restoreVisitedPins();
 
 /* ═══ SEARCH ═══ */
 function liveSearch(val){
@@ -1335,6 +1443,247 @@ var noticeIdx=0;
 function showNotice(n){var b=document.getElementById('notice-banner');document.getElementById('notice-title').innerHTML=n.title;document.getElementById('notice-body').innerHTML=n.body;b.classList.add('show');if(n.duration)setTimeout(dismissNotice,n.duration);}
 function dismissNotice(){document.getElementById('notice-banner').classList.remove('show');noticeIdx++;if(noticeIdx<notices.length)setTimeout(function(){showNotice(notices[noticeIdx]);},1500);}
 setTimeout(function(){if(notices.length)showNotice(notices[0]);},2000);
+
+/* ═══ SUNSET COUNTDOWN ═══ */
+var SUNSET_SPOT={name:'Punta Soldado',lat:18.2855,lng:-65.2830};
+var _sunsetInterval=null;
+
+function getSunsetTime(date){
+  /* Sinusoidal approx for Culebra (lat 18.3°N)
+     Range: ~17:45 (Dec 21) to ~19:15 (Jun 21) AST
+     Average 18:30 (1110 min), amplitude ±45 min, peak day 172 */
+  var start=new Date(date.getFullYear(),0,0);
+  var dayOfYear=Math.floor((date-start)/86400000);
+  var avgMin=18*60+30, amp=45;
+  var sunsetMin=avgMin+amp*Math.cos(2*Math.PI*(dayOfYear-172)/365);
+  var s=new Date(date);s.setHours(0,0,0,0);s.setMinutes(sunsetMin);
+  return s;
+}
+
+function checkSunsetBanner(){
+  var now=new Date(),sunset=getSunsetTime(now);
+  var diff=sunset-now,min=Math.floor(diff/60000);
+  var b=document.getElementById('sunset-banner');
+  if(min<=0||min>90){b.classList.remove('visible');return;}
+  var t=document.getElementById('sunset-title'),sub=document.getElementById('sunset-sub');
+  if(min<=5){t.textContent='\u{1F305} Sunset NOW!';sub.textContent='Look west from Punta Soldado!';}
+  else if(min<=30){t.textContent='Sunset in '+min+' min \u2014 go now!';sub.textContent='Head to Punta Soldado for golden hour';}
+  else{t.textContent='Sunset in '+min+' min';sub.textContent='Head to Punta Soldado for the best view';}
+  b.classList.add('visible');
+}
+
+function routeToSunset(){
+  for(var i=0;i<locations.length;i++){
+    if(locations[i].name==='Punta Soldado'){
+      map.setView([locations[i].lat,locations[i].lng],15);
+      markerObjects[i].marker.openPopup();
+      document.getElementById('sunset-banner').classList.remove('visible');
+      return;
+    }
+  }
+  window.open('https://www.google.com/maps/dir/?api=1&destination=18.2855,-65.2830&travelmode=driving','_blank');
+}
+
+checkSunsetBanner();
+_sunsetInterval=setInterval(checkSunsetBanner,60000);
+
+/* ═══ TIDE & SNORKEL CONDITIONS ═══ */
+var TC_TIDE_URL='https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=today&station=9752235&product=predictions&datum=MLLW&time_zone=lst_lpt&units=english&format=json';
+var tideData=null,tideLastFetch=0,TIDE_CACHE_MS=3600000,tideCurrent=null;
+
+function fetchTideData(){
+  var now=Date.now();
+  if(tideData&&(now-tideLastFetch)<TIDE_CACHE_MS){parseTideData();return;}
+  fetch(TC_TIDE_URL).then(function(r){return r.json();}).then(function(data){
+    if(data&&data.predictions&&data.predictions.length>0){tideData=data.predictions;tideLastFetch=Date.now();parseTideData();}
+  }).catch(function(e){console.warn('Tide fetch failed:',e);useTideFallback();});
+}
+
+function parseTideData(){
+  if(!tideData||tideData.length===0){useTideFallback();return;}
+  var now=new Date(),closestIdx=0,closestDiff=Infinity;
+  for(var i=0;i<tideData.length;i++){
+    var pt=new Date(tideData[i].t.replace(' ','T'));
+    var d=Math.abs(pt-now);if(d<closestDiff){closestDiff=d;closestIdx=i;}
+  }
+  var currentLevel=parseFloat(tideData[closestIdx].v);
+  var rising=true;
+  if(closestIdx>0){rising=currentLevel>=parseFloat(tideData[closestIdx-1].v);}
+  var direction=rising?1:-1,nextEvent=null;
+  for(var j=closestIdx+1;j<tideData.length-1;j++){
+    var cur=parseFloat(tideData[j].v),nxt=parseFloat(tideData[j+1].v);
+    if((nxt>=cur?1:-1)!==direction){
+      nextEvent={type:direction>0?'High':'Low',time:new Date(tideData[j].t.replace(' ','T')),level:cur};break;
+    }
+  }
+  var minL=Infinity,maxL=-Infinity;
+  for(var k=0;k<tideData.length;k++){var v=parseFloat(tideData[k].v);if(v<minL)minL=v;if(v>maxL)maxL=v;}
+  tideCurrent={level:currentLevel,isHigh:currentLevel>=(minL+maxL)/2,rising:rising,nextEvent:nextEvent};
+  updateHudTide();
+}
+
+function useTideFallback(){
+  var h=new Date().getHours();
+  tideCurrent={level:0,isHigh:h>=12&&h<=18,rising:h>=6&&h<=12,nextEvent:null};
+  updateHudTide();
+}
+
+function updateHudTide(){
+  if(!tideCurrent)return;var el=document.getElementById('hud-tide');if(!el)return;
+  var st=tideCurrent.isHigh?'High':'Low',arr=tideCurrent.rising?'\u2191':'\u2193';
+  var trend=tideCurrent.rising?'Rising':'Falling',ns='';
+  if(tideCurrent.nextEvent){var nt=tideCurrent.nextEvent.time;ns=' \u2022 '+tideCurrent.nextEvent.type+' '+nt.getHours()+':'+String(nt.getMinutes()).padStart(2,'0');}
+  el.textContent=st+' '+arr+' ('+trend+')'+ns;
+}
+
+function getSnorkelRating(){
+  if(!tideCurrent)return{stars:2,label:'Good',desc:'Check conditions on arrival'};
+  var per=getTimePeriod(),isLow=!tideCurrent.isHigh,isMorn=(per==='morning'||per==='midday');
+  if(isLow&&isMorn)return{stars:3,label:'Excellent',desc:'Shallow reefs, calm water'};
+  if(isLow&&!isMorn)return{stars:2,label:'Good',desc:'Visible coral, some afternoon chop'};
+  if(!isLow&&isMorn)return{stars:2,label:'Good',desc:'Deeper water, great visibility'};
+  return{stars:1,label:'Fair',desc:'Deeper water, afternoon chop'};
+}
+
+function getTideBadgeHTML(){
+  if(!tideCurrent)return'';
+  var st=tideCurrent.isHigh?'High':'Low',arr=tideCurrent.rising?'\u2191':'\u2193';
+  var cls=tideCurrent.isHigh?'tide-high':'tide-low',ns='';
+  if(tideCurrent.nextEvent){var nt=tideCurrent.nextEvent.time;ns=' \u2022 Next '+tideCurrent.nextEvent.type+': '+nt.getHours()+':'+String(nt.getMinutes()).padStart(2,'0');}
+  return'<div class="tide-badge '+cls+'">\u{1F30A} '+st+' <span class="tide-arrow">'+arr+'</span> ('+
+    (tideCurrent.rising?'Rising':'Falling')+')'+ns+'</div>';
+}
+
+function getSnorkelRatingHTML(){
+  var r=getSnorkelRating(),s='';
+  for(var i=0;i<3;i++)s+=i<r.stars?'\u2B50':'\u2606';
+  return'<div class="snorkel-rating"><span class="stars">'+s+'</span> '+r.label+' \u2014 '+r.desc+'</div>';
+}
+
+fetchTideData();
+setInterval(fetchTideData,TIDE_CACHE_MS);
+
+/* ═══ CULEBRA PASSPORT ═══ */
+var TC_PASSPORT_KEY='tc-passport';
+var achievements=[
+  {id:'beach-explorer',name:'Beach Explorer',icon:'\u{1F3D6}\uFE0F',desc:'Visit all 8 beaches',filter:function(l){return l.type==='beach';}},
+  {id:'reef-runner',name:'Reef Runner',icon:'\u{1F93F}',desc:'Visit all 6 snorkel spots',filter:function(l){return l.type==='snorkel';}},
+  {id:'foodie',name:'Foodie',icon:'\u{1F37D}\uFE0F',desc:'Visit all food & delivery spots',filter:function(l){return l.type==='food'||l.type==='delivery';}},
+  {id:'trail-blazer',name:'Trail Blazer',icon:'\u{1F97E}',desc:'Visit all 3 hikes',filter:function(l){return l.type==='hike';}},
+  {id:'full-tank',name:'Full Tank',icon:'\u26FD',desc:'Visit gas, ATM & groceries',filter:function(l){return l.type==='gas'||l.type==='atm'||l.type==='grocery';}},
+  {id:'shopper',name:'Shopper',icon:'\u{1F6D2}',desc:'Open the island shop',custom:true,total:1},
+  {id:'culebra-master',name:'Culebra Master',icon:'\u{1F3C6}',desc:'Complete all other achievements',master:true}
+];
+
+function loadPassport(){try{var d=JSON.parse(localStorage.getItem(TC_PASSPORT_KEY));if(d&&d.visited)return d;}catch(e){}return{visited:{},shopOrdered:false,completedAch:{}};}
+function savePassport(d){localStorage.setItem(TC_PASSPORT_KEY,JSON.stringify(d));}
+
+function checkInLocation(locIdx){
+  var pp=loadPassport();if(pp.visited[locIdx])return;
+  pp.visited[locIdx]=Date.now();savePassport(pp);
+  showToast('\u2705 Checked in: '+locations[locIdx].name);
+  checkAchievementCompletion(pp);updatePinVisitedState(locIdx);
+}
+
+function checkInShopper(){var pp=loadPassport();if(pp.shopOrdered)return;pp.shopOrdered=true;savePassport(pp);checkAchievementCompletion(pp);}
+
+function checkGPSCheckins(){
+  if(userLat===null)return;var pp=loadPassport(),changed=false;
+  for(var i=0;i<locations.length;i++){
+    if(pp.visited[i])continue;
+    if(haversine(userLat,userLng,locations[i].lat,locations[i].lng)<100){
+      pp.visited[i]=Date.now();changed=true;
+      showToast('\u{1F4CD} Auto check-in: '+locations[i].name);
+    }
+  }
+  if(changed){savePassport(pp);checkAchievementCompletion(pp);}
+}
+
+function checkAchievementCompletion(pp){
+  var prev=pp.completedAch||{},allDone=true;
+  for(var i=0;i<achievements.length;i++){
+    var a=achievements[i];if(a.master)continue;
+    var done=false;
+    if(a.custom){done=(a.id==='shopper')?pp.shopOrdered:false;}
+    else if(a.filter){
+      var cnt=0,tot=0;
+      for(var j=0;j<locations.length;j++){if(a.filter(locations[j])){tot++;if(pp.visited[j])cnt++;}}
+      done=cnt>=tot;
+    }
+    if(done&&!prev[a.id]){pp.completedAch[a.id]=Date.now();showAchievementToast(a);}
+    if(!done)allDone=false;
+  }
+  if(allDone&&!prev['culebra-master']){
+    pp.completedAch['culebra-master']=Date.now();
+    var ma;for(var m=0;m<achievements.length;m++){if(achievements[m].master){ma=achievements[m];break;}}
+    if(ma)setTimeout(function(){showAchievementToast(ma);},3500);
+  }
+  savePassport(pp);
+}
+
+function showAchievementToast(a){
+  var el=document.getElementById('achievement-toast');
+  document.getElementById('ach-toast-icon').textContent=a.icon;
+  document.getElementById('ach-toast-title').textContent='Achievement Unlocked!';
+  document.getElementById('ach-toast-sub').textContent=a.name+' \u2014 '+a.desc;
+  el.classList.add('show');setTimeout(function(){el.classList.remove('show');},3500);
+}
+
+function openPassport(){document.getElementById('passport-panel').classList.add('open');renderPassport();}
+function closePassport(){document.getElementById('passport-panel').classList.remove('open');}
+
+function renderPassport(){
+  var pp=loadPassport(),ct=document.getElementById('passport-content');
+  var totalLocs=locations.length,visitedCount=0;
+  for(var k in pp.visited){if(pp.visited.hasOwnProperty(k))visitedCount++;}
+  var pct=Math.round((visitedCount/totalLocs)*100);
+  var html='<div class="pp-progress-wrap">'
+    +'<div class="pp-progress-title">\u{1F3DD}\uFE0F Your Culebra Passport</div>'
+    +'<div class="pp-progress-bar"><div class="pp-progress-fill" style="width:'+pct+'%"></div></div>'
+    +'<div class="pp-progress-label">'+visitedCount+'/'+totalLocs+' locations visited ('+pct+'%)</div></div>';
+  for(var i=0;i<achievements.length;i++){
+    var a=achievements[i],completed=!!pp.completedAch[a.id],count=0,total=0,locList='';
+    if(a.master){
+      total=achievements.length-1;
+      for(var mm=0;mm<achievements.length;mm++){if(!achievements[mm].master&&pp.completedAch[achievements[mm].id])count++;}
+    }else if(a.custom){total=a.total||1;count=(a.id==='shopper'&&pp.shopOrdered)?1:0;}
+    else if(a.filter){
+      for(var j=0;j<locations.length;j++){
+        if(a.filter(locations[j])){
+          total++;var vis=!!pp.visited[j];if(vis)count++;
+          locList+='<div class="pp-loc-item '+(vis?'visited':'unvisited')+'">'+(vis?'\u2705':'\u2B1C')+' '+locations[j].name+'</div>';
+        }
+      }
+    }
+    var fp=total>0?Math.round((count/total)*100):0;
+    html+='<div class="pp-achievement'+(completed?' completed':'')+'">'
+      +'<span class="pp-ach-icon">'+a.icon+'</span>'
+      +'<div class="pp-ach-body">'
+      +'<div class="pp-ach-name">'+a.name+(completed?' \u2705':'')+'</div>'
+      +'<div class="pp-ach-desc">'+a.desc+'</div>'
+      +'<div class="pp-ach-bar"><div class="pp-ach-fill'+(completed?' done':'')+'" style="width:'+fp+'%"></div></div>'
+      +'<div class="pp-ach-count'+(completed?' done':'')+'">'+count+'/'+total+(completed?' \u2014 Complete!':'')+'</div>'
+      +(locList?'<div class="pp-loc-list">'+locList+'</div>':'')
+      +'</div></div>';
+  }
+  ct.innerHTML=html;
+}
+
+function updatePinVisitedState(locIdx){
+  var mo=markerObjects[locIdx];if(!mo)return;
+  var p=locations[locIdx],type=p.type;
+  var color=pinColors[type]||'#555',emoji=pinEmoji[type]||'\u{1F4CD}';
+  var svg='<div style="position:relative;display:inline-block;">'
+    +'<svg xmlns="http://www.w3.org/2000/svg" width="38" height="50" viewBox="0 0 38 50">'
+    +'<defs><filter id="shv'+locIdx+'" x="-40%" y="-20%" width="180%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.55)"/></filter></defs>'
+    +'<path d="M19 1C10.16 1 3 8.16 3 17c0 11.5 16 32 16 32S35 28.5 35 17C35 8.16 27.84 1 19 1z" fill="'+color+'" stroke="#fff" stroke-width="2.5" filter="url(#shv'+locIdx+')"/>'
+    +'<circle cx="19" cy="17" r="9" fill="rgba(255,255,255,0.22)"/>'
+    +'<text x="19" y="22" text-anchor="middle" font-size="13">'+emoji+'</text></svg>'
+    +'<div class="pin-visited-ring">\u2713</div></div>';
+  mo.marker.setIcon(L.divIcon({html:svg,className:'',iconSize:[38,50],iconAnchor:[19,50],popupAnchor:[0,-52]}));
+}
+
+function restoreVisitedPins(){var pp=loadPassport();for(var idx in pp.visited){if(pp.visited.hasOwnProperty(idx))updatePinVisitedState(parseInt(idx));}}
 
 /* ═══ DELIVERY ZONE ═══ */
 var deliveryZone = L.polygon([
@@ -1430,8 +1779,8 @@ function checkProximityAlerts(){
     var sp=locations[si];if(sp.type!=='snorkel')continue;
     var sd=haversine(userLat,userLng,sp.lat,sp.lng),sid='sn_'+si;
     if(sd<PROX_SNORKEL&&!isCool(sid,now)){
-      var per=getTimePeriod(),sq=per==='morning'?'Excellent':per==='midday'?'Good':'Fair';
-      queueAlert({id:sid,type:'snorkel',icon:'\u{1F93F}',title:sp.name.replace('Snorkel: ','')+' \u2014 '+sq,body:sp.desc.replace(/<[^>]*>/g,'').substring(0,80)+(per==='morning'?' Morning = calmest water!':''),dist:sd,priority:4});
+      var sr=getSnorkelRating(),sq=sr.label;
+      queueAlert({id:sid,type:'snorkel',icon:'\u{1F93F}',title:sp.name.replace('Snorkel: ','')+' \u2014 '+sq,body:sr.desc+(tideCurrent?' | Tide: '+(tideCurrent.isHigh?'High':'Low')+' '+(tideCurrent.rising?'\u2191':'\u2193'):''),dist:sd,priority:4});
     }
   }
   /* Beaches */
@@ -1503,7 +1852,7 @@ function loadKnownHazards(){
 }
 
 /* ═══ GEOLOCATION ═══ */
-if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();updateEbikeHUD();checkProximityAlerts();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
+if('geolocation' in navigator){watchId=navigator.geolocation.watchPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;var ll=[userLat,userLng];if(!userMarker){userMarker=L.marker(ll,{icon:L.divIcon({className:'user-dot',iconSize:[14,14],iconAnchor:[7,7]}),zIndexOffset:1000,interactive:false}).addTo(map);}else{userMarker.setLatLng(ll);}var a=p.coords.accuracy;if(!userAccCircle){userAccCircle=L.circle(ll,{radius:a,color:'#2f80ff',fillColor:'#2f80ff',fillOpacity:0.07,weight:1,opacity:0.35,interactive:false}).addTo(map);}else{userAccCircle.setLatLng(ll).setRadius(a);}showOrderFloat();updateEbikeHUD();checkProximityAlerts();checkGPSCheckins();},function(e){console.warn('Geo:',e.message);},{enableHighAccuracy:true,maximumAge:4000,timeout:10000});}
 
 if(typeof ResizeObserver!=='undefined'){new ResizeObserver(function(){map.invalidateSize();}).observe(document.getElementById('map'));}else{setTimeout(function(){map.invalidateSize();},300);}
 
