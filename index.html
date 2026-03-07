@@ -104,12 +104,9 @@
   .btn-directions:hover { opacity:0.88; } .btn-directions:disabled { background:#ccc; cursor:not-allowed; }
   .btn-learn-more { display:block; width:100%; padding:4px 0; background:var(--c-navy); color:#fff; border:none; border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; text-align:center; margin-bottom:3px; letter-spacing:0.02em; }
   .btn-learn-more:hover { opacity:0.88; }
-  .btn-share { display:flex; align-items:center; justify-content:center; gap:4px; width:100%; padding:4px 0; background:transparent; color:var(--c-ocean); border:1px solid var(--c-ocean); border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; margin-top:3px; position:relative; }
+  .btn-share { display:flex; align-items:center; justify-content:center; gap:4px; width:100%; padding:4px 0; background:transparent; color:var(--c-ocean); border:1px solid var(--c-ocean); border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; margin-top:3px; }
   .btn-share:hover { background:rgba(0,105,148,0.06); }
   .btn-share.copied { background:var(--c-green); border-color:var(--c-green); color:#fff; }
-  .share-tip { position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); color:#fff; font-family:var(--font-ui); font-size:9px; font-weight:700; padding:5px 10px; border-radius:8px; white-space:nowrap; box-shadow:0 2px 10px rgba(0,105,148,0.4); animation:shareTipPulse 1.8s infinite; pointer-events:none; z-index:10; }
-  .share-tip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--c-ocean); }
-  @keyframes shareTipPulse { 0%,100%{transform:translateX(-50%) scale(1);} 50%{transform:translateX(-50%) scale(1.06);} }
   .fallback-row { display:none; gap:4px; margin-top:3px; } .fallback-row.visible { display:flex; }
   .btn-fallback { flex:1; padding:4px 0; border:none; border-radius:6px; font-family:var(--font-ui); font-size:8px; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; color:#fff; display:flex; align-items:center; justify-content:center; gap:3px; }
   .btn-apple { background:#1c1c1e; } .btn-google { background:#4285F4; }
@@ -1627,7 +1624,7 @@ var locations = [
     desc:'Public restrooms in Dewey.' },
 
   /* ── RENTALS ── */
-  { name:'Todo Culebra E-Bikes', lat:18.309638, lng:-65.303761, type:'rental', hours:'7am-9pm', road:'paved',
+  { name:'Todo Culebra E-Bikes', lat:18.309638, lng:-65.303761, type:'ebike', hours:'7am-9pm', road:'paved',
     tags:['e-bike','ebike','electric bike'],
     desc:'\u2B50 375+ happy riders! From $30/4hrs. <b>Pick up here \u2014 no delivery.</b><br><a href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank" style="display:inline-block;margin-top:4px;background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua));color:#fff;padding:3px 10px;border-radius:6px;font-size:9px;font-weight:700;text-decoration:none;">&#x26A1; Book Now</a>' },
   { name:'Jerry\'s Rentals', lat:18.311078, lng:-65.303957, type:'rental', hours:'8am-5pm', road:'paved',
@@ -1705,7 +1702,7 @@ if(document.readyState!=='loading') buildLegend();
 
 /* ═══ LEGEND ═══ */
 var legendCategories = [
-  {type:null,label:'Show All',color:'#006994'},{type:'rental',label:'E-Bike & Rentals',color:'#7c3aed'},
+  {type:null,label:'Show All',color:'#006994'},{type:'ebike',label:'E-Bike Rentals',color:'#7c3aed'},
   {type:'beach',label:'Beaches',color:'#00b4d8'},{type:'food',label:'Food & Drink',color:'#f59e0b'},
   {type:'delivery',label:'Delivery',color:'#ea580c'},{type:'ferry',label:'Ferry',color:'#2563eb'},
   {type:'gas',label:'Gas Station',color:'#ea580c'},{type:'atm',label:'ATM',color:'#6366f1'},
@@ -1745,11 +1742,11 @@ startFilterTip();
 document.addEventListener('click',function(e){var w=document.getElementById('legend-wrap'),d=document.getElementById('legend-drop');if(d&&w&&!w.contains(e.target))d.classList.remove('open');});
 
 /* ═══ PIN BUILDER ═══ */
-var pinColors = {beach:'#00b4d8',ferry:'#2563eb',gas:'#ea580c',hector:'#7c3aed',food:'#f59e0b',grocery:'#10b981',atm:'#6366f1',parking:'#64748b',restroom:'#0891b2',rental:'#7c3aed',watertaxi:'#1d4ed8',anchor:'#475569',hike:'#16a34a',villa:'#0891b2',fishmarket:'#0e7490',snorkel:'#06b6d4',delivery:'#ea580c',camping:'#059669'};
-var pinEmoji = {beach:'\u{1F3D6}',ferry:'\u26F4',gas:'\u26FD',hector:'\u{1F9CC}',food:'\u{1F37D}',grocery:'\u{1F6D2}',atm:'\u{1F3E7}',parking:'\u{1F17F}',restroom:'\u{1F6BB}',rental:'\u{1F6A4}',watertaxi:'\u{1F6A2}',anchor:'\u2693',hike:'\u{1F97E}',villa:'\u{1F3E0}',fishmarket:'\u{1F41F}',snorkel:'\u{1F93F}',delivery:'\u{1F6F5}',camping:'\u26FA'};
+var pinColors = {beach:'#00b4d8',ferry:'#2563eb',gas:'#ea580c',hector:'#7c3aed',food:'#f59e0b',grocery:'#10b981',atm:'#6366f1',parking:'#64748b',restroom:'#0891b2',rental:'#7c3aed',ebike:'#7c3aed',watertaxi:'#1d4ed8',anchor:'#475569',hike:'#16a34a',villa:'#0891b2',fishmarket:'#0e7490',snorkel:'#06b6d4',delivery:'#ea580c',camping:'#059669'};
+var pinEmoji = {beach:'\u{1F3D6}',ferry:'\u26F4',gas:'\u26FD',hector:'\u{1F9CC}',food:'\u{1F37D}',grocery:'\u{1F6D2}',atm:'\u{1F3E7}',parking:'\u{1F17F}',restroom:'\u{1F6BB}',rental:'\u{1F6A4}',ebike:'\u{1F6B4}',watertaxi:'\u{1F6A2}',anchor:'\u2693',hike:'\u{1F97E}',villa:'\u{1F3E0}',fishmarket:'\u{1F41F}',snorkel:'\u{1F93F}',delivery:'\u{1F6F5}',camping:'\u26FA'};
 var roadLabels = {paved:'Paved',  '4x4':'4x4 / E-Bike only', boat:'Boat access', sandy:'Sandy trail', unpaved:'Unpaved', dirt:'Dirt road'};
 var roadClasses = {paved:'road-paved','4x4':'road-4x4',boat:'road-boat',sandy:'road-sandy',unpaved:'road-sandy',dirt:'road-4x4'};
-var typeNames = {beach:'Beach',ferry:'Ferry',gas:'Gas',hector:'Landmark',food:'Food',grocery:'Grocery',atm:'ATM',parking:'Parking',restroom:'Restrooms',rental:'Rentals',watertaxi:'Water Taxi',anchor:'Anchorage',hike:'Hiking',villa:'Villa',fishmarket:'Fish Market',snorkel:'Snorkeling',delivery:'Delivery',camping:'Camping'};
+var typeNames = {beach:'Beach',ferry:'Ferry',gas:'Gas',hector:'Landmark',food:'Food',grocery:'Grocery',atm:'ATM',parking:'Parking',restroom:'Restrooms',rental:'Rentals',ebike:'E-Bike Rentals',watertaxi:'Water Taxi',anchor:'Anchorage',hike:'Hiking',villa:'Villa',fishmarket:'Fish Market',snorkel:'Snorkeling',delivery:'Delivery',camping:'Camping'};
 
 function makePinIcon(type){
   var color=pinColors[type]||'#555',emoji=pinEmoji[type]||'\u{1F4CD}';
@@ -1873,7 +1870,7 @@ for(var mi=0;mi<locations.length;mi++){
       '<div class="route-status"></div>'+
       '<div class="fallback-row"><a class="btn-fallback btn-apple" href="#" target="_blank">Apple Maps</a><a class="btn-fallback btn-google" href="#" target="_blank">Google Maps</a></div>'+
       '<button class="btn-learn-more" onclick="openGuide()">Learn More</button>'+
-      '<button class="btn-share" data-lat="'+p.lat+'" data-lng="'+p.lng+'">Share'+(!localStorage.getItem('tc-share-tip-dismissed')?'<span class="share-tip">\u261D\uFE0F Share this spot!</span>':'')+'</button>'+
+      '<button class="btn-share" data-lat="'+p.lat+'" data-lng="'+p.lng+'">Share This Spot</button>'+
     '</div>';
 
     var marker=L.marker([p.lat,p.lng],{icon:icon,zIndexOffset:p.zIndex||0}).bindPopup(html,{maxWidth:170,minWidth:130});
@@ -1884,7 +1881,7 @@ for(var mi=0;mi<locations.length;mi++){
       if(p.name==='Punta Molino Path')showMolinoTrail();
       var el=e.popup.getElement(),btn=el.querySelector('.btn-directions'),sEl=el.querySelector('.route-status'),fEl=el.querySelector('.fallback-row'),dEl=el.querySelector('.dist-badge'),sBtn=el.querySelector('.btn-share');
       if(dEl){dEl.textContent=userLat!==null?fmtDist(haversine(userLat,userLng,p.lat,p.lng))+' away':'Enable location';}
-      if(sBtn)sBtn.onclick=function(){shareLocation(p.name,p.lat,p.lng,sBtn);var st=sBtn.querySelector('.share-tip');if(st)st.remove();localStorage.setItem('tc-share-tip-dismissed','1');};
+      if(sBtn)sBtn.onclick=function(){shareLocation(p.name,p.lat,p.lng,sBtn);};
       if(btn){var fb=btn.cloneNode(true);fb.disabled=false;fb.textContent='Get Directions';btn.parentNode.replaceChild(fb,btn);fb.addEventListener('click',function(){requestRoute(p.name,p.lat,p.lng,sEl,fEl,fb);});}
       /* Tide badge for snorkel pins */
       if(p.type==='snorkel'){var tc=el.querySelector('.popup-tide-info');if(tc&&tideCurrent)tc.innerHTML=getTideBadgeHTML()+getSnorkelRatingHTML();}
