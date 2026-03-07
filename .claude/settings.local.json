@@ -20,7 +20,11 @@
       "Bash(git add index.html sw.js)",
       "Bash(git add CNAME)",
       "Bash(git rebase --continue)",
-      "Bash(git add -A)"
+      "Bash(git add -A)",
+      "Bash(git add CNAME index.html manifest.json)",
+      "Bash(git pull --rebase origin master)",
+      "Bash(git stash)",
+      "Bash(git stash pop)"
     ]
   }
 }
