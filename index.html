@@ -280,6 +280,60 @@
   .hc-btn-other { background:var(--c-muted); }
   .hc-btn-cancel { background:transparent; color:var(--c-muted); border:1px solid #e0e0e0; }
 
+  /* ══════════════════════════════════════════════
+     SMART ASSISTANT PANEL
+  ══════════════════════════════════════════════ */
+  #assist-panel { position:fixed; inset:0; z-index:3000; background:var(--c-white); transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); overflow-y:auto; -webkit-overflow-scrolling:touch; }
+  #assist-panel.open { transform:translateY(0); }
+  #assist-header { position:sticky; top:0; z-index:1; background:#25D366; color:#fff; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; }
+  #assist-header h2 { font-size:16px; font-weight:700; }
+  #assist-close { background:rgba(255,255,255,0.2); border:none; color:#fff; border-radius:50%; width:32px; height:32px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .assist-content { padding:16px; max-width:600px; margin:0 auto; }
+  .assist-greeting { text-align:center; padding:8px 0 16px; }
+  .assist-greeting .ag-title { font-size:15px; font-weight:700; color:var(--c-navy); margin-bottom:4px; }
+  .assist-greeting p { font-size:11px; color:#555; line-height:1.5; }
+
+  /* ── Topic Cards ── */
+  .assist-topics { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .at-card { display:flex; align-items:center; gap:12px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:14px; padding:14px; cursor:pointer; transition:all 0.2s; }
+  .at-card:hover { border-color:var(--c-aqua); box-shadow:0 4px 16px rgba(0,160,176,0.12); }
+  .at-card:active { transform:scale(0.98); }
+  .at-icon { font-size:26px; flex-shrink:0; width:40px; text-align:center; }
+  .at-body { flex:1; }
+  .at-label { font-size:13px; font-weight:700; color:var(--c-navy); }
+  .at-desc { font-size:10px; color:var(--c-muted); margin-top:2px; line-height:1.4; }
+  .at-badge { font-size:9px; font-weight:700; color:#fff; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+
+  /* ── Answer Detail View ── */
+  #assist-detail { display:none; }
+  #assist-detail.visible { display:block; }
+  #assist-topics-list { display:block; }
+  #assist-topics-list.hidden { display:none; }
+  .ad-back { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600; color:var(--c-ocean); cursor:pointer; background:none; border:none; font-family:var(--font-ui); padding:0; margin-bottom:12px; }
+  .ad-back:hover { text-decoration:underline; }
+  .ad-title { font-size:14px; font-weight:700; color:var(--c-navy); margin-bottom:10px; }
+  .ad-section { background:#f8fafc; border-radius:12px; padding:12px; margin-bottom:10px; }
+  .ad-section h4 { font-size:11px; font-weight:700; color:var(--c-text); margin-bottom:6px; }
+  .ad-section p, .ad-section li { font-size:11px; color:#555; line-height:1.5; }
+  .ad-section ul { padding-left:16px; margin:0; }
+  .ad-section li { margin-bottom:3px; }
+  .ad-action { display:block; width:100%; padding:10px; border:none; border-radius:10px; font-family:var(--font-ui); font-size:12px; font-weight:700; cursor:pointer; text-align:center; text-decoration:none; color:#fff; margin-bottom:8px; }
+  .ad-action:hover { opacity:0.9; }
+  .ad-action-primary { background:linear-gradient(135deg,var(--c-ocean),var(--c-aqua)); }
+  .ad-action-green { background:#25D366; }
+  .ad-action-amber { background:linear-gradient(135deg,#f59e0b,#ea580c); }
+  .ad-action-red { background:var(--c-red); }
+  .ad-action-navy { background:var(--c-navy); }
+  .ad-divider { font-size:9px; color:var(--c-muted); text-align:center; margin:10px 0; }
+
+  /* ── Emergency Banner ── */
+  .assist-emergency { display:flex; align-items:center; gap:10px; background:#fef2f2; border:1.5px solid #fecaca; border-radius:12px; padding:12px; margin-top:16px; cursor:pointer; transition:all 0.2s; }
+  .assist-emergency:hover { border-color:var(--c-red); }
+  .ae-icon { font-size:20px; }
+  .ae-body { flex:1; }
+  .ae-label { font-size:12px; font-weight:700; color:var(--c-red); }
+  .ae-desc { font-size:9px; color:#999; margin-top:1px; }
+
   /* ── PWA Install Banner ── */
   #pwa-banner { position:fixed; bottom:0; left:0; right:0; z-index:4000; background:linear-gradient(135deg,var(--c-navy),#1a4a7a); color:#fff; padding:14px 16px; display:none; align-items:center; gap:12px; box-shadow:0 -4px 20px rgba(0,0,0,0.3); font-family:var(--font-ui); animation:slideUp 0.4s cubic-bezier(0.4,0,0.2,1); }
   #pwa-banner.show { display:flex; }
@@ -353,6 +407,7 @@
   </div>
   <button class="stack-btn" onclick="openGuide()" title="Island Guide">&#x1F4D6;</button>
   <button class="stack-btn" onclick="openShop()" title="Shop" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6D2;</button>
+  <button class="stack-btn" onclick="openAssist()" title="Help &amp; Chat" style="background:#25D366;">&#x1F4AC;</button>
   <button class="stack-btn" onclick="map.flyTo([18.310,-65.302],13)" title="Home">&#x1F3E0;</button>
   <button id="btn-ebike-mode" class="stack-btn" onclick="toggleEbikeMode()" title="E-Bike Ride Mode">&#x1F6B4;</button>
   <button id="btn-locate" title="My Location" onclick="locateMe()">&#x1F4CD;</button>
@@ -453,7 +508,7 @@
       <p>No vehicle? No problem. <b>ShopCulebra</b> delivers groceries, pizza from Jibara, and Chinese food island-wide.</p>
       <a class="guide-cta" href="https://www.shopculebra.com" target="_blank">&#x1F6D2; Order on ShopCulebra.com</a>
       <a class="guide-cta" href="javascript:void(0)" onclick="closeGuide();setTimeout(openShop,400);" style="background:linear-gradient(135deg,#f59e0b,#ea580c);">&#x1F6F4; Browse the Island Shop</a>
-      <div class="guide-tip">WhatsApp ONLY: 434-373-1763 &mdash; do NOT call or text via regular SMS.</div>
+      <div class="guide-tip">Need help? Tap the &#x1F4AC; button on the map for instant answers, or WhatsApp 434-373-1763 (messages only, no calls).</div>
     </div>
 
     <div class="guide-section">
@@ -636,15 +691,89 @@
       </div>
     </div>
 
-    <!-- WhatsApp Quick Order -->
-    <a class="wa-bar" href="https://wa.me/14343731763?text=Hi!%20I'd%20like%20to%20place%20an%20order%20for%20delivery%20in%20Culebra" target="_blank">
+    <!-- Smart Assistant / WhatsApp -->
+    <div class="wa-bar" onclick="closeShop();setTimeout(openAssist,400);" style="cursor:pointer;">
       <span class="wa-icon">&#x1F4AC;</span>
-      <div class="wa-text"><strong>WhatsApp Quick Order</strong><span>Text 434-373-1763 &mdash; Do NOT call or SMS</span></div>
-    </a>
+      <div class="wa-text"><strong>Need Help? Ask the Assistant</strong><span>Instant answers &bull; WhatsApp for custom orders</span></div>
+    </div>
 
     <!-- Full Store Browse -->
     <div class="ecwid-divider">Browse Full Store</div>
     <div id="my-store-108569855"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SMART ASSISTANT PANEL
+══════════════════════════════════════════════ -->
+<div id="assist-panel">
+  <div id="assist-header">
+    <h2>&#x1F4AC; Todo Culebra Assistant</h2>
+    <button id="assist-close" onclick="closeAssist()">&times;</button>
+  </div>
+  <div class="assist-content">
+    <div class="assist-greeting">
+      <div class="ag-title">&#x1F334; How can we help?</div>
+      <p>Get instant answers below. Only special requests go to WhatsApp!</p>
+    </div>
+
+    <div id="assist-topics-list">
+      <div class="assist-topics">
+        <div class="at-card" onclick="showAssistTopic('booking')">
+          <span class="at-icon">&#x1F6F4;</span>
+          <div class="at-body">
+            <div class="at-label">E-Bike Booking &amp; Pricing</div>
+            <div class="at-desc">Rates, availability, how to book instantly</div>
+          </div>
+          <span class="at-badge" style="background:var(--c-ocean);">Instant</span>
+        </div>
+        <div class="at-card" onclick="showAssistTopic('delivery')">
+          <span class="at-icon">&#x1F6D2;</span>
+          <div class="at-body">
+            <div class="at-label">Delivery &amp; Food Orders</div>
+            <div class="at-desc">Pizza, groceries, beach essentials delivered</div>
+          </div>
+          <span class="at-badge" style="background:var(--c-amber);">Instant</span>
+        </div>
+        <div class="at-card" onclick="showAssistTopic('directions')">
+          <span class="at-icon">&#x1F3D6;&#xFE0F;</span>
+          <div class="at-body">
+            <div class="at-label">Directions &amp; Recommendations</div>
+            <div class="at-desc">Beaches, restaurants, snorkeling, what to do</div>
+          </div>
+          <span class="at-badge" style="background:var(--c-green);">Instant</span>
+        </div>
+        <div class="at-card" onclick="showAssistTopic('returns')">
+          <span class="at-icon">&#x1F504;</span>
+          <div class="at-body">
+            <div class="at-label">Returns &amp; Logistics</div>
+            <div class="at-desc">Pickup, dropoff, late returns, battery, lockbox</div>
+          </div>
+          <span class="at-badge" style="background:var(--c-navy);">Instant</span>
+        </div>
+        <div class="at-card" onclick="showAssistTopic('special')">
+          <span class="at-icon">&#x2728;</span>
+          <div class="at-body">
+            <div class="at-label">Special Request</div>
+            <div class="at-desc">Something else? We&rsquo;ll connect you with a human</div>
+          </div>
+          <span class="at-badge" style="background:#25D366;">WhatsApp</span>
+        </div>
+      </div>
+
+      <div class="assist-emergency" onclick="showAssistTopic('emergency')">
+        <span class="ae-icon">&#x1F6A8;</span>
+        <div class="ae-body">
+          <div class="ae-label">Emergency / Crash / Injury</div>
+          <div class="ae-desc">Sends your GPS location to our team instantly</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="assist-detail">
+      <button class="ad-back" onclick="assistBack()">&#x2190; Back to topics</button>
+      <div id="assist-detail-content"></div>
+    </div>
   </div>
 </div>
 
@@ -672,6 +801,148 @@ function closeGuide(){document.getElementById('guide-panel').classList.remove('o
 /* ═══ SHOP PANEL ═══ */
 function openShop(){document.getElementById('shop-panel').classList.add('open');loadEcwidStore();map.closePopup();}
 function closeShop(){document.getElementById('shop-panel').classList.remove('open');}
+
+/* ═══ SMART ASSISTANT ═══ */
+function openAssist(){document.getElementById('assist-panel').classList.add('open');assistBack();map.closePopup();}
+function closeAssist(){document.getElementById('assist-panel').classList.remove('open');}
+function assistBack(){document.getElementById('assist-topics-list').classList.remove('hidden');document.getElementById('assist-detail').classList.remove('visible');}
+
+var WA='+14343731763';
+function waLink(msg){return'https://wa.me/'+WA.replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg);}
+function waWithGPS(msg){
+  var loc=userLat!==null?' (GPS: '+userLat.toFixed(5)+','+userLng.toFixed(5)+')':'';
+  return waLink(msg+loc);
+}
+
+var assistTopics={
+  booking:{
+    title:'\u{1F6F4} E-Bike Booking & Pricing',
+    html:function(){return''
+      +'<div class="ad-section"><h4>Rates</h4><ul>'
+      +'<li><b>4 hours</b> &mdash; from $30</li>'
+      +'<li><b>Full day</b> (8 hrs) &mdash; from $50</li>'
+      +'<li><b>24 hours</b> &mdash; from $65</li>'
+      +'<li><b>Multi-day</b> &mdash; discounts available</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>What\u2019s Included</h4><ul>'
+      +'<li>Fully charged battery (~30 mi range)</li>'
+      +'<li>Helmet, lock & charger</li>'
+      +'<li>Map with all beaches & roads</li>'
+      +'<li>Free delivery & pickup in Culebra</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>Hours</h4><p>7am \u2013 9pm daily. Book online for instant confirmation!</p></div>'
+      +'<a class="ad-action ad-action-primary" href="https://book.peek.com/s/97c9075a-c594-4b0d-9dff-a474d50cd7c0/myrXN" target="_blank">\u26A1 Book Now \u2014 Instant Confirmation</a>'
+      +'<div class="ad-divider">Still have questions?</div>'
+      +'<a class="ad-action ad-action-green" href="'+waLink('Hi! I have a question about e-bike booking.')+'" target="_blank">\u{1F4AC} Message Us on WhatsApp</a>';
+    }
+  },
+  delivery:{
+    title:'\u{1F6D2} Delivery & Food Orders',
+    html:function(){return''
+      +'<div class="ad-section"><h4>What We Deliver</h4><ul>'
+      +'<li><b>Pizza</b> \u2014 Jibara (Dolly $28, Margherita $25, Slices $8.50)</li>'
+      +'<li><b>Chinese</b> \u2014 Golden China combos from $12</li>'
+      +'<li><b>Breakfast</b> \u2014 Bacon Egg & Cheese $12, Wraps $11, Coffee $4.99</li>'
+      +'<li><b>Groceries</b> \u2014 Fruits, snacks, drinks, ice, charcoal</li>'
+      +'<li><b>Beach Gear</b> \u2014 Sunscreen, snorkels, speakers, towels</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>Delivery Info</h4><ul>'
+      +'<li>Island-wide delivery, including remote beaches</li>'
+      +'<li>Delivery fee: $5\u2013$10</li>'
+      +'<li>Same-day available \u2014 order by 4pm</li>'
+      +'</ul></div>'
+      +'<a class="ad-action ad-action-amber" href="https://www.shopculebra.com" target="_blank">\u{1F6D2} Order on ShopCulebra.com</a>'
+      +'<a class="ad-action ad-action-primary" href="javascript:void(0)" onclick="closeAssist();setTimeout(openShop,400);">\u{1F6D2} Browse In-App Shop</a>'
+      +'<div class="ad-divider">Custom order or special dietary needs?</div>'
+      +'<a class="ad-action ad-action-green" href="'+waLink('Hi! I\u2019d like to place a custom delivery order in Culebra.')+'" target="_blank">\u{1F4AC} Custom Order via WhatsApp</a>';
+    }
+  },
+  directions:{
+    title:'\u{1F3D6}\uFE0F Directions & Recommendations',
+    html:function(){return''
+      +'<div class="ad-section"><h4>\u{1F3D6} Best Beaches</h4><ul>'
+      +'<li><b>Flamenco</b> \u2014 #1 beach, go before 10am. Paved road, golf carts OK</li>'
+      +'<li><b>Zoni</b> \u2014 Wild & remote. E-bike or 4x4 only. Stunning!</li>'
+      +'<li><b>Tamarindo</b> \u2014 Best snorkeling, sea turtles. Short hike in</li>'
+      +'<li><b>Punta Soldado</b> \u2014 Best sunsets. E-bike or 4x4 only</li>'
+      +'<li><b>Carlos Rosario</b> \u2014 Pristine reef. Hike from Flamenco</li>'
+      +'<li><b>Melones</b> \u2014 Closest to town, great snorkeling</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>\u{1F93F} Snorkeling</h4><p>Best in the <b>morning</b> when water is calmest. Top spots: Tamarindo, Carlos Rosario, Melones, Punta Sardinas.</p></div>'
+      +'<div class="ad-section"><h4>\u{1F355} Food</h4><ul>'
+      +'<li><b>Jibara Pizza</b> \u2014 Best pizza on the island</li>'
+      +'<li><b>Zaco\u2019s Tacos</b> \u2014 Tacos & burritos in Dewey</li>'
+      +'<li><b>Dingy Dock</b> \u2014 Waterfront dining, great cocktails</li>'
+      +'<li><b>Mamacita\u2019s</b> \u2014 Classic bar & grill on the canal</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>\u{1F4B5} Pro Tips</h4><ul>'
+      +'<li>Cash is king \u2014 many places cash only. ONE ATM (Banco Popular)</li>'
+      +'<li>No Uber/Lyft \u2014 e-bike is the best way around</li>'
+      +'<li>Cell signal dies at remote beaches \u2014 download map offline!</li>'
+      +'</ul></div>'
+      +'<a class="ad-action ad-action-primary" href="javascript:void(0)" onclick="closeAssist();">\u{1F5FA}\uFE0F Back to Map \u2014 Tap Any Pin!</a>'
+      +'<a class="ad-action ad-action-navy" href="javascript:void(0)" onclick="closeAssist();setTimeout(openGuide,400);">\u{1F4D6} Open Full Island Guide</a>';
+    }
+  },
+  returns:{
+    title:'\u{1F504} Returns & Logistics',
+    html:function(){return''
+      +'<div class="ad-section"><h4>Pickup & Dropoff</h4><ul>'
+      +'<li>We deliver your e-bike to your accommodation FREE</li>'
+      +'<li>Return to <b>Todo Culebra E-Bikes</b> in Dewey (pinned on map)</li>'
+      +'<li>Or arrange pickup at your location \u2014 just message us</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>Late Returns</h4><ul>'
+      +'<li>Please return on time! Late fees may apply</li>'
+      +'<li>Need an extension? Message us BEFORE your return time</li>'
+      +'<li>After hours? Park at our shop & lock securely</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>Battery & Charging</h4><ul>'
+      +'<li>Full charge = ~30 miles range</li>'
+      +'<li>Use pedal assist on hills to save battery</li>'
+      +'<li>Below 20%? Head back to town</li>'
+      +'<li>Charger included \u2014 overnight charging at your stay is fine</li>'
+      +'</ul></div>'
+      +'<div class="ad-section"><h4>Lockbox Code</h4><p>Your lockbox code was sent in your booking confirmation email. Can\u2019t find it? Message us below.</p></div>'
+      +'<div class="ad-divider">Need to extend, arrange pickup, or lost your code?</div>'
+      +'<a class="ad-action ad-action-green" href="'+waLink('Hi! I need help with my e-bike return/logistics.')+'" target="_blank">\u{1F4AC} Message Us on WhatsApp</a>';
+    }
+  },
+  special:{
+    title:'\u2728 Special Request',
+    html:function(){return''
+      +'<div class="ad-section"><p>For anything not covered above \u2014 group bookings, event rentals, custom tours, accessibility needs, or just a question \u2014 our team is here!</p></div>'
+      +'<a class="ad-action ad-action-green" href="'+waLink('Hi! I have a special request:')+'" target="_blank">\u{1F4AC} Message Todo Culebra on WhatsApp</a>'
+      +'<div class="ad-section" style="margin-top:12px;"><h4>\u{1F4DE} Prefer a Call?</h4><p>For urgent matters only: <a href="tel:+14343731763">+1 (434) 373-1763</a></p></div>';
+    }
+  },
+  emergency:{
+    title:'\u{1F6A8} Emergency / Crash / Injury',
+    html:function(){
+      var gps=userLat!==null?'My GPS location: '+userLat.toFixed(5)+', '+userLng.toFixed(5):'(GPS unavailable)';
+      return''
+      +'<div class="ad-section" style="background:#fef2f2;border:1px solid #fecaca;"><h4 style="color:var(--c-red);">Are you safe?</h4><p>If someone is seriously injured, <b>call 911 first</b>.</p></div>'
+      +'<a class="ad-action ad-action-red" href="tel:911">\u{1F6A8} Call 911 Now</a>'
+      +'<div class="ad-divider">For e-bike issues, minor crashes, or roadside help:</div>'
+      +'<a class="ad-action ad-action-green" href="'+waLink('URGENT: I need help! '+gps)+'" target="_blank">\u{1F4AC} Send SOS + My Location via WhatsApp</a>'
+      +'<div class="ad-section" style="margin-top:8px;"><h4>Your Location</h4><p id="assist-gps-display">'+gps+'</p></div>'
+      +'<div class="ad-section"><h4>Other Emergency Contacts</h4><ul>'
+      +'<li><b>Police:</b> <a href="tel:7877423501">787-742-3501</a></li>'
+      +'<li><b>Medical Center:</b> <a href="tel:7877423521">787-742-3521</a></li>'
+      +'<li><b>Todo Culebra:</b> <a href="tel:+14343731763">434-373-1763</a></li>'
+      +'</ul></div>';
+    }
+  }
+};
+
+function showAssistTopic(topic){
+  var t=assistTopics[topic];if(!t)return;
+  document.getElementById('assist-topics-list').classList.add('hidden');
+  var d=document.getElementById('assist-detail');
+  d.querySelector('#assist-detail-content').innerHTML='<div class="ad-title">'+t.title+'</div>'+t.html();
+  d.classList.add('visible');
+  d.scrollIntoView({behavior:'smooth',block:'start'});
+}
 
 /* ═══ LOCATIONS ═══ */
 var locations = [
